@@ -1,0 +1,248 @@
+import { useRoute } from '@react-navigation/core';
+import React, { useEffect, useState }from 'react';
+import { View,Text,Button ,StyleSheet} from 'react-native';
+import Api from '../api/intranet'
+import { useNavigation } from '@react-navigation/native';
+import { Table, Row,Rows } from 'react-native-table-component';
+
+var status=[]
+var fecha_ini=[]
+var fecha_fin=[];
+var tablehead=['Estatus','fecha inicio','Fecha Fin']
+        
+
+function Nom87 (){
+    const navigation = useNavigation();
+    const [items, setItems] = useState([])
+    const [data,setData]=useState([])
+    const[day, setday]= useState('')
+
+
+    useEffect(() => {
+     
+
+        const interval = setInterval(() => {
+          
+            const fecha = new Date();
+            var datehora=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
+            setday(datehora)
+    
+            getNom87()
+          }, 2000);
+          return () =>{
+            clearInterval(interval);
+          } 
+
+    })
+
+
+    const getNom87=async()=>{
+        var Events=data.listDreams;
+        status=[]
+        fecha_ini=[]
+        fecha_fin=[]
+        var new_event=[]
+    
+
+        try{
+
+            const nom87=await Api.getNom87(global.id_operador)
+            setData(nom87)
+            setItems(data.listDreams)
+            console.log(data.listDreams)
+            for(var i=0; i<Events.length;i++){
+           
+                status.push('Inactivo')
+                status.push('Activo')
+                fecha_ini.push(Events[i].fecha_inicio)
+                fecha_ini.push(Events[i].fecha_fin)
+            }
+            for(var j=1;j<fecha_ini.length;j++){
+               
+                fecha_fin.push(fecha_ini[j])
+    
+            }
+            fecha_fin.push('')
+            for(var y=0;y<fecha_fin.length;y++){
+                var event={
+                    id:y,
+                    status:status[y],
+                    fecha_inicio:fecha_ini[y],
+                    fecha_fin:fecha_fin[y],
+                    
+                }
+                new_event.push(event)
+            }
+            setItems(new_event)
+           
+
+
+        }catch(ex){
+            console.log(ex)
+
+        }
+
+
+    }
+    const opendetail=()=>{
+       
+     
+       navigation.navigate('nom87detail',{ listDreams:items})
+    }
+
+
+    return(
+        <View>
+             <View style={style.horizontal}>
+               <Text style={style.textbutton}>Fecha de consulta: </Text>
+               <Text>{day}</Text>
+
+           </View>
+           <View style={style.horizontal}>
+               <Text style={style.textbutton}>Empresa </Text>
+               <Text>TRANSPORTES MEXAMERIK S.A DE C.V</Text>
+
+           </View>
+           <View style={style.horizontal}>
+               <Text style={style.textbutton}>Dirección: </Text>
+               <Text>Mariano Escobedo S/N Col. Mariano Escobedo Tultitlán, Estado de México C.P. 54946</Text>
+
+           </View>
+           <View style={style.horizontal}>
+               <Text style={style.textbutton}>Operador </Text>
+               <Text style={style.textbutton}>{data.Operation_Type_Alias}: </Text>
+               <Text>{global.nombre} </Text>
+              
+
+           </View>
+          
+            <View style={style.horizontal}>
+               <Text style={style.textbutton}>licencia: </Text>
+               <Text>{data.License} </Text>
+               <Text style={style.textbutton}>  Vig: </Text>
+               <Text>{data.vigencia}</Text>
+
+           </View>
+           <View style={style.horizontal}>
+           <Text style={style.textbutton}>Origen: </Text>
+               <Text>{global.origen}</Text>
+              
+
+           </View>
+           <View style={style.horizontal}>
+           <Text style={style.textbutton}>Destino: </Text>
+               <Text>{global.destino}</Text>
+              
+
+           </View>
+           <View style={{margin:10}}>
+           <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff',}}>
+           <Row data={[' Ultimas',' Activo', ' Descanso']} style={style.head} />
+           <Row data={[' 24 Hrs',data.act_hrs24,data.inac_hrs24]} />
+           <Row data={[' 05:30 Hrs',data.act_hrs5,data.inac_hrs5]} />
+           </Table>
+           </View>
+           <View style={{marginTop:10,marginRight:40,marginLeft:40}}>
+               <Button
+               title="Ver detalles"
+               color="#cca028"
+               onPress={opendetail}
+               />
+              
+           </View>
+
+           
+        </View>
+
+    )
+
+};
+const style=StyleSheet.create({
+    logo:{
+        width:95,
+        height:95,
+        margin: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        resizeMode:'contain',
+    },
+    centerimage:{
+        justifyContent: 'center',
+    alignItems: 'center',
+
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 5,
+      
+    
+      },
+      name:{
+          marginLeft:10,
+
+      },
+
+      head: {
+          height: 40,
+          color:'#ffffff',
+          backgroundColor: '#cca028',
+           
+    },
+  
+
+      menutext:{
+          marginLeft:10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop:10,
+
+      },
+      textbutton:{
+        fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: '#000000',
+
+    },
+    menuicon:{
+        width:40,
+        height:40,
+        margin: 5,
+        resizeMode:'contain',
+    },
+   text:{
+       
+    fontSize: 14,
+    lineHeight: 21,
+    letterSpacing: 0.25,
+
+   },
+  
+    horizontal:{
+      
+        backgroundColor:'#ffffffcc',
+        flexDirection:'row',
+        paddingVertical: 10,
+        paddingHorizontal: 5,
+        borderRadius: 4,
+        elevation: 3,
+     
+
+    },
+    menuitems:{
+       
+        backgroundColor:'#ffffffcc',
+        flexDirection:'row',
+        margin:5,
+    },
+    vertical:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 5,
+
+    }
+  
+  })
+export default Nom87;

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "912152377014",
+    "project_id": "mexapp2-a744b",
+    "storage_bucket": "mexapp2-a744b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912152377014:android:8cf34256b7d05274bb5817",
+        "android_client_info": {
+          "package_name": "com.mexapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912152377014-0q2jh8tohgdnicm0lqj9a68j5895rujl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPcvNv1VKcXj1dK0qZeG1a0eWkLXJOOp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912152377014-0q2jh8tohgdnicm0lqj9a68j5895rujl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912152377014:android:4f27e3c6ebbc00e3bb5817",
+        "android_client_info": {
+          "package_name": "com.mexapp_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912152377014-0q2jh8tohgdnicm0lqj9a68j5895rujl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPcvNv1VKcXj1dK0qZeG1a0eWkLXJOOp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912152377014-0q2jh8tohgdnicm0lqj9a68j5895rujl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
