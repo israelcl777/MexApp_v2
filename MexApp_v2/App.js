@@ -9,9 +9,15 @@
 import React,{useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Image,Text,StyleSheet}from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 import MLoginScreen from './src/screens/mloginscreen';
 import LoginScreen from './src/screens/loginscreen';
+import TopMenu from './src/componets/topmenu'
+import Operador from './src/screens/operadorScreen';
+
+
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -20,6 +26,63 @@ const Stack = createNativeStackNavigator();
 
 const App  =()=> {
   const[is_logged, setLogget]=useState(0)
+
+
+  useEffect(() => {
+   // requestUserPermission()
+   //global.version = '1.0'//DeviceInfo.getVersion();
+   //checkToken();
+   getData()
+   
+}, [])
+
+async function requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    //console.log(' yes Authorization status:', authStatus);
+  }else{
+    //console.log(' no Authorization status:', authStatus);
+
+  }
+}
+
+const getData = async () => {
+  try {
+
+    const jsonValue = await AsyncStorage.getItem('@user_storage')
+    if(jsonValue != null){
+     
+      var convert=JSON.parse(jsonValue)
+      global.id_operador=convert.id
+      global.nombre = convert.nombre;
+      global.alias= convert.unidad;
+      //console.log(global.id_operador)
+      messaging()
+      .subscribeToTopic(convert.id+"")
+      .then(() => console.log('Subscribed to topic!'));
+      
+      setLogget(1)
+
+
+    }else{
+      console.log("no hay usuario guardardo")
+      setLogget(0)
+
+    }
+  } catch(e) {
+   console.log(e)
+  }
+}
+const checkToken = async () => {
+  const fcmToken = await messaging().getToken();
+  if (fcmToken) {
+//console.log(fcmToken);
+  } 
+ }
 
 
  
@@ -49,8 +112,34 @@ const App  =()=> {
        ) : (
          // User is signed in
          <>
-          <Stack.Screen name="Home" component={MLoginScreen} />
+        
+          <Stack.Screen 
+     name="menu"
+     options={{
+        unmountOnBlur: true,
+        headerLeft: null,
+        gesturesEnabled: false,
+        headerLeft :() => (
+          <Image
+          style={style.logo}
+          source={require('./src/drawables/logo.png')}/>
+        ),
+        title: '' }}>
+     {props => <TopMenu {...props} setLogget={setLogget}/>}
+     </Stack.Screen>
 
+     <Stack.Screen 
+      name="operador" 
+      component={Operador}  
+      options={{
+        unmountOnBlur: true,
+        headerRight :() => (
+          <Image
+          style={style.logo}
+          source={require('./src/drawables/logo.png')}/>
+        ),
+        gesturesEnabled: false,  
+        title:""}}/>
 
         </>
     )}
@@ -63,6 +152,28 @@ const App  =()=> {
 
   );
 };
+
+const style=StyleSheet.create({
+  logo:{
+      width:95,
+      height:45,
+      resizeMode:'contain',
+  },
+  menuicon:{
+      width:26,
+      height:26,
+      resizeMode:'contain',
+  },
+ 
+  menu:{
+      width:10,
+      height:26,
+      flex:1,
+      flexDirection:"row",
+      justifyContent:'flex-end'
+  }
+
+})
 
 
 
