@@ -16,6 +16,10 @@ import MLoginScreen from './src/screens/mloginscreen';
 import LoginScreen from './src/screens/loginscreen';
 import TopMenu from './src/componets/topmenu'
 import Operador from './src/screens/operadorScreen';
+import Unidad from './src/screens/unidadScreen';
+import Contacs from './src/screens/contactScreen'
+import Nom87 from './src/screens/nom87Screen';
+import Nom87dDetail from './src/screens/nom87detail';
 
 
 
@@ -140,6 +144,57 @@ const checkToken = async () => {
         ),
         gesturesEnabled: false,  
         title:""}}/>
+
+<Stack.Screen 
+       options={{
+        unmountOnBlur: true,
+        headerRight :() => (
+          <Image
+          style={style.logo}
+          source={require('./src/drawables/logo.png')}/>
+        ),
+        gesturesEnabled: false,  
+        title:""}}
+      name="unidad" 
+      component={Unidad} />
+
+       <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name="contactos" 
+      component={Contacs} />
+
+       <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Norma 87"}}
+      name="nom87" 
+      component={Nom87} />
+         <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Bitacora"}}
+      name="nom87detail" 
+      component={Nom87dDetail} />
 
         </>
     )}

@@ -6,7 +6,7 @@ import Detailscreen from '../screens/detailscreen';
 //import CameraScreen from '../screens/cameraScreen'
 //import { color } from 'react-native-reanimated';
 //import TravelsTabs from './travels_tabs';
-//import DreamsScreen from '../screens/dreamsScreen';
+import DreamsScreen from '../screens/dreamsScreen';
 import MLoginScreen from '../screens/mloginscreen';
 import NLoginScreen from '../screens/nloginscreen';
 
@@ -57,6 +57,27 @@ const context=props;
             }}
       name="Home" 
       component={HomeScreen} />
+       <Tab.Screen 
+         options={{
+          tabBarShowLabel:false,
+            tabBarIcon:({ tintColor,focused }) => {
+              let iconName;
+              iconName = focused
+              ? 'https://img.icons8.com/glyph-neue/50/CBA052/present.png'
+              : 'https://img.icons8.com/glyph-neue/64/9c9c9c/present.png';  
+              
+              return <Image
+              
+              source={{uri:iconName}}
+              resizeMode="contain"
+              style={{ width: 25, height: 25, tintColor: tintColor }}
+            /> 
+    
+            },
+  
+            }}
+      name="dreams" 
+      component={DreamsScreen} />
        <Tab.Screen   options={{
         tabBarShowLabel:false,
             tabBarIcon:({ tintColor,focused }) => {
@@ -79,8 +100,7 @@ const context=props;
 
               
               </Tab.Screen>
-         <Tab.Screen name="Home0" component={MLoginScreen} />
-         <Tab.Screen name="Home2" component={NLoginScreen} />
+        
     </Tab.Navigator>
   );
 }

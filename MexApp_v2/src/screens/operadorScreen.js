@@ -8,11 +8,17 @@ function Operador(){
     const [operator, setOperator] = useState([]);
 
 
+   
     useEffect(() => {
-        getOperador(global.id_operador)
+        const interval = setInterval(() => {
+            getOperador(global.id_operador)
+          }, 2000);
+          return () =>{
+            clearInterval(interval);
+          } 
 
-       
-    }, [])
+    })
+
   
     const getOperador=async(id_operador)=>{
         try{
@@ -20,8 +26,8 @@ function Operador(){
             const operador=await TMS.getOperador( id_operador)
 
             setOperator(operador)
-            var imagenp=''+operador.image;
-            console.log(imagenp)
+           // var imagenp=''+operador.image;
+           // console.log(imagenp)
 
 
 

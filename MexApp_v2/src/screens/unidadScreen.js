@@ -14,6 +14,7 @@ function Unidad(){
     }, [])
 
     const getunidad=async(id_operador)=>{
+        console.log(id_operador)
         try{
 
             const unidad=await TMS.getUnIdad( id_operador)
