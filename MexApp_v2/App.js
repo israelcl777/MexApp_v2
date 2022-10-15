@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Image,Text,StyleSheet}from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
-import MLoginScreen from './src/screens/mloginscreen';
+import TravelDetails from './src/screens/travelDetails';
 import LoginScreen from './src/screens/loginscreen';
 import TopMenu from './src/componets/topmenu'
 import Operador from './src/screens/operadorScreen';
@@ -20,6 +20,8 @@ import Unidad from './src/screens/unidadScreen';
 import Contacs from './src/screens/contactScreen'
 import Nom87 from './src/screens/nom87Screen';
 import Nom87dDetail from './src/screens/nom87detail';
+import OpenPdf from './src/componets/openPdf';
+
 
 
 
@@ -195,6 +197,34 @@ const checkToken = async () => {
           title:"Bitacora"}}
       name="nom87detail" 
       component={Nom87dDetail} />
+       
+       
+       <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name="travelsdetails" 
+      component={TravelDetails} />
+
+
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name="pdf" 
+      component={OpenPdf} />
 
         </>
     )}
