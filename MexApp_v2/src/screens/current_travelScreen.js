@@ -1,9 +1,8 @@
 import React, { useEffect,useState } from 'react'
 import { Alert } from 'react-native';
-import { View,Text ,StyleSheet,Image,Linking} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View,Text ,StyleSheet,Image,Linking,ScrollView} from 'react-native';
 import Api from'../api/intranet'
-import Maps from '../componets/maps';
+//import Maps from '../componets/maps';
 import ConfirmatedImage from '../componets/conformadImage';
 import CPicked from '../modals/confirmarcarga';
 import Cdelivery from '../modals/confirmardescarga'
@@ -161,15 +160,7 @@ function TravelsScreen (props){
                }}>
                 <Cdelivery solicitud= {travel_current.id} modalVisible={modaldelivery} setModalVisible={setMdeliveri}/>
                 </Modal>
-                <Maps  
-                lto={travel_current.lat_origin} 
-                lno={travel_current.lon_origin}
-                ltd={travel_current.lat_destiny}
-                lnd={travel_current.lon_destiny}
-                origen={origen}
-                destino={travel_current.destiny}
-                solicitud={travel_current.id}
-                points={travel_current.waypoints_origin}/>
+            
                
     
                 <ScrollView style={{margin:4}}>

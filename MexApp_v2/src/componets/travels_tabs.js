@@ -1,8 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Text, View ,Image} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Curren_TravelScreen from '../screens/current_travelScreen'
 import TravelsScreen from '../screens/travelsScreen'
+import MLoginScreen from '../screens/mloginscreen';
+import NLoginScreen from '../screens/nloginscreen';
 
 
 function TravelsTabs(){

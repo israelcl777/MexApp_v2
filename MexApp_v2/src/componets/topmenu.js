@@ -5,7 +5,7 @@ import HomeScreen from '../screens/homescreen';
 import Detailscreen from '../screens/detailscreen';
 //import CameraScreen from '../screens/cameraScreen'
 //import { color } from 'react-native-reanimated';
-//import TravelsTabs from './travels_tabs';
+import TravelsTabs from './travels_tabs';
 import DreamsScreen from '../screens/dreamsScreen';
 import MLoginScreen from '../screens/mloginscreen';
 import NLoginScreen from '../screens/nloginscreen';
@@ -78,6 +78,30 @@ const context=props;
             }}
       name="dreams" 
       component={DreamsScreen} />
+
+<Tab.Screen 
+         options={{
+          tabBarShowLabel:false,
+            tabBarIcon:({ tintColor,focused }) => {
+              let iconName;
+              iconName = focused
+              //<img src="https://img.icons8.com/glyph-neue/64/undefined/present.png"/>
+              ? 'https://img.icons8.com/glyph-neue/50/CBA052/truck.png'
+              : 'https://img.icons8.com/glyph-neue/64/9c9c9c/truck.png';  
+              
+              return <Image
+              
+              source={{uri:iconName}}
+              resizeMode="contain"
+              style={{ width: 25, height: 25, tintColor: tintColor }}
+            /> 
+    
+            },
+  
+            }}
+      name="travels" 
+      component={TravelsTabs} />
+
        <Tab.Screen   options={{
         tabBarShowLabel:false,
             tabBarIcon:({ tintColor,focused }) => {

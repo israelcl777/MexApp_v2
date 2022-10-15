@@ -287,6 +287,7 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation 'com.facebook.fresco:animated-gif:2.5.0'
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation 'com.google.firebase:firebase-analytics'
 }
