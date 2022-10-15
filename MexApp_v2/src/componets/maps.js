@@ -52,14 +52,21 @@ async function getruta(){
     for(var i=1;i<arr.length; i++){
       let iso=arr[i]
       let iteration=iso.split(',')
-      var lntlng ={
-        latitude: parseFloat(iteration[0].replace('[','')),
-        longitude: parseFloat(iteration[1].replace(']','')),
+      try {
+        var lntlng ={
+          latitude: parseFloat(iteration[0].replace('[','')),
+          longitude: parseFloat(iteration[1].replace(']','')),
+        }
+        arraypoint.push(lntlng)
+        
+      } catch (error) {
+        
       }
-      arraypoint.push(lntlng)
-      setbandera(0)
+   
      
     }
+    setbandera(0)
+
 
     setPoints(arraypoint)
     storeData(arraypoint)
