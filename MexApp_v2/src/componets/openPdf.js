@@ -63,7 +63,7 @@ function OpenPdf(props) {
             },
             
           })
-          .fetch('GET', 'http://'+BASE_API+'/tms/api/v2.0/cartaporte/'+id_CP+'/app', {
+          .fetch('GET', 'https://'+BASE_API+'/tms/api/v2.0/cartaporte/'+id_CP+'/app', {
             Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
             // more headers  ..
           })
@@ -74,7 +74,7 @@ function OpenPdf(props) {
          if (Platform.OS === 'android') {
            console.log(res.path())
       
-         // RNFetchBlob.android.actionViewIntent(res.path(),'application/pdf');
+         RNFetchBlob.android.actionViewIntent(res.path(),'application/pdf');
 
         }
         else{

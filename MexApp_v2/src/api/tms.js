@@ -10,7 +10,7 @@ class Api{
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
         
         };
-        var url='http://'+BASE_API+'/tms/v1/drivers/'+id_Operador
+        var url='https://'+BASE_API+'/tms/v1/drivers/'+id_Operador
         const query = await fetch(url,options);
         const data = await query.json();
         return data;
@@ -24,7 +24,7 @@ class Api{
           Accept: 'application/json',
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
         };
-        var url='http://tms.logsys.com.mx/tms/v1/vehicles/'+id_unidad
+        var url='https://tms.logsys.com.mx/tms/v1/vehicles/'+id_unidad
         const query = await fetch(url,options);
         const data = await query.json();
         return data;

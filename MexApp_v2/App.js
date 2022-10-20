@@ -9,7 +9,7 @@
 import React,{useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Image,Text,StyleSheet}from 'react-native'
+import {Image,Alert,StyleSheet}from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import TravelDetails from './src/screens/travelDetails';
@@ -35,9 +35,9 @@ const App  =()=> {
 
 
   useEffect(() => {
-   // requestUserPermission()
-   //global.version = '1.0'//DeviceInfo.getVersion();
-   //checkToken();
+     requestUserPermission()
+    global.version = '1.0.0'//DeviceInfo.getVersion();
+    checkToken();
    getData()
    
 }, [])

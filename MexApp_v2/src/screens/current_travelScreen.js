@@ -103,11 +103,16 @@ function TravelsScreen (props){
       const dataOffline = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem('@travelCurrent_storage')
-          var convert=JSON.parse(jsonValue)
-          set_travel_current(convert)
-          console.log(travel_current.id)
-          setIsoffline('no hay conexion a internet')
-          setIsload(0)
+          if(jsonValue != null){
+            var convert=JSON.parse(jsonValue)
+            set_travel_current(convert)
+            //console.log(travel_current.id)
+            setIsoffline('no hay conexion a internet')
+            setIsload(0)
+
+          }
+         
+         
           
         } catch(e) {
             
