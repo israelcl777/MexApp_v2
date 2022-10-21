@@ -7,10 +7,12 @@ function Confirmated (props){
     const context=props
 
     async function Confirmar(){
-        var id_solicitud=context.solicitud
+        const fecha = new Date();
+        var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
+
         
         try {
-            const confirmated=await Api.confirmar(context.solicitud,1,"")
+            const confirmated=await Api.confirmar(context.solicitud,1,"",datetime)
             console.log(confirmated)
             send()
 

@@ -5,6 +5,8 @@ import TMS from '../api/tms'
 
 function Unidad(){
     const [unidad, setUnidad] = useState([]);
+    const [isload,setIsload]= useState(1)
+    const [message,setMessage]=useState('Cargando información ...')
 
 
     useEffect(() => {
@@ -13,21 +15,32 @@ function Unidad(){
        
     }, [])
 
-    const getunidad=async(id_operador)=>{
-        console.log(id_operador)
+    const getunidad=async(vehicle_id)=>{
+       
         try{
 
-            const unidad=await TMS.getUnIdad( id_operador)
+            const unidad=await TMS.getUnIdad( vehicle_id)
             console.log(unidad)
-
             setUnidad(unidad)
+            setIsload(0)
         }catch(ex){
+            setMessage('No hay unidad asignada')
             console.log(ex)
 
         }
 
 
     }
+    if(isload==1){
+        return(
+            <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
+                <Text>{message}</Text>
+
+            </View>
+        )
+
+    }
+    else{
 
 
     return(
@@ -78,7 +91,7 @@ function Unidad(){
 
     )
 
-
+    }
 
 }
 const style=StyleSheet.create({

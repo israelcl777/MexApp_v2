@@ -30,7 +30,6 @@ class EventList extends Component{
             <FlatList
              keyExtractor={this.keyExtractor}
              data={this.props.events}
-             inverted={true}
              ListEmptyComponent={this.renderEmtpy}
              ItemSeparatorComponent={this.itemseparator}
              renderItem={this.renderItem}/>

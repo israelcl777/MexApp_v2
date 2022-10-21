@@ -16,6 +16,8 @@ function Nom87 (){
     const [items, setItems] = useState([])
     const [data,setData]=useState([])
     const[day, setday]= useState('')
+    const [isload,setIsload]= useState(1)
+    const [message,setMessage]=useState('Cargando información ...')
 
 
     useEffect(() => {
@@ -74,6 +76,7 @@ function Nom87 (){
                 new_event.push(event)
             }
             setItems(new_event)
+            setIsload(0)
            
 
 
@@ -89,6 +92,18 @@ function Nom87 (){
      
        navigation.navigate('nom87detail',{ listDreams:items})
     }
+
+    if(isload==1){
+        return(
+            <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
+                <Text>{message}</Text>
+
+            </View>
+        )
+
+    }
+    else{
+
 
 
     return(
@@ -155,7 +170,7 @@ function Nom87 (){
         </View>
 
     )
-
+}
 };
 const style=StyleSheet.create({
     logo:{

@@ -4,8 +4,11 @@ import TMS from '../api/tms'
 import { set } from 'react-native-reanimated';
 
 function Operador(){
-    const [items, setItems] = useState([]);
+  
     const [operator, setOperator] = useState([]);
+    const [isload,setIsload]= useState(1)
+    const [message,setMessage]=useState('Cargando información ...')
+
 
 
    
@@ -26,12 +29,9 @@ function Operador(){
             const operador=await TMS.getOperador( id_operador)
 
             setOperator(operador)
+            setIsload(0)
            // var imagenp=''+operador.image;
            // console.log(imagenp)
-
-
-
-
         }catch(ex){
             console.log(ex)
 
@@ -52,76 +52,89 @@ function Operador(){
         }
            
     }
-
-    return(
-
-        <View>
-            <View style={style.centerimage}>
-            <Image  source={{uri: `data:image/jpeg;base64,${operator.image}`}}  style={style.logo}/> 
+    if(isload==1){
+        return(
+            <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
+                <Text>{message}</Text>
 
             </View>
-                
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>Nombre: </Text>
-               <Text>{operator.name}</Text>
+        )
 
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>Tipo: </Text>
-               <Text style={style.text}>{operator.type}</Text>
+    }
+    else{
+        return(
 
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>Fecha de nacimiento: </Text>
-               <Text style={style.text}>{convert( operator.fecha_nacimiento)}</Text>
+            <View>
+                <View style={style.centerimage}>
+                <Image  source={{uri: `data:image/jpeg;base64,${operator.image}`}}  style={style.logo}/> 
+    
+                </View>
+                    
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>Nombre: </Text>
+                   <Text>{operator.name}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>Tipo: </Text>
+                   <Text style={style.text}>{operator.type}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>Fecha de nacimiento: </Text>
+                   <Text style={style.text}>{convert( operator.fecha_nacimiento)}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton} >Fecha de Ingreso: </Text>
+                   <Text style={style.text}>{convert(operator.fecha_ingreso)}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>Unidad: </Text>
+                   <Text style={style.text}>{operator.vehicle_own}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>RFC: </Text>
+                   <Text style={style.text}>{operator.key}</Text>
+            
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>R control: </Text>
+                   <Text style={style.text}>{operator.rcontrol_link}</Text>
+              </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>NO IMSS: </Text>
+                   <Text style={style.text}>{operator.n_imss}</Text>
+    
+               </View>
+           
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>NO LIncencia: </Text>
+                   <Text style={style.text}>{operator.license}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>Fecha de Expedicion (licencia): </Text>
+                   <Text style={style.text}>{convert(operator.license_seniority)}</Text>
+    
+               </View>
+               <View style={style.horizontal}>
+                   <Text style={style.textbutton}>Fecha de Vencimiento (licencia): </Text>
+                   <Text style={style.text}>{convert(operator.license_expiration)}</Text>
+    
+               </View>
+            
+    
+            </View>
+    
+        )
 
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton} >Fecha de Ingreso: </Text>
-               <Text style={style.text}>{convert(operator.fecha_ingreso)}</Text>
+    }
 
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>Unidad: </Text>
-               <Text style={style.text}>{operator.vehicle_own}</Text>
-
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>RFC: </Text>
-               <Text style={style.text}>{operator.key}</Text>
-        
-
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>R control: </Text>
-               <Text style={style.text}>{operator.rcontrol_link}</Text>
-          </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>NO IMSS: </Text>
-               <Text style={style.text}>{operator.n_imss}</Text>
-
-           </View>
-       
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>NO LIncencia: </Text>
-               <Text style={style.text}>{operator.license}</Text>
-
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>Fecha de Expedicion (licencia): </Text>
-               <Text style={style.text}>{convert(operator.license_seniority)}</Text>
-
-           </View>
-           <View style={style.horizontal}>
-               <Text style={style.textbutton}>Fecha de Vencimiento (licencia): </Text>
-               <Text style={style.text}>{convert(operator.license_expiration)}</Text>
-
-           </View>
-        
-
-        </View>
-
-    )
+    
 
 
 

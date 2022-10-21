@@ -20,10 +20,7 @@ function TravelsScreen (props){
     const navigation = useNavigation();
     const [isload,setIsload]= useState(1)
     const [travel_current,set_travel_current]=useState([])
-    const [points,setpoints]=useState([])
     const [origen,setOrigen]=useState('')
-    const [waypoint, setWaypoint]=useState([])
-    const [destino,setdestino]=useState('')
     const [modalVpicked, setMpicked] = useState(false);
     const [modaldelivery, setMdeliveri] = useState(false);
     const [modalconfirmated, setConfimated] = useState(false);
@@ -31,6 +28,7 @@ function TravelsScreen (props){
     const [solicitudcolor,setSolicitudcolor]= useState('#ffffffcc')
     const [cargacolor,setCargacolor]= useState('#ffffffcc')
     const [descargacolor,setDescargacolor]= useState('#ffffffcc')
+    const [message,setMessage]=useState('Cargando viaje actual...')
 
 
 
@@ -111,20 +109,22 @@ function TravelsScreen (props){
             setIsload(0)
 
           }
+          else{
+              setMessage('No hay viaje actual')
+          }
          
          
           
         } catch(e) {
-            
-            setIsload(0)
-         console.log(e)
+            setMessage('No hay viaje actual xd')
+         //console.log(e)
         }
       }
 
     if(isload==1){
         return(
-            <View>
-                <Text>...</Text>
+            <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
+                <Text>{message}</Text>
 
             </View>
         )
@@ -166,7 +166,7 @@ function TravelsScreen (props){
                 <Cdelivery solicitud= {travel_current.id} modalVisible={modaldelivery} setModalVisible={setMdeliveri}/>
                 </Modal>
             
-                <Maps  
+                < Maps  
                 lto={travel_current.lat_origin} 
                 lno={travel_current.lon_origin}
                 ltd={travel_current.lat_destiny}
