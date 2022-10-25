@@ -10,6 +10,7 @@ function CPicked (props){
     const [toggleCheckBox1, setToggleCheckBox1] = useState(false)
     const [toggleCheckBox2, setToggleCheckBox2] = useState(false)
     const [value,setValue]= useState('')
+    
     const context=props
 
     useEffect(() => {
@@ -36,24 +37,53 @@ function CPicked (props){
         context.setModalVisible(false)
      }
      async function Confirmar(){
+        const fecha = new Date();
+        var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
 
         try {
-            const confirmated=await Api.confirmar(context.solicitud,2,"")
+            const confirmated=await Api.confirmar(context.solicitud,2,"",datetime)
             console.log(confirmated)
             send()
         } catch (error) {
+
+            var confirmation={
+                id:2,
+                solicitud:context.solicitud,
+                observation:'',
+                datetime:datetime
+            }
+            confirmationStore(confirmation)
+
             console.log(error)
             send()
             
         }
     }
+    const confirmationStore = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value)
+          await AsyncStorage.setItem('@confirmarcarga', jsonValue)
+        } catch (e) {
+          // saving error
+        }
+      }
+
     async function noConfirmar(){
+        const fecha = new Date();
+        var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
          
         try {
-            const confirmated=await Api.confirmar(context.solicitud,-1, value)
+            const confirmated=await Api.confirmar(context.solicitud,-1, value,datetime)
             console.log(confirmated)
             send()
         } catch (error) {
+            var confirmation={
+                id:-1,
+                solicitud:context.solicitud,
+                observation:value,
+                datetime:datetime
+            }
+            confirmationStore(confirmation)
             console.log(error)
             send()
             

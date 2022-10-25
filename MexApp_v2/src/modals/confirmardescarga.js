@@ -74,6 +74,14 @@ function Cdelivery (props){
             }
           
         } catch (error) {
+            var confirmation={
+                id:2,
+                solicitud:context.solicitud,
+                observation:'',
+                datetime:datetime
+            }
+            confirmationStore(confirmation)
+
             console.log(error)
             send()
             
@@ -91,7 +99,14 @@ function Cdelivery (props){
             
         }
     }
-
+    const confirmationStore = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value)
+          await AsyncStorage.setItem('@confirmardescarga', jsonValue)
+        } catch (e) {
+          // saving error
+        }
+    }
    
     const send=()=>{
         console.log(id_causa)

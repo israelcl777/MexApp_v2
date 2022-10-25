@@ -133,7 +133,7 @@ return response
     return data
 
   }
-  async confirmar(solicitud,id_confirmacion,observation){
+  async confirmar(solicitud,id_confirmacion,observation,datetime){
 
     const query= await fetch(restAPI+'/travels/confirmaciones/',{
       method: 'POST',
@@ -145,6 +145,7 @@ return response
         "id": solicitud,
         "id_confirmacion": id_confirmacion,
         "observation": observation,
+        "datetime":datetime
 
        }),
     });

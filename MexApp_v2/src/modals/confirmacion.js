@@ -1,35 +1,62 @@
 import React,{ useState,useEffect} from 'react';
 import { View,Text,StyleSheet,Image, Pressable} from 'react-native';
 import Api from '../api/intranet'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Confirmated (props){
     const context=props
+    const [isload,serLoad]= useState(false);
+
 
     async function Confirmar(){
+        serLoad(true)
+
         const fecha = new Date();
         var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
-
         
         try {
             const confirmated=await Api.confirmar(context.solicitud,1,"",datetime)
             console.log(confirmated)
             send()
 
-
-            
         } catch (error) {
-            console.log(error)
+            var confirmation={
+                id:1,
+                solicitud:context.solicitud,
+                observation:'',
+                datetime:datetime
+            }
+            confirmationStore(confirmation)
+
+            //console.log(error)
             send()
             
         }
     }
-
-
+    const confirmationStore = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value)
+          await AsyncStorage.setItem('@confirmarsolicitud', jsonValue)
+        } catch (e) {
+          // saving error
+        }
+      }
+      
     const send=()=>{
         console.log(props)
         context.setModalVisible(false)
      }
+
+     if(isload==true){
+
+        return(
+            <View style={style.content}>
+            <Image  style={style.image} source={require('../drawables/loading.gif')}/>
+            
+        </View>
+
+        )
+    }else{
     return(
         <View style={style.content}>
               <View style={style.modal} >
@@ -50,6 +77,7 @@ function Confirmated (props){
               </View>
 
     )
+}
 
 
 }
