@@ -2,6 +2,8 @@ import React, { useState,useEffect } from 'react';
 import { View,Text,StyleSheet,Image,Pressable, Alert,TextInput} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import Api from '../api/intranet'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
