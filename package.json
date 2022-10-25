@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@react-native-community/netinfo": "^9.3.0",
-    "react-native-gesture-handler": "^2.4.2",
-    "react-native-reanimated": "^2.8.0"
-  }
-}
