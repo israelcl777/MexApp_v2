@@ -150,9 +150,7 @@ return response
        }),
     });
   
-    console.log(query)
     const data = await query.text()
-    console.log(data)
     return data
 
   }

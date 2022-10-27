@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-
 function Cdelivery (props){
     const context=props
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
@@ -105,6 +104,16 @@ function Cdelivery (props){
         try {
           const jsonValue = JSON.stringify(value)
           await AsyncStorage.setItem('@confirmardescarga', jsonValue)
+          Alert.alert(
+            "No se pudo enviar",
+            "confirmación de descarga guardada. se enviara cuando tengas conexión a internet",
+            [
+           
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+
+
         } catch (e) {
           // saving error
         }

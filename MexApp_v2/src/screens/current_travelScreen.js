@@ -12,10 +12,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
-/*/ 
-               /*/
-
-
 function TravelsScreen (props){
     const navigation = useNavigation();
     const [isload,setIsload]= useState(1)
@@ -29,19 +25,60 @@ function TravelsScreen (props){
     const [cargacolor,setCargacolor]= useState('#ffffffcc')
     const [descargacolor,setDescargacolor]= useState('#ffffffcc')
     const [message,setMessage]=useState('Cargando viaje actual...')
+    const [bandera_c1,setBandera_c1]=useState(false)
+    const [bandera_c2,setBandera_c2]=useState(false)
+    const [bandera_c3,setBandera_c3]=useState(false)
 
 
 
     useEffect(() => {
         const interval = setInterval(() => {
             gettravel()
-          }, 3000);
+          }, 8000);
           return () =>{
             clearInterval(interval);
             set_travel_current([])
           } 
     }, [])
 
+    const validate_offline= async () => {
+
+        const jsonValue = await AsyncStorage.getItem('@confirmarsolicitud')       
+        if(jsonValue != null){
+            var convert=JSON.parse(jsonValue)
+            Confirmar(jsonValue)
+            var convert=JSON.parse(convert)
+            setBandera_c1(true)
+            setConfimated(false)
+
+            setSolicitudcolor('#ffffffcc')
+
+
+
+        }
+        const jsonValue2 = await AsyncStorage.getItem('@confirmarcarga')
+        if(jsonValue2 != null){
+            var convert=JSON.parse(jsonValue2)
+            console.log('hay confirmacion de carga pendiente')
+            Confirmar(convert)
+            bandera_c2(true)
+            setCargacolor('#ffffffcc')
+
+
+
+        }
+        const jsonValue3 = await AsyncStorage.getItem('@confirmardescarga')
+        if(jsonValue3 != null){
+            var convert=JSON.parse(jsonValue3)
+            console.log('hay confirmacion de descarga pendiente')
+            Confirmar(convert)
+            setBandera_c3(true)
+            setDescargacolor('#9b9b9bcc') 
+
+        }
+
+
+    }
     const getCP=()=>{
         navigation.navigate('pdf',{sol:travel_current.id})
       }
@@ -66,7 +103,9 @@ function TravelsScreen (props){
             }
         
             set_travel_current(currenttravel)
-            
+            setBandera_c1(currenttravel.travel_confirmed)
+            setBandera_c2(currenttravel.pickup_confirmed)
+            setBandera_c3(currenttravel.delivery_confirmed)
             setOrigen(currenttravel.origin)
 
             if(currenttravel.travel_confirmed=true&&currenttravel.pickup_confirmed==false&&currenttravel.delivery_confirmed==false){
@@ -82,12 +121,46 @@ function TravelsScreen (props){
                 setCargacolor('#ffffffcc')
                 setDescargacolor('#ffffffcc')
             }
+            try {
+                validate_offline()
+
+                
+            } catch (error) {
+                console.log(error)
+                
+            }
             setIsload(0)
 
         } catch (error) {
             dataOffline()
         }
     }
+    async function Confirmar(confirmation){
+  
+        try {
+            const confirmated=await Api.confirmar(confirmation.solicitud,confirmation.id,confirmation.observation,confirmation.datetime)
+            console.log(confirmated)
+            var id=confirmation.id
+            switch(id){
+                case 1:
+                    await AsyncStorage.removeItem("@confirmarsolicitud");   
+                case 2:
+                    await AsyncStorage.removeItem("@confirmarcarga");     
+                
+                case 3:
+                    await AsyncStorage.removeItem("@confirmardescarga");     
+                case -1:
+                    await AsyncStorage.removeItem("@confirmarcarga");     
+
+            }
+
+        } catch (error) {
+            console.log(error)
+           
+            }      
+            
+        }
+    
     const storeData = async (value) => {
         try {
            
@@ -107,6 +180,7 @@ function TravelsScreen (props){
             //console.log(travel_current.id)
             setIsoffline('no hay conexion a internet')
             setIsload(0)
+            validate_offline()
 
           }
           else{
@@ -205,7 +279,7 @@ function TravelsScreen (props){
                         <Text style={style.textbutton}> Asignacion de solicitud</Text>
                         <Pressable  style={[style.button,{backgroundColor:solicitudcolor}]}>
                             <Text>Confirmacion de solicitud</Text>
-                            <ConfirmatedImage confirmated={travel_current.travel_confirmed} />
+                            <ConfirmatedImage confirmated={bandera_c1} />
                         </Pressable>
                         <View  style={[style.horizontal,{backgroundColor:solicitudcolor}]}>
                             <Text>Direccion origen:  </Text>
@@ -224,7 +298,7 @@ function TravelsScreen (props){
                         onPress={() => setMpicked(true)}
                         style={[style.button,{backgroundColor:cargacolor}]}>
                             <Text>confirmar carga  </Text>
-                            <ConfirmatedImage confirmated={travel_current.pickup_confirmed} />
+                            <ConfirmatedImage confirmated={bandera_c2} />
     
     
                         </Pressable>
@@ -237,7 +311,7 @@ function TravelsScreen (props){
                         onPress={() => setMdeliveri(true)}  
                         style={[style.button,{backgroundColor:cargacolor}]}>
                             <Text>confirmar Descarga  </Text>
-                            <ConfirmatedImage confirmated={travel_current.delivery_confirmed} />
+                            <ConfirmatedImage confirmated={bandera_c3} />
                         </Pressable>
                         <Text style={style.textbutton}>Salida Destino</Text>
                         <Pressable  style={[style.button,{backgroundColor:descargacolor}]}

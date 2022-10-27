@@ -1,5 +1,5 @@
 import React,{ useState,useEffect} from 'react';
-import { View,Text,StyleSheet,Image, Pressable} from 'react-native';
+import { View,Text,StyleSheet,Image, Pressable,Alert} from 'react-native';
 import Api from '../api/intranet'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -37,6 +37,14 @@ function Confirmated (props){
         try {
           const jsonValue = JSON.stringify(value)
           await AsyncStorage.setItem('@confirmarsolicitud', jsonValue)
+          Alert.alert(
+            "No se pudo enviar",
+            "confirmación de solicitud guardada. se enviara cuando tengas conexión a internet",
+            [
+           
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
         } catch (e) {
           // saving error
         }
