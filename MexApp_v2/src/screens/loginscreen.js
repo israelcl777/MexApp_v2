@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View,Text,Alert,StatusBar,StyleSheet,Platorm,Pressable,TextInput, ImageBackground,ScrollView} from 'react-native';
+import { View,Text,Alert,StatusBar,StyleSheet,Platorm,Pressable,TextInput, ImageBackground,ScrollView,Image} from 'react-native';
 import Api from'../api/intranet'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,10 +7,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen (props){
     const [number,setnumber]=useState('');
+    const [isload,serLoad]= useState(false);
+
 
 
     async function login(){
-      
+      serLoad(true)   
         try {
             const user=await Api.login( number,global.version)
          console.log(user)
@@ -22,7 +24,6 @@ function LoginScreen (props){
             global.driver_image= user.driver_image
           
             global.token=true
-            Alert.alert("si estas asignado")
             props.setLogget(1)
             
         } catch (error) {
@@ -47,7 +48,22 @@ function LoginScreen (props){
 
  
 
+      if(isload==true){
 
+        return(
+            <View style={{ flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+         
+              backgroundColor:'#eaeaeacc',}}>
+            <Image  
+            style={{ width:200,height:200,}} 
+        source={require('../drawables/loading.gif')}/>
+            
+        </View>
+
+        )
+    }else{
     return(
      <View
      style={styles.container}
@@ -91,6 +107,7 @@ function LoginScreen (props){
       </View>
 
     )
+  }
 
 };
 
