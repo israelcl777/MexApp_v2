@@ -1,17 +1,17 @@
 import React, { useEffect, useState,useRef } from 'react';
 import { View,Image,ScrollView,Text,RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { set } from 'immer/dist/internal';
 import Api from '../api/intranet'
 import { WebView } from 'react-native-webview';
-//import InphograpicsList from '../containers/inphograpicsList'
+import InphograpicsList from '../containers/inphograpicsList'
 
 
-
+var arrayimage = [];
 
 function HomeScreen (){
+  
   const [items, setItems] = useState([]);
-  const [inphograpics,setInphograpics]= useState([])
+  const [Inphograpics_list,setInphograpics]= useState([])
   const webViewRef = useRef();
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -23,7 +23,7 @@ function HomeScreen (){
           getData()
           getInfographics()
 
-        }, 60000);
+        }, 3000);
         return () =>{
           clearInterval(interval);
         } 
@@ -34,14 +34,50 @@ function HomeScreen (){
     const getInfographics= async()=> {
       try {       
           const infographics= await Api.getInfographics(global.solicitud)
-          setInphograpics(infographics)
         
+            console.log(infographics.status)
+            var imagenes=[]
+          
+           var count=0;
+           for(var i=0;i<infographics.length;i++){
+          
+            var document_url=infographics[i]['document_url']
+            var longi = document_url.split(',')
+            for(j=0;j<longi.length;j++){
+              count++;
+            
+              var imagen=longi[j].replace('[','').replace(']','').replace(/'/,'')
+              var json={
+                'id':count,
+                'image':imagen
+              }
+              imagenes.push(json)
+            }
+  
+           }
+           storeData(imagenes)
+           setInphograpics(imagenes)
+       //  console.log(Inphograpics_list)
+   
       } catch (error) {
-       // console.log(error)        
+      
+        getsave()
+        console.log(error)        
       }
 
     }
-  
+    const getsave = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('@infografias')
+        var convert=JSON.parse(jsonValue)
+      
+        Inphograpics_list(convert)
+       
+      } catch(e) {
+       console.log(e)
+       return ""
+      }
+    }
 
     const getData = async () => {
         try {
@@ -59,6 +95,14 @@ function HomeScreen (){
          return ""
         }
       }
+      const storeData = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value)
+          await AsyncStorage.setItem('@infografias', jsonValue)
+        } catch (e) {
+          console.log(e)
+        }
+      }
       
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -72,6 +116,7 @@ function HomeScreen (){
    
     return(
       <ScrollView 
+      style={{backgroundColor:'#c0c0c0'}}
       contentContainerStyle={{ flexGrow: 1,width:'100%',height:'100%' }}
       refreshControl={
         <RefreshControl
@@ -79,6 +124,10 @@ function HomeScreen (){
           onRefresh={onRefresh}
         />
       }>
+        <View style={{width:'100%',height:'28%', backgroundColor:'#ffffff', marginTop:10,marginBottom:10,}}>
+        <InphograpicsList infografias={Inphograpics_list}/>
+
+        </View>
      
     
    

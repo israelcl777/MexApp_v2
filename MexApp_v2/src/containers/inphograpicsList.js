@@ -26,6 +26,7 @@ class EventList extends Component{
             
         
             <FlatList
+            horizontal={true}
              keyExtractor={this.keyExtractor}
              data={this.props.infografias}
              ListEmptyComponent={this.renderEmtpy}

@@ -176,6 +176,18 @@ return response
     const data = await query.text()
     console.log(data)
     return data
+  }
+
+  async getliquidaciones(id_operador, options = {}){
+    options.headers = 
+    {
+      'Content-Type': 'application/json',
+      Accept: 'application/json', 
+    };
+    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidaciones/101799"+id_operador
+    const query = await fetch(url,options);
+    const data = await query.json();
+    return data;
 
   }
   

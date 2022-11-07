@@ -7,6 +7,23 @@ function Confirmated (props){
     const context=props
     const [isload,serLoad]= useState(false);
 
+    useEffect(() => {
+      const interval = setInterval(() => {
+        validate_offline()
+    
+        }, 1000);
+        return () =>{
+          clearInterval(interval);
+        } 
+  }, [])
+
+  const validate_offline= async () => {
+
+    const jsonValue = await AsyncStorage.getItem('@confirmarsolicitud')       
+    if(jsonValue != null){
+      send()
+    }
+  }
 
     async function Confirmar(){
         serLoad(true)

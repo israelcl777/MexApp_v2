@@ -4,15 +4,13 @@ import CheckBox from '@react-native-community/checkbox';
 import Api from '../api/intranet'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 function CPicked (props){
     const [reporter,setReporter]=useState(false)
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
     const [toggleCheckBox1, setToggleCheckBox1] = useState(false)
     const [toggleCheckBox2, setToggleCheckBox2] = useState(false)
     const [value,setValue]= useState('')
-    
+    const [isload,serLoad]= useState(false);    
     const context=props
 
     useEffect(() => {
@@ -39,6 +37,8 @@ function CPicked (props){
         context.setModalVisible(false)
      }
      async function Confirmar(){
+        serLoad(true)
+
         const fecha = new Date();
         var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
 
@@ -78,6 +78,8 @@ function CPicked (props){
         }
       }
 
+    
+
     async function noConfirmar(){
         const fecha = new Date();
         var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
@@ -99,7 +101,16 @@ function CPicked (props){
             
         }
     }
-    
+    if(isload==true){
+
+        return(
+            <View style={style.content}>
+            <Image  style={style.image} source={require('../drawables/loading.gif')}/>
+            
+        </View>
+
+        )
+    }else{ 
 
      if(reporter==false){
         return(
@@ -187,6 +198,7 @@ function CPicked (props){
 
     
 };
+}
 
 const style=StyleSheet.create({
     content:{

@@ -16,6 +16,8 @@ function Cdelivery (props){
     const [text, setText] = useState('');
     const [observacion,setObservacion]= useState('')
     const [id_causa,setCausa]= useState(0)
+    const [isload,serLoad]= useState(false);
+
 
   
     useEffect(() => {
@@ -66,6 +68,7 @@ function Cdelivery (props){
         }
     })
     async function Confirmar(){
+        serLoad(true)
 
         try {
             const confirmated=await Api.confirmar(context.solicitud,3,observacion)
@@ -73,6 +76,7 @@ function Cdelivery (props){
             if(id_causa!=0){
                 setReporter()
             }
+            send()()
           
         } catch (error) {
             var confirmation={
@@ -124,7 +128,16 @@ function Cdelivery (props){
         context.setModalVisible(false)
      }
   
+     if(isload==true){
 
+        return(
+            <View style={style.content}>
+            <Image  style={style.image} source={require('../drawables/loading.gif')}/>
+            
+        </View>
+
+        )
+    }else{
     return(
         <View style={style.content}>
               <View style={style.modal} >
@@ -203,6 +216,7 @@ function Cdelivery (props){
 
     )
 };
+}
 
 const style=StyleSheet.create({
     content:{

@@ -4,12 +4,9 @@ import Api from'../api/intranet'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
 function LoginScreen (props){
     const [number,setnumber]=useState('');
     const [isload,serLoad]= useState(false);
-
-
 
     async function login(){
       serLoad(true)   
@@ -32,8 +29,6 @@ function LoginScreen (props){
             
         }
       
-
-
     }
     const storeData = async (value) => {
         try {

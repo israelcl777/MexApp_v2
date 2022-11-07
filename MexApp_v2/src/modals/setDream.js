@@ -45,6 +45,7 @@ function SetDreams (props){
     
                     const dreams=await Api.New_Dream(convert.start,datehora)
                     Alert.alert(dreams)
+                    await AsyncStorage.removeItem("@dreams_current");     
                     context.setModalVisible1(false)
                     
                 } catch (error) {

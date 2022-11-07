@@ -132,6 +132,7 @@ function TravelsScreen (props){
             setIsload(0)
 
         } catch (error) {
+            validate_offline()
             dataOffline()
         }
     }
@@ -277,7 +278,8 @@ function TravelsScreen (props){
     
     
                         <Text style={style.textbutton}> Asignacion de solicitud</Text>
-                        <Pressable  style={[style.button,{backgroundColor:solicitudcolor}]}>
+                        <Pressable 
+                            onPress={() => setConfimated(true)} style={[style.button,{backgroundColor:solicitudcolor}]}>
                             <Text>Confirmacion de solicitud</Text>
                             <ConfirmatedImage confirmated={bandera_c1} />
                         </Pressable>
