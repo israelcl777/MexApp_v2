@@ -5,10 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 function Detailscreen (props){
-    const context=props
-    const [items, setItems] = useState([]);
-
- 
+    const context=props 
     const navigation = useNavigation();
 
 
@@ -41,6 +38,12 @@ function Detailscreen (props){
     }
     const openNom87=()=>{
         navigation.navigate('nom87')
+    }
+    const opeliquidaciones=()=>{
+        navigation.navigate('liquidaciones')
+    }
+    const opendepositos=()=>{
+        navigation.navigate('depositos')
     }
     return(
         <ScrollView style={{backgroundColor:'#eaeaea'}}>
@@ -83,6 +86,20 @@ function Detailscreen (props){
                     <Text style={style.menutext}>NOM 87</Text>
 
                 </Pressable>
+                <Pressable style={style.menuitems}
+                 onPress={opeliquidaciones}>
+                    <Image source={require('../drawables/icon_liq.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>LIQUIDACIONES</Text>
+
+                </Pressable>
+
+                <Pressable style={style.menuitems}
+                 onPress={opendepositos}>
+                    <Image source={require('../drawables/icon_dep.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>DEPOSITOS</Text>
+
+                </Pressable>
+
                 <Pressable style={style.menuitems}
                  onPress={loginpress}>
                     <Image source={require('../drawables/shutdown.png')} style={style.menuicon} />
@@ -131,6 +148,7 @@ const style=StyleSheet.create({
           alignItems: 'center',
           justifyContent: 'center',
           marginTop:10,
+          color:'#393d42',
 
       },
       textbutton:{

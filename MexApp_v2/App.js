@@ -22,6 +22,8 @@ import Nom87 from './src/screens/nom87Screen';
 import Nom87dDetail from './src/screens/nom87detail';
 import OpenPdf from './src/componets/openPdf';
 import ImageScreen from './src/screens/imageScreen';
+import LiquidacionesScreen from './src/screens/liquidacionesScreen'
+import DepositosScreen from './src/screens/depositosScreen';
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -236,6 +238,34 @@ const checkToken = async () => {
           title:""}}
       name="imagescreen" 
       component={ImageScreen} />
+
+       <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name="liquidaciones" 
+      component={LiquidacionesScreen} />
+
+        <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name='depositos'
+      component={DepositosScreen} />
+
+
 
         </>
     )}

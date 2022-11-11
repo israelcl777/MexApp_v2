@@ -85,8 +85,6 @@ class Api{
     const query = await fetch(url);
     const data = await query.json();
     return data;
-
-
   }
 
   async setDream(fecha_inicio,fecha_fin,id,coments,completed){
@@ -184,12 +182,38 @@ return response
       'Content-Type': 'application/json',
       Accept: 'application/json', 
     };
-    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidaciones/101799"+id_operador
+    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidaciones/"+id_operador
     const query = await fetch(url,options);
     const data = await query.json();
     return data;
 
   }
+
+  async getdepositos(id_operador, options = {}){
+    options.headers = 
+    {
+      'Content-Type': 'application/json',
+      Accept: 'application/json', 
+    };
+    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidaciones/"+id_operador
+    const query = await fetch(url,options);
+    const data = await query.json();
+    return data;
+
+  }
+  async getliqdet(id_operador, options = {}){
+    options.headers = 
+    {
+      'Content-Type': 'application/json',
+      Accept: 'application/json', 
+    };
+    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidaciones/"+id_operador
+    const query = await fetch(url,options);
+    const data = await query.json();
+    return data;
+
+  }
+
   
 }
 export default new Api();
