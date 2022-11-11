@@ -19,9 +19,11 @@ function DepositosScreen (){
         id_operador =global.id_operador
         try {
 
-            const gettravel=await Api.gettravels(id_operador)
-            var currenttravel=gettravel
-            setItems(currenttravel)
+            const getdepositos=await Api.getdepositos(id_operador)
+            //var convert =JSON.parse(getdepositos)
+            console.log(getdepositos.depositos[0])
+          
+           setItems(getdepositos.depositos)
  
         } catch (error) {
             console.log(error)

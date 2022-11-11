@@ -10,6 +10,7 @@ import { Pressable,Modal } from 'react-native';
 import Confirmated from '../modals/confirmacion';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import Styles from '../styles'
 
 
 function TravelsScreen (props){
@@ -199,7 +200,7 @@ function TravelsScreen (props){
     if(isload==1){
         return(
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
-                <Text>{message}</Text>
+                <Text style={Styles.simpletext}>{message}</Text>
 
             </View>
         )
@@ -257,35 +258,35 @@ function TravelsScreen (props){
                         <Text style={style.textbutton}> {travel_current.agreement}</Text>
                        
                         <View  style={[style.horizontal,{backgroundColor:solicitudcolor}]}>
-                           <Text  style={style.text1}>Shipment: </Text>
-                           <Text  style={style.text}>{travel_current.shipment} </Text>
-                           <Text  style={style.text1}>Unidad: </Text>
-                           <Text  style={style.text}>{global.alias}  </Text>
+                           <Text  style={Styles.titletext}>Shipment: </Text>
+                           <Text  style={Styles.simpletext}>{travel_current.shipment} </Text>
+                           <Text  style={Styles.titletext}>Unidad: </Text>
+                           <Text  style={Styles.simpletext}>{global.alias}  </Text>
     
                         </View>
                         <View  visible={false} style={[style.horizontal,{backgroundColor:solicitudcolor}]}>
-                           <Text  style={style.text1}>Carta Porte: </Text>
-                           <Text  style={style.text}>{travel_current.pro_number} </Text>
-                           <Text  style={style.text1}>Remolque: </Text>
-                           <Text  style={style.text}>{global.alias}  </Text>
+                           <Text  style={Styles.titletext}>Carta Porte: </Text>
+                           <Text  style={Styles.simpletext}>{travel_current.pro_number} </Text>
+                           <Text  style={Styles.titletext}>Remolque: </Text>
+                           <Text  style={Styles.simpletext}>{global.alias}  </Text>
                         </View>
                         <View  style={[style.horizontal,{backgroundColor:solicitudcolor}]}>
-                           <Text  style={style.text1}>Cliente: </Text>
-                           <Text  style={style.text}>{travel_current.client} </Text>
-                           <Text  style={style.text1}>Solicitud: </Text>
-                           <Text  style={style.text}>{travel_current.id}  </Text>   
+                           <Text  style={Styles.titletext}>Cliente: </Text>
+                           <Text  style={Styles.simpletext}>{travel_current.client} </Text>
+                           <Text  style={Styles.titletext}>Solicitud: </Text>
+                           <Text  style={Styles.simpletext}>{travel_current.id}  </Text>   
                         </View>
     
     
                         <Text style={style.textbutton}> Asignacion de solicitud</Text>
                         <Pressable 
                             onPress={() => setConfimated(true)} style={[style.button,{backgroundColor:solicitudcolor}]}>
-                            <Text>Confirmacion de solicitud</Text>
+                            <Text style={Styles.simpletext}>Confirmacion de solicitud</Text>
                             <ConfirmatedImage confirmated={bandera_c1} />
                         </Pressable>
                         <View  style={[style.horizontal,{backgroundColor:solicitudcolor}]}>
-                            <Text>Direccion origen:  </Text>
-                            <Text>{travel_current.origin_address}</Text>
+                            <Text style={Styles.titletext}>Direccion origen:  </Text>
+                            <Text style={Styles.simpletext}>{travel_current.origin_address}</Text>
     
                         </View>
                         <Text style={style.textbutton}>Llegada origen: {origen}</Text>
@@ -293,32 +294,32 @@ function TravelsScreen (props){
                         onPress={getCP}
                          style={[style.button,{backgroundColor:cargacolor}]
                     }>
-                            <Text>VER Carta Porte</Text>
+                            <Text style={Styles.simpletext}>VER Carta Porte</Text>
                             <Image source={require('../drawables/pdfattt.png')} style={style.logotel} />
                         </Pressable>
                         <Pressable 
                         onPress={() => setMpicked(true)}
                         style={[style.button,{backgroundColor:cargacolor}]}>
-                            <Text>confirmar carga  </Text>
+                            <Text style={Styles.simpletext}>confirmar carga  </Text>
                             <ConfirmatedImage confirmated={bandera_c2} />
     
     
                         </Pressable>
                         <View  style={[style.horizontal,{backgroundColor:cargacolor}]}>
-                            <Text>Direccion Destino:  </Text>
-                            <Text>{travel_current.destiny_address}</Text>
+                            <Text style={Styles.titletext}>Direccion Destino:  </Text>
+                            <Text style={Styles.simpletext}>{travel_current.destiny_address}</Text>
                         </View>
                         <Text style={style.textbutton}>Llegada Destino{travel_current.destiny} </Text>
                         <Pressable
                         onPress={() => setMdeliveri(true)}  
                         style={[style.button,{backgroundColor:cargacolor}]}>
-                            <Text>confirmar Descarga  </Text>
+                            <Text style={Styles.simpletext}>confirmar Descarga  </Text>
                             <ConfirmatedImage confirmated={bandera_c3} />
                         </Pressable>
                         <Text style={style.textbutton}>Salida Destino</Text>
                         <Pressable  style={[style.button,{backgroundColor:descargacolor}]}
                          onPress={() => Linking.openURL('tel:+52'+global.phone)}>
-                            <Text>Llamar lider de flota  </Text>
+                            <Text style={Styles.simpletext}>Llamar lider de flota  </Text>
                             <Image source={require('../drawables/call.png')} style={style.logotel} />
     
     

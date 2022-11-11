@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View,Text,Button,StyleSheet,Image,Pressable} from 'react-native';
 import TMS from '../api/tms'
-import { set } from 'react-native-reanimated';
+import Styles from '../styles'
 
 function Operador(){
   
@@ -55,7 +55,7 @@ function Operador(){
     if(isload==1){
         return(
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
-                <Text>{message}</Text>
+                <Text style={Styles.simpletext}>{message}</Text>
 
             </View>
         )
@@ -72,58 +72,58 @@ function Operador(){
                     
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>Nombre: </Text>
-                   <Text>{operator.name}</Text>
+                   <Text style={Styles.simpletext}>{operator.name}</Text>
     
                </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>Tipo: </Text>
-                   <Text style={style.text}>{operator.type}</Text>
+                   <Text style={Styles.simpletext}>{operator.type}</Text>
     
                </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>Fecha de nacimiento: </Text>
-                   <Text style={style.text}>{convert( operator.fecha_nacimiento)}</Text>
+                   <Text style={Styles.simpletext}>{convert( operator.fecha_nacimiento)}</Text>
     
                </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton} >Fecha de Ingreso: </Text>
-                   <Text style={style.text}>{convert(operator.fecha_ingreso)}</Text>
+                   <Text style={Styles.simpletext}>{convert(operator.fecha_ingreso)}</Text>
     
                </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>Unidad: </Text>
-                   <Text style={style.text}>{operator.vehicle_own}</Text>
+                   <Text style={Styles.simpletext}>{operator.vehicle_own}</Text>
     
                </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>RFC: </Text>
-                   <Text style={style.text}>{operator.key}</Text>
+                   <Text style={Styles.simpletext}>{operator.key}</Text>
             
     
                </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>R control: </Text>
-                   <Text style={style.text}>{operator.rcontrol_link}</Text>
+                   <Text style={Styles.simpletext}>{operator.rcontrol_link}</Text>
               </View>
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>NO IMSS: </Text>
-                   <Text style={style.text}>{operator.n_imss}</Text>
+                   <Text style={Styles.simpletext}>{operator.n_imss}</Text>
     
                </View>
            
                <View style={style.horizontal}>
                    <Text style={style.textbutton}>NO LIncencia: </Text>
-                   <Text style={style.text}>{operator.license}</Text>
+                   <Text style={Styles.simpletext}>{operator.license}</Text>
     
                </View>
                <View style={style.horizontal}>
-                   <Text style={style.textbutton}>Fecha de Expedicion (licencia): </Text>
-                   <Text style={style.text}>{convert(operator.license_seniority)}</Text>
+                   <Text style={style.textbutton}>Fecha de Expedicion (lic.): </Text>
+                   <Text style={Styles.simpletext}>{convert(operator.license_seniority)}</Text>
     
                </View>
                <View style={style.horizontal}>
-                   <Text style={style.textbutton}>Fecha de Vencimiento (licencia): </Text>
-                   <Text style={style.text}>{convert(operator.license_expiration)}</Text>
+                   <Text style={style.textbutton}>Fecha de Vencimiento (lic.): </Text>
+                   <Text style={Styles.simpletext}>{convert(operator.license_expiration)}</Text>
     
                </View>
             

@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ContactList from '../containers/contactslist';
 
 
+
 function Contact(){
   const [data,setData]=useState([])
   const [lidef,setLiderf]=useState([])
@@ -36,7 +37,6 @@ function Contact(){
             setLiderf(lideresdeflota[0])
             setLiderf2(lideresdeflota[1])
             setLiderf3(lideresdeflota[2])
-
             setcontacts(lideresdeflota)
            
 

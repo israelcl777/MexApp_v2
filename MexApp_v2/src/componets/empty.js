@@ -20,6 +20,8 @@ padding:10,
   }  ,
   text:{
 fontSize:16,
+color:'#393d42',
+
   },
 })
 export default Empty

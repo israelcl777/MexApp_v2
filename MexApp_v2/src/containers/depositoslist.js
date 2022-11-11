@@ -10,7 +10,7 @@ import Deposito from '../componets/deposito'
 class EventList extends Component{
     
 
-    keyExtractor = item => item.id
+    keyExtractor = item => item.id_deposito
     renderEmtpy=()=><Empty text="ningun resultado coincide con la busqueda  :("></Empty>
     itemseparator=()=><Separator  color='#eaeaea' ></Separator>
     renderItem=({item})=>{
@@ -19,10 +19,8 @@ class EventList extends Component{
         )
     }
     render(){
-        console.log(this.props.events)
 
         return(
-            
 
             <Layout>
             

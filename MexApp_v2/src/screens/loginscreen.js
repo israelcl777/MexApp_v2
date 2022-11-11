@@ -25,7 +25,7 @@ function LoginScreen (props){
             
         } catch (error) {
             global.token=false
-            Alert.alert("no estas asignado:"+error)
+            Alert.alert("no estas asignado:")
             serLoad(false) 
             
         }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View,Text,Button,StyleSheet,Image,Pressable} from 'react-native';
 import TMS from '../api/tms'
+import Styles from '../styles'
 
 
 function Unidad(){
@@ -34,7 +35,7 @@ function Unidad(){
     if(isload==1){
         return(
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
-                <Text>{message}</Text>
+                <Text style={Styles.simpletext}>{message}</Text>
 
             </View>
         )
@@ -48,43 +49,43 @@ function Unidad(){
         <View>
             <View style={style.horizontal}>
                <Text style={style.textbutton}>Nombre de la unidad: </Text>
-               <Text>{unidad.alias}</Text>
+               <Text style={Styles.simpletext}>{unidad.alias}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Placas: </Text>
-               <Text>{unidad.tag}</Text>
+               <Text style={Styles.simpletext}>{unidad.tag}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Configuración motriz: </Text>
-               <Text>{unidad.vehicle_performance_type}</Text>
+               <Text style={Styles.simpletext}>{unidad.vehicle_performance_type}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Tipo de unidad: </Text>
-               <Text>{unidad.type}</Text>
+               <Text style={Styles.simpletext}>{unidad.type}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>NO ejes: </Text>
-               <Text>{unidad.axis_number}</Text>
+               <Text style={Styles.simpletext}>{unidad.axis_number}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Grupo: </Text>
-               <Text>{unidad.group}</Text>
+               <Text style={Styles.simpletext}>{unidad.group}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>NO poliza: </Text>
-               <Text>{unidad.ins_policy}</Text>
+               <Text style={Styles.simpletext}>{unidad.ins_policy}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Aseguradora: </Text>
-               <Text>{unidad.insurance}</Text>
+               <Text style={Styles.simpletext}>{unidad.insurance}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Fecha poliza: </Text>
-               <Text>{unidad.ins_expiration}</Text>
+               <Text style={Styles.simpletext}>{unidad.ins_expiration}</Text>
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Telefono de la aseguradora: </Text>
-               <Text>{unidad.ins_phone}</Text>
+               <Text style={Styles.simpletext}>{unidad.ins_phone}</Text>
            </View>
            
         </View>
