@@ -35,7 +35,7 @@ function Contact(){
             setData(aro[0])
             setLidera(lideralfa[0])
             setLiderf(lideresdeflota[0])
-            setLiderf2(lideresdeflota[1])
+            setLiderf2(lideresdeflota[1])|
             setLiderf3(lideresdeflota[2])
             setcontacts(lideresdeflota)
            

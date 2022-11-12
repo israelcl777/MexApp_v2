@@ -24,6 +24,7 @@ import OpenPdf from './src/componets/openPdf';
 import ImageScreen from './src/screens/imageScreen';
 import LiquidacionesScreen from './src/screens/liquidacionesScreen'
 import DepositosScreen from './src/screens/depositosScreen';
+import Liqdetail from './src/screens/liquidetailScreen'
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -248,9 +249,22 @@ const checkToken = async () => {
             source={require('./src/drawables/logo.png')}/>
           ),
           gesturesEnabled: false,  
-          title:""}}
+          title:"Liquidaciones"}}
       name="liquidaciones" 
       component={LiquidacionesScreen} />
+
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Detalle"}}
+      name='liqdetail'
+      component={Liqdetail} />
 
         <Stack.Screen 
         options={{
@@ -261,7 +275,7 @@ const checkToken = async () => {
             source={require('./src/drawables/logo.png')}/>
           ),
           gesturesEnabled: false,  
-          title:""}}
+          title:"Depositos"}}
       name='depositos'
       component={DepositosScreen} />
 

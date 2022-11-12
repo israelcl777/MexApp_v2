@@ -3,7 +3,7 @@ import { FlatList} from 'react-native';
 import Separator from'../componets/separator'
 import Layout from '../componets/viajeslist_layout'
 import Empty from '../componets/empty'
-import Event from '../componets/evento'
+import Concepto from '../componets/concepto'
 
 
 
@@ -11,11 +11,11 @@ class EventList extends Component{
     
 
     keyExtractor = item => item.id
-    renderEmtpy=()=><Empty text="ningun resultado coincide con la busqueda  :("></Empty>
+    renderEmtpy=()=><Empty text="no hay"></Empty>
     itemseparator=()=><Separator  color='#eaeaea' ></Separator>
     renderItem=({item})=>{
         return(
-<Event {...item}></Event>
+<Concepto {...item}></Concepto>
         )
     }
     render(){
@@ -25,11 +25,9 @@ class EventList extends Component{
             
 
             <Layout>
-            
-        
             <FlatList
              keyExtractor={this.keyExtractor}
-             data={this.props.events}
+             data={this.props.data}
              ListEmptyComponent={this.renderEmtpy}
              ItemSeparatorComponent={this.itemseparator}
              renderItem={this.renderItem}/>

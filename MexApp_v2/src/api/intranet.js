@@ -207,7 +207,7 @@ return response
       'Content-Type': 'application/json',
       Accept: 'application/json', 
     };
-    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidaciones/"+id_operador
+    var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidacionesdet/"+id_operador
     const query = await fetch(url,options);
     const data = await query.json();
     return data;
