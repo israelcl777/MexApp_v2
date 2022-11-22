@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DTPicker from '../componets/datetimePicker'
 import Api from '../api/intranet';
 import { Alert } from 'react-native';
+import Styles from '../styles'
 
 
 
@@ -82,16 +83,16 @@ function NewDream (props){
           <View style={style.modal} >
             <Text style={style.title}>Inicio de sueño</Text>
             <View style={style.horizontal}>
-              <Text>{getdateinit() } </Text>
+              <Text style={Styles.simpletext}>{getdateinit() } </Text>
             <DTPicker dato={date} setDato={setDate} logo={require('../drawables/date.png')}  mode="date"/>
-            <Text>  {getimeinit() } </Text>
+            <Text style={Styles.simpletext}>  {getimeinit() } </Text>
            <DTPicker dato={time} setDato={setTime} logo={require('../drawables/timer.png')}  mode="time"/>
 
             </View>
             <View style={style.horizontal}>
-            <Text>{getdateend() } </Text>
+            <Text style={Styles.simpletext}>{getdateend() } </Text>
             <DTPicker dato={date1} setDato={setDate1} logo={require('../drawables/date.png')}  mode="date"/>
-            <Text>  {getimeend() } </Text>
+            <Text style={Styles.simpletext}>  {getimeend() } </Text>
            <DTPicker  dato={time1} setDato={setTime1} logo={require('../drawables/timer.png')}  mode="time"/>
 
             </View>
@@ -193,6 +194,8 @@ const style=StyleSheet.create({
         textAlign: 'center',
         fontSize:16,
         fontWeight: "bold",
+        color:'#393d42',
+
 
        
     },

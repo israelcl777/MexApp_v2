@@ -4,6 +4,7 @@ import { View,Text,Button ,StyleSheet} from 'react-native';
 import Api from '../api/intranet'
 import { useNavigation } from '@react-navigation/native';
 import { Table, Row,Rows } from 'react-native-table-component';
+import Styles from '../styles'
 
 var status=[]
 var fecha_ini=[]
@@ -96,7 +97,7 @@ function Nom87 (){
     if(isload==1){
         return(
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}> 
-                <Text>{message}</Text>
+                <Text style={Styles.simpletext}>{message}</Text>
 
             </View>
         )
@@ -110,54 +111,54 @@ function Nom87 (){
         <View>
              <View style={style.horizontal}>
                <Text style={style.textbutton}>Fecha de consulta: </Text>
-               <Text>{day}</Text>
+               <Text style={Styles.simpletext}>{day}</Text>
 
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Empresa </Text>
-               <Text>TRANSPORTES MEXAMERIK S.A DE C.V</Text>
+               <Text style={Styles.simpletext}>TRANSPORTES MEXAMERIK S.A DE C.V</Text>
 
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Dirección: </Text>
-               <Text>Mariano Escobedo S/N Col. Mariano Escobedo Tultitlán, Estado de México C.P. 54946</Text>
+               <Text style={Styles.simpletext}>Mariano Escobedo S/N Col. Mariano Escobedo Tultitlán, Estado de México C.P. 54946</Text>
 
            </View>
            <View style={style.horizontal}>
                <Text style={style.textbutton}>Operador </Text>
                <Text style={style.textbutton}>{data.Operation_Type_Alias}: </Text>
-               <Text>{global.nombre} </Text>
+               <Text style={Styles.simpletext}>{global.nombre} </Text>
               
 
            </View>
           
             <View style={style.horizontal}>
                <Text style={style.textbutton}>licencia: </Text>
-               <Text>{data.License} </Text>
+               <Text style={Styles.simpletext}>{data.License} </Text>
                <Text style={style.textbutton}>  Vig: </Text>
-               <Text>{data.vigencia}</Text>
+               <Text style={Styles.simpletext}>{data.vigencia}</Text>
 
            </View>
            <View style={style.horizontal}>
            <Text style={style.textbutton}>Origen: </Text>
-               <Text>{global.origen}</Text>
+            <Text style={Styles.simpletext}>{global.origen}</Text>
               
 
            </View>
            <View style={style.horizontal}>
            <Text style={style.textbutton}>Destino: </Text>
-               <Text>{global.destino}</Text>
+               <Text style={Styles.simpletext}>{global.destino}</Text>
               
 
            </View>
            <View style={{margin:10}}>
-           <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff',}}>
-           <Row data={[' Ultimas',' Activo', ' Descanso']} style={style.head} />
-           <Row data={[' 24 Hrs',data.act_hrs24,data.inac_hrs24]} />
-           <Row data={[' 05:30 Hrs',data.act_hrs5,data.inac_hrs5]} />
+           <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff',}} style={{color:'#000000'}}> 
+           <Row  data={[' Ultimas',' Activo', ' Descanso']} style={style.head} textStyle={style.head} />
+           <Row data={[' 24 Hrs',data.act_hrs24,data.inac_hrs24]} textStyle={style.text} />
+           <Row data={[' 05:30 Hrs',data.act_hrs5,data.inac_hrs5]} textStyle={style.text} />
            </Table>
            </View>
-           <View style={{marginTop:10,marginRight:40,marginLeft:40}}>
+           <View style={{marginTop:10,marginRight:40,marginLeft:40}} >
                <Button
                title="Ver detalles"
                color="#cca028"
@@ -204,7 +205,12 @@ const style=StyleSheet.create({
           backgroundColor: '#cca028',
            
     },
-  
+    rows: {
+        height: 40,
+        color:'#393d42',
+        backgroundColor: '#cca028',
+         
+  },
 
       menutext:{
           marginLeft:10,
@@ -232,6 +238,8 @@ const style=StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
     letterSpacing: 0.25,
+    color:'#393d42',
+
 
    },
   

@@ -14,7 +14,6 @@ function Detailscreen (props){
         try {
             await AsyncStorage.removeItem("@user_storage");
 
-
             return true;
         }
         catch(exception) {
@@ -44,6 +43,9 @@ function Detailscreen (props){
     }
     const opendepositos=()=>{
         navigation.navigate('depositos')
+    }
+    const opencamera=()=>{
+        navigation.navigate('evidencias')
     }
     return(
         <ScrollView style={{backgroundColor:'#eaeaea'}}>
@@ -100,6 +102,12 @@ function Detailscreen (props){
 
                 </Pressable>
 
+                <Pressable style={style.menuitems}
+                 onPress={opencamera}>
+                    <Image source={require('../drawables/camera.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>EVIDENCIAS</Text>
+
+                </Pressable>
                 <Pressable style={style.menuitems}
                  onPress={loginpress}>
                     <Image source={require('../drawables/shutdown.png')} style={style.menuicon} />

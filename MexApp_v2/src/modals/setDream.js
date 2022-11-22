@@ -280,6 +280,7 @@ const style=StyleSheet.create({
     textbutton:{
         textAlign: 'center',
         color: '#ffffff',
+
      
         
 
@@ -289,6 +290,7 @@ const style=StyleSheet.create({
         textAlign: 'center',
         fontSize:16,
         fontWeight: "bold",
+        color:'#393d42',
 
        
     },

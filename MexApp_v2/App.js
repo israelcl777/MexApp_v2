@@ -25,6 +25,8 @@ import ImageScreen from './src/screens/imageScreen';
 import LiquidacionesScreen from './src/screens/liquidacionesScreen'
 import DepositosScreen from './src/screens/depositosScreen';
 import Liqdetail from './src/screens/liquidetailScreen'
+import CameraScreen from './src/screens/cameraScreen'
+import EvidenciasScreen from './src/screens/evidenciasScreen'
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -147,7 +149,7 @@ const checkToken = async () => {
           source={require('./src/drawables/logo.png')}/>
         ),
         gesturesEnabled: false,  
-        title:""}}/>
+        title:"Datos"}}/>
 
 <Stack.Screen 
        options={{
@@ -158,7 +160,7 @@ const checkToken = async () => {
           source={require('./src/drawables/logo.png')}/>
         ),
         gesturesEnabled: false,  
-        title:""}}
+        title:global.alias}}
       name="unidad" 
       component={Unidad} />
 
@@ -171,7 +173,7 @@ const checkToken = async () => {
             source={require('./src/drawables/logo.png')}/>
           ),
           gesturesEnabled: false,  
-          title:""}}
+          title:"Contactos"}}
       name="contactos" 
       component={Contacs} />
 
@@ -278,6 +280,31 @@ const checkToken = async () => {
           title:"Depositos"}}
       name='depositos'
       component={DepositosScreen} />
+       <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name='camera'
+      component={CameraScreen} />
+
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Evidencias"}}
+      name='evidencias'
+      component={EvidenciasScreen} />
 
 
 

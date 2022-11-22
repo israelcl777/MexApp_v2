@@ -214,6 +214,35 @@ return response
 
   }
 
+  async getevidencias(id_operador, options = {}){
+
+    options.headers = 
+    {
+      'Content-Type': 'application/json',
+      Accept: 'application/json', 
+    };
+    
+    var url='https://intranet.mexamerik.com/evidences/get/'+id_operador
+    const query = await fetch(url,options);
+    const data = await query.json();
+    return data;
+
+  }
+
+  async getObservaciones(id, options = {}){
+
+    options.headers = 
+    {
+      'Content-Type': 'application/json',
+      Accept: 'application/json', 
+    };
+    
+    var url='https://intranet.mexamerik.com/evidences/observations/'+id
+    const query = await fetch(url,options);
+    const data = await query.json();
+    return data;
+
+  }
   
 }
 export default new Api();

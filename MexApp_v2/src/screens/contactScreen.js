@@ -19,29 +19,30 @@ function Contact(){
      
        
     }, [])
+
+  
     const getData = async () => {
         try {
         
           const jsonValue = await AsyncStorage.getItem('@user_storage')
           if(jsonValue != null){
-           
+            var list=[];           
             var convert=JSON.parse(jsonValue)
             var contactoslist=convert.cell_data
-            let lideresdeflota=contactoslist.filter(contactoslist=>contactoslist.kind_id==1)
-            let lideralfa=contactoslist.filter(contactoslist=>contactoslist.kind_id==3)
-            let aro=contactoslist.filter(contactoslist=>contactoslist.kind_id==2)
+            for(var i=0;i<contactoslist.length;i++){
+              var contacto={
+                'id':i,
+                'cell__name':contactoslist[i].cell__name,
+                'kind__name':contactoslist[i].kind__name,
+                'name':contactoslist[i].name,
+                'phone':contactoslist[i].phone,
+                'whatsapp':contactoslist[i].whatsapp,
 
+              }
+              list.push(contacto)
+            }
+            setcontacts(list)            
 
-            setData(aro[0])
-            setLidera(lideralfa[0])
-            setLiderf(lideresdeflota[0])
-            setLiderf2(lideresdeflota[1])|
-            setLiderf3(lideresdeflota[2])
-            setcontacts(lideresdeflota)
-           
-
-          
-      
           }else{
             console.log("no hay usuario guardardo")
            
@@ -61,119 +62,7 @@ function Contact(){
 
     return(
 
-        <View  style={style.content} >
-          <View style={style.horizontal} >
-            <Image source={require('../drawables/userlogo.png')} style={style.imagen} />
-            <View>
-              <View style={style.horizontaltitle} >
-              <Text>{data.kind__name}: </Text>
-              <Text>{data.name}</Text>
-              </View>
-              <View style={style.horizontalcall} >
-                <Pressable 
-                onPress={() => Linking.openURL('tel:+52'+data.phone)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/call.png')} style={style.logo} />
-                  <Text>{data.phone} </Text>  
-                </Pressable>
-                <Pressable
-                   onPress={() => Linking.openURL('whatsapp://send?text=hola&phone=+52'+data.whatsapp)}
-                   style={style.horizontalcall}>
-                  <Image source={require('../drawables/whats.png')} style={style.logo} />
-                  <Text>{data.whatsapp}</Text>
-                </Pressable>
-        
-              </View>
-            
-            </View>
-         
-          </View>
-      
-          <View style={style.horizontal} >
-            <Image source={require('../drawables/userlogo.png')} style={style.imagen} />
-            <View>
-              <View style={style.horizontaltitle} >
-              <Text>{lidea.kind__name}: </Text>
-              <Text>{lidea.name}</Text>
-              </View>
-              <View style={style.horizontalcall} >
-                <Pressable 
-                onPress={() => Linking.openURL('tel:+52'+lidea.phone)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/call.png')} style={style.logo} />
-                  <Text>{lidea.phone} </Text>  
-                </Pressable>
-                <Pressable
-                onPress={() => Linking.openURL('whatsapp://send?text=hola&phone=+52'+lidea.whatsapp)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/whats.png')} style={style.logo} />
-                  <Text>{lidea.whatsapp}</Text>
-                </Pressable>
-        
-              </View>
-            
-            </View>
-         
-          </View>
-      
-          <View style={style.horizontal} >
-            <Image source={require('../drawables/userlogo.png')} style={style.imagen} />
-            <View>
-              <View style={style.horizontaltitle} >
-              <Text>{lidef.kind__name}: </Text>
-              <Text>{lidef.name}</Text>
-              </View>
-              <View style={style.horizontalcall} >
-                <Pressable 
-                onPress={() => Linking.openURL('tel:+52'+lidef.phone)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/call.png')} style={style.logo} />
-                  <Text>{lidef.phone} </Text>  
-                </Pressable>
-                <Pressable 
-                onPress={() => Linking.openURL('whatsapp://send?text=hola&phone=+52'+lidef.whatsapp)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/whats.png')} style={style.logo} />
-                  <Text>{lidef.whatsapp}</Text>
-                </Pressable>
-        
-              </View>
-            
-            </View>
-         
-          </View>
-            <View style={style.horizontal} >
-            <Image source={require('../drawables/userlogo.png')} style={style.imagen} />
-            <View>
-              <View style={style.horizontaltitle} >
-              <Text>{lidef2.kind__name}: </Text>
-              <Text>{lidef2.name}</Text>
-              </View>
-              <View style={style.horizontalcall} >
-                <Pressable 
-                onPress={() => Linking.openURL('tel:+52'+lidef2.phone)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/call.png')} style={style.logo} />
-                  <Text>{lidef2.phone} </Text>  
-                </Pressable>
-                <Pressable 
-                onPress={() => Linking.openURL('whatsapp://send?text=hola&phone=+52'+lidef2.whatsapp)}
-                style={style.horizontalcall}>
-                  <Image source={require('../drawables/whats.png')} style={style.logo} />
-                  <Text>{lidef2.whatsapp}</Text>
-                </Pressable>
-        
-              </View>
-            
-            </View>
-         
-          </View>
-      
-
-      
-        
-
-        </View>
+        <ContactList contacts={contacts}/>
 
     )
 

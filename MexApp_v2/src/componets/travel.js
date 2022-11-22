@@ -1,7 +1,7 @@
 import React from 'react';
 import { View,Text,StyleSheet, Pressable, Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import Styles from '../styles'
 
 
 
@@ -10,24 +10,20 @@ function Travel (props){
    //delivery_datetime
     return(
         <Pressable 
-        style={{ 
-            backgroundColor:'#ffffffcc',
-            paddingVertical: 10,
-            borderRadius: 4,
-            elevation: 3,}}
+        style={Styles.contencard}
         onPress={() => navigation.navigate('travelsdetails',{props:props})}>
             <View style={{margin:8}}>
-            <Text style={{fontWeight: 'bold',}}>{props.agreement}</Text>
+            <Text style={Styles.titletext}>{props.agreement}</Text>
           
-                <Text>{props.client}</Text>
+                <Text style={Styles.simpletext}>{props.client}</Text>
 
       
             <View style={{flexDirection:'row'}}>
-                <Text>SOLICITUD:  </Text>
-                <Text>{props.id}</Text>
+                <Text style={Styles.titletext}>SOLICITUD:  </Text>
+                <Text style={Styles.simpletext}>{props.id}</Text>
 
             </View>
-            <Text>{props.delivery_datetime}</Text>
+            <Text style={Styles.simpletext}>{props.delivery_datetime}</Text>
             </View>
            
         </Pressable>
