@@ -7,8 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function Detailscreen (props){
     const context=props 
     const navigation = useNavigation();
-
-
     const removedata = async (key) => {
       
         try {
@@ -70,7 +68,7 @@ function Detailscreen (props){
             <Pressable
             onPress={openunidad} 
             style={style.menuitems}>
-                    <Image source={require('../drawables/truck.png')} style={style.menuicon} />
+                    <Image source={require('../drawables/itruck.png')} style={style.menuicon} />
                     <Text style={style.menutext}>UNIDAD {global.alias}</Text>
 
                 </Pressable>

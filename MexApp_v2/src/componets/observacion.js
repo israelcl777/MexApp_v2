@@ -1,52 +1,35 @@
 import React from 'react';
 import { Text,Pressable, View, StyleSheet,Linking} from 'react-native';
 import Styles from '../styles'
-import { useNavigation } from '@react-navigation/native';
 
 
 function Evidencia (props){
-    const navigation = useNavigation();
 
-    const openObservaciones=()=>{
-
-        navigation.navigate('observaciones',{ id:props.id})
-
-
-    }
-
-
-    const openpdf=()=>{
-
-        navigation.navigate('pdfweb',{ url:props.url})
-
-
-    }
+ 
+ 
 
 
   return(
     <Pressable
-    onPress={openpdf}
+    onPress={() => Linking.openURL('https://intranet.mexamerik.com/media/evidences/49_20220913170128.pdf')}
     style={Styles.contencard}>
-        <View style={Styles.horizontal}>
-            <Text style={Styles.titletext}>{props.type_id} </Text>
-            <Text style={Styles.simpletext}>{props.status}</Text>
-        </View>
+      
 
         <View style={Styles.horizontal}>
-            <Text style={Styles.titletext}>Creada: </Text>
-            <Text style={Styles.simpletext}>{props.mexapp_datetime}</Text>
+            <Text style={Styles.titletext}>Insertada: </Text>
+            <Text style={Styles.simpletext}>{props.insert}</Text>
         </View>
 
         <View style={Styles.horizontal}>
             <Text style={Styles.titletext}>Decripcíon: </Text>
             <Text style={Styles.simpletext}>{props.description}</Text>
         </View>
-        <View style={style.horizontal} >
-        <Pressable 
-            onPress={openObservaciones}
-            style={style.button1}>
-                <Text style={style.textbutton}> Observaciones </Text>
-            </Pressable>
+        <View style={Styles.horizontal} >
+        <Text style={Styles.titletext}>Usuario: </Text>
+            <Text style={Styles.simpletext}>{props.user__username}</Text>
+      
+       
+    
             </View>
 
         

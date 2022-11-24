@@ -27,6 +27,8 @@ import DepositosScreen from './src/screens/depositosScreen';
 import Liqdetail from './src/screens/liquidetailScreen'
 import CameraScreen from './src/screens/cameraScreen'
 import EvidenciasScreen from './src/screens/evidenciasScreen'
+import ObsScreen from './src/screens/obsScreen'
+import PdfWeb from './src/componets/pdfweb'
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -305,6 +307,29 @@ const checkToken = async () => {
           title:"Evidencias"}}
       name='evidencias'
       component={EvidenciasScreen} />
+
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Observaciones"}}
+      name='observaciones'
+      component={ObsScreen} />
+
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerShown: false,
+
+          gesturesEnabled: false,  
+          title:""}}
+      name='pdfweb'
+      component={PdfWeb} />
 
 
 
