@@ -35,7 +35,7 @@ function TravelsScreen (props){
     useEffect(() => {
         const interval = setInterval(() => {
             gettravel()
-          }, 8000);
+          }, 6000);
           return () =>{
             clearInterval(interval);
             set_travel_current([])
@@ -83,18 +83,18 @@ function TravelsScreen (props){
     const getCP=()=>{
         navigation.navigate('pdf',{sol:travel_current.id})
       }
+      const inst=()=>{
+        navigation.navigate('instrucciones',{id:travel_current.id})
+      }
  
     async function gettravel(){
         id_operador =global.id_operador
         try {
 
             const travel=await Api.getCurrentravel(id_operador)
-            
-           
             var currenttravel=travel[0]
             storeData(currenttravel)
             setIsoffline('')
-
             global.vehicle_id=currenttravel.vehicle_id
             global.origen=currenttravel.origin
             global.destino=currenttravel.destiny
@@ -289,6 +289,10 @@ function TravelsScreen (props){
                             <Text style={Styles.simpletext}>{travel_current.origin_address}</Text>
     
                         </View>
+                        <Pressable 
+                            onPress={inst} style={[style.button,{backgroundColor:solicitudcolor}]}>
+                            <Text style={Styles.simpletext}>Instrucciones de viaje</Text>
+                        </Pressable>
                         <Text style={style.textbutton}>Llegada origen: {origen}</Text>
                         <Pressable 
                         onPress={getCP}

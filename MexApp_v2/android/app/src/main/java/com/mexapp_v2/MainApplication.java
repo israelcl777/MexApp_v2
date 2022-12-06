@@ -12,8 +12,11 @@ import com.facebook.soloader.SoLoader;
 import com.mexapp_v2.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
+
 
 public class MainApplication extends Application implements ReactApplication {
+
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {

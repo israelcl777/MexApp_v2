@@ -1,14 +1,20 @@
 import React ,{ useEffect, useState }from 'react';
-import { View,Text,Button,Image, PermissionsAndroid,Pressable,StyleSheet } from 'react-native';
+import { View,Text,Button,Image, PermissionsAndroid,Pressable,StyleSheet ,Modal} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Styles from '../styles'
 import { useNavigation } from '@react-navigation/native';
+import RNHTMLtoPDF from 'react-native-html-to-pdf'
+import SetEvidence from '../modals/setevidence';
+
 
 
 
 function CametaScreen ({props}){
     const [image,setImage]= useState('https://cdn.pixabay.com/photo/2021/03/23/05/16/camera-6116360_960_720.png')
     const navigation = useNavigation();
+    const [modalVisible1, setModalVisible1] = useState(false);
+    const [urlfile,seturl]= useState('')
+
 
     useEffect(() => {
 
@@ -21,7 +27,21 @@ function CametaScreen ({props}){
    
        
     }, [])
+    async function createPDF(){
+        const fecha = new Date();
+        var dt=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+''+fecha.getHours()+':'+fecha.getMinutes()
+        let options = {
+            html: '<div><img  src="'+image+'"  width="100%" > </div>',
+            fileName: 'evidence'+dt,
+            directory: 'Documents',
+          };
+      
+          let file = await RNHTMLtoPDF.convert(options)
+          seturl(file.filePath)
+          setModalVisible1(true)
 
+
+    }
 
 
 
@@ -90,6 +110,23 @@ function CametaScreen ({props}){
    
     return(
         <View style={{flex:1,width:'100%',height:'100%' }}>
+            <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible1}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible1);
+        }}>
+
+          <SetEvidence 
+          modalVisible1={modalVisible1} 
+          url={urlfile}
+          navigation={navigation}
+          setModalVisible1={setModalVisible1} 
+       />
+
+
+      </Modal>
             <Image
             style={{  width:'100%',height: '100%',resizeMode:'contain',alignSelf:'center'}}
             source={{ uri: image}}
@@ -101,7 +138,7 @@ function CametaScreen ({props}){
                 <Text style={style.textbutton}>Reintentar</Text>
             </Pressable>
             <Pressable 
-            onPress={takephoto}
+            onPress={createPDF}
             style={style.button1}>
                 <Text style={style.textbutton}>Enviar</Text>
             </Pressable>

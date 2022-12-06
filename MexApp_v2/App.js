@@ -29,6 +29,7 @@ import CameraScreen from './src/screens/cameraScreen'
 import EvidenciasScreen from './src/screens/evidenciasScreen'
 import ObsScreen from './src/screens/obsScreen'
 import PdfWeb from './src/componets/pdfweb'
+import Instrucction from './src/screens/InstructionScreen';
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -331,6 +332,19 @@ const checkToken = async () => {
       name='pdfweb'
       component={PdfWeb} />
 
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerShown: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Instrucciones"}}
+      name='instrucciones'
+      component={Instrucction} />
 
 
         </>

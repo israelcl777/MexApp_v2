@@ -1,5 +1,12 @@
 const restAPI='https://intranet.mexamerik.com'
 
+function eliminarDiacriticosEs(texto) {
+  return texto
+         .normalize('NFD')
+         .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
+         .normalize();
+}
+
 class Api{
 
     async login(number,versionapp,token){
@@ -243,6 +250,57 @@ return response
     return data;
 
   }
+
+  async getType(options = {}){
+
+    options.headers = 
+    {
+      'Content-Type': 'application/json',
+      Accept: 'application/json', 
+    };
+    
+    var url='https://intranet.mexamerik.com/evidences/type'
+    const query = await fetch(url,options);
+    const data = await query.json();
+    return data;
+  }
+
+  async setevidence(idoperado,lat,lon,base64,fecha,description,evidence_type ){
+    var test={
+      "driver_id":idoperado,
+      "evidence_type":evidence_type,
+      "lat":lat,
+      "lon":lon,
+      "attachedFile64":base64,
+      "mexapp_datetime":fecha,
+      "description":description
+
+    }
+    console.log(test)
+  
+    const query= await fetch('https://intranet.mexamerik.com/evidences/send',{
+      method: 'POST',
+      headers: {   
+        'Content-Type': 'application/json',
+        'Accept': 'application/json', 
+       },
+       body: JSON.stringify({
+        "driver_id":idoperado,
+      "evidence_type":evidence_type,
+      "lat":lat,
+      "lon":lon,
+      "attachedFile64":base64,
+      "mexapp_datetime":fecha,
+      "description":description
+
+       }),
+    });
+
+    return query;
+  }
+
   
 }
+
+
 export default new Api();

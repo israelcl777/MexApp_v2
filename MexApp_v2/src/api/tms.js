@@ -1,4 +1,5 @@
-const BASE_API='tms.logsys.com.mx'
+const BASE_API='https://tms.logsys.com.mx/tms/v1/'
+const rest_v2='https://app.mexamerik.com/tms/api/v2.0'
 
 class Api{
      
@@ -30,6 +31,19 @@ class Api{
         return data;
     
     
+      }
+
+      async getInst(id,options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+        };
+        var url= rest_v2+'/instructions/shipment/'+id
+        const query = await fetch(url,options);
+        //const data = await query.json();
+        return query;
       }
 }
 export default new Api();

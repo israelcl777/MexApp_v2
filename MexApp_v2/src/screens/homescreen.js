@@ -35,7 +35,7 @@ function HomeScreen (){
       try {       
           const infographics= await Api.getInfographics(global.solicitud)
         
-            console.log(infographics.status)
+            //console.log(infographics.status)
             var imagenes=[]
           
            var count=0;
@@ -62,7 +62,7 @@ function HomeScreen (){
       } catch (error) {
       
         getsave()
-        console.log(error)        
+       // console.log(error)        
       }
 
     }
@@ -91,7 +91,7 @@ function HomeScreen (){
           global.phone=phone
           setItems(convert)
         } catch(e) {
-         console.log(e)
+         //console.log(e)
          return ""
         }
       }
@@ -100,7 +100,7 @@ function HomeScreen (){
           const jsonValue = JSON.stringify(value)
           await AsyncStorage.setItem('@infografias', jsonValue)
         } catch (e) {
-          console.log(e)
+        
         }
       }
       
