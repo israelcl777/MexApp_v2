@@ -4,11 +4,11 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import RNFetchBlob from 'rn-fetch-blob';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Geolocation from 'react-native-geolocation-service';
-import Api from '../api/intranet';
+import Api from '../api/tms';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-function SetDreams (props){
+function FuelConfirmation (props){
     const context=props
     const [isload,setLoad]= useState(false);
     const [string64,setString64]= useState('')
@@ -107,14 +107,12 @@ function SetDreams (props){
         try {
             
 
-         const sendevidencia = await Api.setevidence(global.id_operador,milatitusd,milongitud,string64,datehora,comentario,idtype)
+         const sendevidencia = await Api.setevidencediesel(id,string64)
         
          var validate=sendevidencia.status
          if (validate==200|| validate==202){
-          setevidenceoffline(milatitusd,milongitud,props.url,datehora,comentario,idtype)
-          Alert.alert('Se agrego correctamente')
-          context.setModalVisible1(false)
-          props.navigation.goBack()
+          Alert.alert('Se Confirmo correctamente')
+       
     
         }else{
           setevidenceoffline(milatitusd,milongitud,props.url,datehora,comentario,idtype)
@@ -165,22 +163,6 @@ function SetDreams (props){
         return(
             <View style={style.content}>
               <View style={style.modal} >
-                <Text style={style.title}>Tipo de  evidencia</Text>
-                <SelectList 
-                style={{color:'#000000',width:260}}
-                setSelected={setSelected}
-                data={data}
-                dropdownTextStyles	={{color:'#000000'} }
-                inputStyles={{color:'#000000'} }
-                save="value"/>
-               <Text style={style.title}>comentario</Text>
-
-<TextInput
-        style={style.input}
-        onChangeText={setcomentario}
-        value={comentario}
-      />
-    
                 <View style={style.horizontal}>
               
                 <Pressable 
@@ -279,11 +261,8 @@ const style=StyleSheet.create({
     textbutton:{
         textAlign: 'center',
         color: '#ffffff',
-
-     
-        
-
     },
+
     title:{
       
         textAlign: 'center',
@@ -303,4 +282,4 @@ const style=StyleSheet.create({
 
 
 })
-export default SetDreams;
+export default  FuelConfirmation ;

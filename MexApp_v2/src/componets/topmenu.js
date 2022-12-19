@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomeScreen from '../screens/homescreen';
 import Detailscreen from '../screens/detailscreen';
-//import CameraScreen from '../screens/cameraScreen'
+import CameraScreen from '../screens/cameraScreen'
 //import { color } from 'react-native-reanimated';
 import TravelsTabs from './travels_tabs';
 import DreamsScreen from '../screens/dreamsScreen';
@@ -98,8 +98,9 @@ const context=props;
             },
   
             }}
-      name="dreams" 
-      component={DreamsScreen} />
+      name="dreams" >
+         {props => <DreamsScreen {...props} setLogget={context.setLogget} setConected={context.setConected}/>}
+         </Tab.Screen>
 
 
 

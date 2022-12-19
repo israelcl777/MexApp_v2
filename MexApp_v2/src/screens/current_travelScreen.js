@@ -35,7 +35,7 @@ function TravelsScreen (props){
     useEffect(() => {
         const interval = setInterval(() => {
             gettravel()
-          }, 6000);
+          }, 4000);
           return () =>{
             clearInterval(interval);
             set_travel_current([])
@@ -81,7 +81,8 @@ function TravelsScreen (props){
 
     }
     const getCP=()=>{
-        navigation.navigate('pdf',{sol:travel_current.id})
+        console.log(travel_current.cfdi)
+        navigation.navigate('cartaporte',{id:travel_current.cfdi})
       }
       const inst=()=>{
         navigation.navigate('instrucciones',{id:travel_current.id})
@@ -209,7 +210,7 @@ function TravelsScreen (props){
     else{
         return(
             <View style={{flex:1}}>
-                <Text>{isOffline}</Text>
+          
                 <Modal
                 animationType="slide"
                 transparent={true}

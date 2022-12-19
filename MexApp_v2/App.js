@@ -9,7 +9,7 @@
 import React,{useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Image,Alert,StyleSheet}from 'react-native'
+import {Image,Text,StyleSheet}from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import TravelDetails from './src/screens/travelDetails';
@@ -26,10 +26,13 @@ import LiquidacionesScreen from './src/screens/liquidacionesScreen'
 import DepositosScreen from './src/screens/depositosScreen';
 import Liqdetail from './src/screens/liquidetailScreen'
 import CameraScreen from './src/screens/cameraScreen'
+import CameraDiesel from './src/screens/cameradieselScreen'
 import EvidenciasScreen from './src/screens/evidenciasScreen'
 import ObsScreen from './src/screens/obsScreen'
 import PdfWeb from './src/componets/pdfweb'
 import Instrucction from './src/screens/InstructionScreen';
+import FuelScreen from './src/screens/fuelScreen'
+import Cartaporte from './src/screens/cartaporteScreen'
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -39,6 +42,7 @@ const Stack = createNativeStackNavigator();
 
 const App  =()=> {
   const[is_logged, setLogget]=useState(0)
+  const[is_conected,setConected]=useState(require('./src/drawables/online.png'))
 
 
   useEffect(() => {
@@ -137,8 +141,13 @@ const checkToken = async () => {
           style={style.logo}
           source={require('./src/drawables/logo.png')}/>
         ),
+        headerRight :() => (
+          <Image
+          style={style.logo2}
+          source={is_conected}/>
+        ),
         title: '' }}>
-     {props => <TopMenu {...props} setLogget={setLogget}/>}
+     {props => <TopMenu {...props} setLogget={setLogget} setConected={setConected}/>}
      </Stack.Screen>
 
      <Stack.Screen 
@@ -305,6 +314,20 @@ const checkToken = async () => {
             source={require('./src/drawables/logo.png')}/>
           ),
           gesturesEnabled: false,  
+          title:""}}
+      name='cameradiesel'
+      component={CameraDiesel} />
+      
+
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
           title:"Evidencias"}}
       name='evidencias'
       component={EvidenciasScreen} />
@@ -345,8 +368,32 @@ const checkToken = async () => {
           title:"Instrucciones"}}
       name='instrucciones'
       component={Instrucction} />
-
-
+      <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerShown: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Asig. de Combustible"}}
+      name='fuels'
+      component={FuelScreen} />
+          <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerShown: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Carta porte"}}
+      name='cartaporte'
+      component={Cartaporte} />
         </>
     )}
 
@@ -365,6 +412,11 @@ const style=StyleSheet.create({
       height:45,
       resizeMode:'contain',
   },
+  logo2:{
+    width:35,
+    height:35,
+    resizeMode:'contain',
+},
   menuicon:{
       width:26,
       height:26,

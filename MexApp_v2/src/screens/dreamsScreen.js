@@ -7,7 +7,8 @@ import SetDreams from '../modals/setDream'
 import DinamicImage from '../componets/dinamicImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function DreamsScreen (){
+function DreamsScreen (props){
+  const context=props
     const [bandera,setBandera]=useState('#ffffff')
     const [banderadreams, setBanderadrems]=useState(0)
     const [banderabutton, setBanderabutton]=useState('#008f39')
@@ -152,6 +153,8 @@ function DreamsScreen (){
             setData(dreams)
             storeData(dreams)
             setIsoffline('')
+            context.setConected(require('../drawables/online.png'))
+
             validate()
            
             
@@ -170,6 +173,7 @@ function DreamsScreen (){
         }
       }
       const dataOffline = async () => {
+        context.setConected(require('../drawables/offline.png'))
         try {
           const jsonValue = await AsyncStorage.getItem('@dreams_storage')
           var convert=JSON.parse(jsonValue)

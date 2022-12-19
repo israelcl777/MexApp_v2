@@ -1,5 +1,7 @@
 import React, { useEffect, useState }from 'react';
 import { Text, View,StyleSheet,Image,Pressable} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNFetchBlob from 'rn-fetch-blob';
 import { WebView } from 'react-native-webview';
 import Api from '../api/intranet'
 import EvidencaList from '../containers/evidenciasList'
@@ -10,8 +12,10 @@ function EvidenciasScreen (){
     const navigation = useNavigation();
     const [items, setItems] = useState([])
     useEffect(() => {
+        getdataoffline()
         getevi()
        
+
    }, [])
 
    const getevi = async() =>{
@@ -23,6 +27,37 @@ function EvidenciasScreen (){
    const opencamera=()=>{
     navigation.navigate('camera')
 }
+function Base64(filePath){
+    RNFetchBlob.fs
+.readFile(filePath, 'base64')
+.then((data) => {
+    return data
+
+})
+.catch((err) => {
+    return 'error'
+});
+
+}
+   const getdataoffline= async()=> {
+    const evidencias = await AsyncStorage.getItem('@evidence')
+
+   
+    if(evidencias != null){
+        var convert=JSON.parse(evidencias)
+        var string= Base64(convert.string64) 
+        console.log(string)
+    }
+
+    try {
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+
+   }
+
 
   return(
       

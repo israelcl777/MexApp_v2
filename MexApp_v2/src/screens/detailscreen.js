@@ -45,6 +45,9 @@ function Detailscreen (props){
     const opencamera=()=>{
         navigation.navigate('evidencias')
     }
+    const openfuel=()=>{
+        navigation.navigate('fuels')
+    }
     return(
         <ScrollView style={{backgroundColor:'#eaeaea'}}>
             <View style={style.header}>
@@ -105,6 +108,11 @@ function Detailscreen (props){
                     <Image source={require('../drawables/camera.png')} style={style.menuicon} />
                     <Text style={style.menutext}>EVIDENCIAS</Text>
 
+                </Pressable>
+                <Pressable style={style.menuitems}
+                 onPress={openfuel}>
+                    <Image source={require('../drawables/fuel.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>COMBUSTIBLE</Text>
                 </Pressable>
                 <Pressable style={style.menuitems}
                  onPress={loginpress}>
