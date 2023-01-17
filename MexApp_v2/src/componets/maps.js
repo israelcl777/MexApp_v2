@@ -150,7 +150,7 @@ const mapa=(props)=>{
     }}>
 
      <Marker
-      icon
+      
       coordinate={{
         latitude: milatitusd,
         longitude: milongitud,
@@ -161,7 +161,7 @@ const mapa=(props)=>{
          <Image source={require('../drawables/camion2.png')} style={{height: 30, width:40,resizeMode:'contain' }} />
      </Marker>
      <Marker
-      icon
+      
       coordinate={{
         latitude: latitudeO,
         longitude: longitudeO,
@@ -172,7 +172,7 @@ const mapa=(props)=>{
          <Image source={require('../drawables/marker_blue.png')} style={{height: 30, width:40,resizeMode:'contain' }} />
      </Marker>
      <Marker
-      icon
+      
       coordinate={{
         latitude: latitudeD,
         longitude: longitudeD,

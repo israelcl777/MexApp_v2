@@ -11,7 +11,7 @@ class EventList extends Component{
     
 
     keyExtractor = item => item.id
-    renderEmtpy=()=><Empty text="ningun resultado coincide con la busqueda  :("></Empty>
+    renderEmtpy=()=><Empty text=""></Empty>
     itemseparator=()=><Separator  color='#eaeaea' ></Separator>
     renderItem=({item})=>{
         return(
@@ -22,8 +22,7 @@ class EventList extends Component{
         console.log(this.props.events)
 
         return(
-            
-
+ 
             <Layout>
             
         

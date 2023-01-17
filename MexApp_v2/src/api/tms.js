@@ -11,7 +11,7 @@ class Api{
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
         
         };
-        var url='https://'+BASE_API+'/tms/v1/drivers/'+id_Operador
+        var url='https://tms.logsys.com.mx/tms/v1/drivers/'+id_Operador
         const query = await fetch(url,options);
         const data = await query.json();
         return data;
@@ -65,12 +65,18 @@ class Api{
       async getfuel(id_Operador,options = {}){
         const fecha = new Date();
         var month = ("0" + (fecha.getMonth() + 1)).slice(-2);
-        var lastmonth=("0" + (fecha.getMonth()-1)).slice(-2);
+        var lastmonth=("0" + (fecha.getMonth()-2)).slice(-2);
+        var añopast=fecha.getFullYear()
+        if(lastmonth<=0){
+          lastmonth=12
+          añopast=fecha.getFullYear()-1
+
+        }
         var date = ("0" + fecha.getDate()).slice(-2);
         var hora=("0" + fecha.getHours()).slice(-2);
         var minute=("0" + fecha.getMinutes()).slice(-2);
 
-        var fechainicio=fecha.getFullYear()+'-'+lastmonth+'-'+date+'T'+hora+':'+minute+':'+'00'
+        var fechainicio=añopast+'-'+lastmonth+'-'+date+'T'+'00'+':'+'00'+':'+'00'
         var fechaActual=fecha.getFullYear()+'-'+month+'-'+date+'T'+'23'+':'+'59'+':'+'00'
         options.headers = 
         {
@@ -79,6 +85,7 @@ class Api{
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
         };
         var url= rest_v2+'/vehicles/dieselassignment/assignments?vehicles=-1&vendors=-1&drivers='+id_Operador+'&status=-1&vendor_type=-1&sort(-time)&from_time='+fechainicio+"&to_time="+fechaActual
+        console.log(url)
         const query = await fetch(url,options);
         return query;
       }

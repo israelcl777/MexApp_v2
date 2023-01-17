@@ -148,45 +148,50 @@ function Cdelivery (props){
                     <CheckBox
                      disabled={false}
                     value={toggleCheckBox}
+                    tintColors={{ true: '#F15927', false: 'black' }}
                     onValueChange={(newValue) => setToggleCheckBox(newValue)}
                     />
-                   <Text>Sin problemas</Text>
+                   <Text style={{color:'#000000'}}>Sin problemas</Text>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
+                     tintColors={{ true: '#F15927', false: 'black' }}
                     value={toggleCheckBox1}
                     onValueChange={(newValue) => setToggleCheckBox1(newValue)}
                     />
-                   <Text>Documentación incompleta</Text>
+                   <Text style={{color:'#000000'}}>Documentación incompleta</Text>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
                     value={toggleCheckBox2}
+                    tintColors={{ true: '#F15927', false: 'black' }}
                     onValueChange={(newValue) => setToggleCheckBox2(newValue)}
                     />
-                   <Text>Devolucion y rechazos</Text>
+                   <Text style={{color:'#000000'}}>Devolucion y rechazos</Text>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
                     value={toggleCheckBox3}
+                    tintColors={{ true: '#F15927', false: 'black' }}
                     onValueChange={(newValue) => setToggleCheckBox3(newValue)}
                     />
-                   <Text>Faltantes</Text>
+                   <Text style={{color:'#000000'}}>Faltantes</Text>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
                     value={toggleCheckBox4}
+                    tintColors={{ true: '#F15927', false: 'black' }}
                     onValueChange={(newValue) => setToggleCheckBox4(newValue)}
                     />
-                   <Text>Sin recivo de maniobra</Text>
+                   <Text style={{color:'#000000'}}>Sin recivo de maniobra</Text>
 
                 </View>
                 </View>
@@ -309,6 +314,7 @@ const style=StyleSheet.create({
         textAlign: 'center',
         fontSize:16,
         fontWeight: "bold",
+        color:'#000000'
 
        
     },

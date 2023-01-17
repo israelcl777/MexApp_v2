@@ -148,27 +148,30 @@ function CPicked (props){
                         <CheckBox
                          disabled={false}
                         value={toggleCheckBox}
+                        tintColors={{ true: '#F15927', false: 'black' }}
                         onValueChange={(newValue) => setToggleCheckBox(newValue)}
                         />
-                       <Text>Shipment</Text>
+                       <Text style={{color:'#000000'}}>Shipment</Text>
     
                     </View>
                     <View  style={style.checkbox}>
                         <CheckBox
                          disabled={false}
                         value={toggleCheckBox1}
+                        tintColors={{ true: '#F15927', false: 'black' }}
                         onValueChange={(newValue) => setToggleCheckBox1(newValue)}
                         />
-                       <Text>Destino</Text>
+                       <Text style={{color:'#000000'}}>Destino</Text>
     
                     </View>
                     <View  style={style.checkbox}>
                         <CheckBox
                          disabled={false}
                         value={toggleCheckBox2}
+                        tintColors={{ true: '#F15927', false: 'black' }}
                         onValueChange={(newValue) => setToggleCheckBox2(newValue)}
                         />
-                       <Text>Cita de descarga</Text>
+                       <Text style={{color:'#000000'}}>Cita de descarga</Text>
     
                     </View>
                     </View>
@@ -283,6 +286,7 @@ const style=StyleSheet.create({
         textAlign: 'center',
         fontSize:16,
         fontWeight: "bold",
+        color:'#000000'
 
        
     },

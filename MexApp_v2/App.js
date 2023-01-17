@@ -77,7 +77,7 @@ const getData = async () => {
       global.id_operador=convert.id
       global.nombre = convert.nombre;
       global.alias= convert.unidad;
-      //console.log(global.id_operador)
+      console.log(global.id_operador)
       messaging()
       .subscribeToTopic(convert.id+"")
       .then(() => console.log('Subscribed to topic!'));
@@ -97,7 +97,7 @@ const getData = async () => {
 const checkToken = async () => {
   const fcmToken = await messaging().getToken();
   if (fcmToken) {
-//console.log(fcmToken);
+  console.log(fcmToken);
   } 
  }
 

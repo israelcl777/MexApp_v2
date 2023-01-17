@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { View,Text,ScrollView,StyleSheet,Image,Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+/*/
+  <Pressable style={style.menuitems}
+                 onPress={loginpress}>
+                    <Image source={require('../drawables/shutdown.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>CERRAR SESSION</Text>
 
+                </Pressable>
+
+/*/
 
 function Detailscreen (props){
     const context=props 
@@ -114,12 +122,7 @@ function Detailscreen (props){
                     <Image source={require('../drawables/fuel.png')} style={style.menuicon} />
                     <Text style={style.menutext}>COMBUSTIBLE</Text>
                 </Pressable>
-                <Pressable style={style.menuitems}
-                 onPress={loginpress}>
-                    <Image source={require('../drawables/shutdown.png')} style={style.menuicon} />
-                    <Text style={style.menutext}>CERRAR SESSION</Text>
-
-                </Pressable>
+              
            
                
 

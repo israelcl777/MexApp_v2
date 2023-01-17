@@ -10,7 +10,6 @@ import Api from'../api/tms'
 
 
 
-
 function CametaScreen (props){
     const [image,setImage]= useState('')
     const navigation = useNavigation();
@@ -21,15 +20,13 @@ function CametaScreen (props){
 
     useEffect(() => {
 
-  
         if (Platform.OS === 'android') {
             permissioncamera();
           } else {
            takephoto()
            console.log('permission ios')
           }
-   
-       
+
     }, [])
     async function createPDF(){
       try {
@@ -59,10 +56,6 @@ function CametaScreen (props){
 
 });
     }
-
-
-
-
 
     const takephoto=()=>{
         const options={

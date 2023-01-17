@@ -189,6 +189,7 @@ const style=StyleSheet.create({
         textAlign: 'center',
         fontSize:16,
         fontWeight: "bold",
+        color:'#000000',
 
        
     },

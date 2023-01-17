@@ -11,7 +11,7 @@ class InstrucctionList extends Component{
     
 
     keyExtractor = item => item._id
-    renderEmtpy=()=><Empty text="ningun resultado coincide con la busqueda  :("></Empty>
+    renderEmtpy=()=><Empty text=""></Empty>
     itemseparator=()=><Separator  color='#eaeaea' ></Separator>
     renderItem=({item})=>{
         return(
