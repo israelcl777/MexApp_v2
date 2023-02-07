@@ -64,8 +64,9 @@ function LoginScreen (props){
      <View
      style={styles.container}
      >
-        <ImageBackground source={require('../drawables/login.png')} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={require('../drawables/portada.png')} resizeMode="cover" style={styles.image}>
              <View style={styles.form}>
+               <Image />
                 
                 <View style={styles.horizontal}>
                     <Text style={styles.text}>+52</Text>
@@ -138,8 +139,8 @@ const styles = StyleSheet.create({
       },
     form:{
         backgroundColor:'#4b4b4bbb'  ,
-        marginTop:20,
-        marginBottom:10,
+
+      
         marginLeft:40,
         marginRight:40,
     },
@@ -167,7 +168,8 @@ const styles = StyleSheet.create({
     },
     image: {
       flex: 1,
-      justifyContent: "center"
+      justifyContent: "center",
+
     },
     boton:{
        

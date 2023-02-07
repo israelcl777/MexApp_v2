@@ -23,7 +23,7 @@ function NewDream (props){
     async function newdream(){
       serLoad(true)
       var init =date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+' '+time.getHours()+":"+time.getMinutes()
-      var end =date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+' '+time.getHours()+":"+time.getMinutes()
+      var end =date1.getDate()+"-"+(date1.getMonth()+1)+"-"+date1.getFullYear()+' '+time1.getHours()+":"+time1.getMinutes()
       console.log('fecha inicio: '+init+' '+'fecha fin: '+end)
 
       try {

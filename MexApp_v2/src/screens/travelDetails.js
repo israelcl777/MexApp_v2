@@ -74,6 +74,7 @@ const style=StyleSheet.create({
           margin:5,
           fontWeight: 'bold',
           fontSize:15,
+          color:'#393d42',
           width:"20%",
 
          
@@ -83,7 +84,7 @@ const style=StyleSheet.create({
       text2:{
         margin:5,
         width:"75%",
-
+        color:'#393d42',
           fontSize:14
 
 

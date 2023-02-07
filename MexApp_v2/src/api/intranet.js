@@ -133,6 +133,7 @@ return response
        
       }),
     });
+    console.log(query.body)
     const data = await query.text()
     console.log(data)
     return data

@@ -139,7 +139,7 @@ const checkToken = async () => {
         headerLeft :() => (
           <Image
           style={style.logo}
-          source={require('./src/drawables/logo.png')}/>
+          source={require('./src/drawables/mexapp.png')}/>
         ),
         headerRight :() => (
           <Image
@@ -158,7 +158,7 @@ const checkToken = async () => {
         headerRight :() => (
           <Image
           style={style.logo}
-          source={require('./src/drawables/logo.png')}/>
+          source={require('./src/drawables/mexapp.png')}/>
         ),
         gesturesEnabled: false,  
         title:"Datos"}}/>
@@ -169,7 +169,7 @@ const checkToken = async () => {
         headerRight :() => (
           <Image
           style={style.logo}
-          source={require('./src/drawables/logo.png')}/>
+          source={require('./src/drawables/mexapp.png')}/>
         ),
         gesturesEnabled: false,  
         title:global.alias}}
@@ -182,7 +182,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:"Contactos"}}
@@ -195,7 +195,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:"Norma 87"}}
@@ -207,7 +207,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:"Bitacora"}}
@@ -221,7 +221,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:""}}
@@ -247,7 +247,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:""}}
@@ -260,7 +260,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:"Liquidaciones"}}
@@ -273,7 +273,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:"Detalle"}}
@@ -286,7 +286,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:"Depositos"}}
@@ -298,7 +298,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:""}}
@@ -311,7 +311,7 @@ const checkToken = async () => {
           headerRight :() => (
             <Image
             style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
+            source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
           title:""}}

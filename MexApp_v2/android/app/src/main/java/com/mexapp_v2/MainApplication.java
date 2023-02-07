@@ -13,7 +13,8 @@ import com.mexapp_v2.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
-
+import android.database.CursorWindow;
+import java.lang.reflect.Field;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -59,6 +60,14 @@ public class MainApplication extends Application implements ReactApplication {
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+      try {
+          Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+          field.setAccessible(true);
+          field.set(null, 100 * 1024 * 1024); // the 100MB is the new size
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+
   }
 
   /**

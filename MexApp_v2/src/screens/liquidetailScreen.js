@@ -36,7 +36,7 @@ function LiqdetailsScreen (props){
             let p= convert.filter(data=> data.tipo_registro=='P')
              setDepositos(d)
              setPercepciones(p)
-             setdeducciones(d)
+             setdeducciones(cd)
              setGastos(g)
 
          
