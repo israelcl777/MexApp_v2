@@ -16,9 +16,9 @@ function Liquidacion (props){
 
   useEffect(() => {
 
-    var f=unixtolocal(props.fecha)
-    var f2=unixtolocal(props.fechaInicio)
-    var f3=unixtolocal(props.fechaiFin)
+    var f=unixtolocal(props.time)
+    var f2=unixtolocal(props.from_time)
+    var f3=unixtolocal(props.to_time)
     
     setfecha(f) 
     setfechainit(f2) 
@@ -31,9 +31,12 @@ function Liquidacion (props){
 
   const unixtolocal =(fecha)=> {
     try {
-      var con=   fecha.replace('/Date(','').replace(')/','')
-      var timestamp = parseInt(con) //1607110465663
-      var date = new Date(timestamp);
+      if(fecha==null){
+        return ''
+
+
+      }else{
+        var date = new Date(fecha);
       var year=date.getFullYear()
       var month=date.getMonth()+1
       var day=date.getDate()
@@ -42,6 +45,10 @@ function Liquidacion (props){
       var f= day+'-'+month+'-'+year+' '+hora+':'+minute
     
       return f;
+
+      }
+    
+      
       
     } catch (error) {
       return ''
@@ -60,9 +67,9 @@ function Liquidacion (props){
 <Pressable style={Styles.contencard} onPress={opendetail}>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>NO liquidación.</Text>
-    <Text style={Styles.simpletext}>{props.id_liquidacion}</Text>
+    <Text style={Styles.simpletext}>{props.id}</Text>
     <Text style={Styles.titletext}>Importe.</Text>
-    <Text style={Styles.simpletext}>{props.importe} $</Text>
+    <Text style={Styles.simpletext}>{props.total_balance} $</Text>
     
   </View>
   <View style={Styles.horizontal}>
@@ -71,9 +78,9 @@ function Liquidacion (props){
   </View>
   <View style={Styles.horizontal}>
   <Text style={Styles.titletext}>No Preliq.</Text>
-    <Text style={Styles.simpletext}>{props.folio_pre}</Text>
+    <Text style={Styles.simpletext}>{props.preliquidation_id}</Text>
     <Text style={Styles.titletext}>Unidad</Text>
-    <Text style={Styles.simpletext}>{props.Unidad}</Text>
+    <Text style={Styles.simpletext}>{props.preliquidation_vehicle}</Text>
   </View>
   <View style={Styles.horizontal}>
     

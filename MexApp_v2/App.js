@@ -24,6 +24,7 @@ import OpenPdf from './src/componets/openPdf';
 import ImageScreen from './src/screens/imageScreen';
 import LiquidacionesScreen from './src/screens/liquidacionesScreen'
 import DepositosScreen from './src/screens/depositosScreen';
+import GatosScreen from './src/screens/gastoScreen'
 import Liqdetail from './src/screens/liquidetailScreen'
 import CameraScreen from './src/screens/cameraScreen'
 import CameraDiesel from './src/screens/cameradieselScreen'
@@ -292,6 +293,21 @@ const checkToken = async () => {
           title:"Depositos"}}
       name='depositos'
       component={DepositosScreen} />
+
+      
+<Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/mexapp.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Gatos"}}
+      name='gastos'
+      component={GatosScreen} />
+
        <Stack.Screen 
         options={{
           unmountOnBlur: true,

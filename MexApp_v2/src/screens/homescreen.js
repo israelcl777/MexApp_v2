@@ -62,7 +62,7 @@ function HomeScreen (){
       } catch (error) {
       
         getsave()
-       // console.log(error)        
+       // console.log(error)        rt
       }
 
     }
@@ -74,7 +74,7 @@ function HomeScreen (){
         Inphograpics_list(convert)
        
       } catch(e) {
-       console.log(e)
+      // console.log(e)
        return ""
       }
     }

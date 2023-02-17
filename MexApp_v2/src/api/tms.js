@@ -60,7 +60,72 @@ class Api{
         });
         return query;
       }
+      async getliquidations(id_Operador,from_time, to_time, options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+        };
+        //http://192.168.1.162:9096/liquidations/api/liquidations?start=0&end=1000&from_time=2023-02-01T06:00:00.000Z&to_time=2023-02-08T05:59:00.000Z
+        var url='http://192.168.1.162:9096/liquidations/api/liquidations?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
+        console.log(url)
+        const query = await fetch(url,options);
+        const data = await query.json();
+       
+        return data;
       
+
+      }
+      async getliqdet(id, options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+        };
+        //
+        var url='http://192.168.1.162:9096/liquidations/api/liquidations/'+id
+        const query = await fetch(url,options);
+        const data = await query.json(); 
+        return data;
+      
+
+      }
+      async getgasto(id_Operador,from_time, to_time, options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+        };
+        //http://192.168.1.162:9096/liquidations/api/outgoings?start=0&end=1000&driver_id=2&from_time=2023-02-01T06%3A00%3A00.000Z&to_time=2023-02-16T05%3A59%3A00.000Z
+        var url='http://192.168.1.162:9096/liquidations/api/outgoings?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
+        console.log(url)
+        const query = await fetch(url,options);
+        const data = await query.json();
+       
+        return data;
+      
+
+      }
+      async getdepositos(id_Operador,from_time, to_time, options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+        };
+        //http://192.168.1.162:9096/liquidations/api/deposits?start=0&end=1000&driver_id=2&from_time=2023-02-01T06%3A00%3A00.000Z&to_time=2023-02-16T05%3A59%3A00.000Z
+        var url='http://192.168.1.162:9096/liquidations/api/deposits?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
+        console.log(url)
+        const query = await fetch(url,options);
+        const data = await query.json();
+       
+        return data;
+      
+
+      }
 
       async getfuel(id_Operador,options = {}){
         const fecha = new Date();

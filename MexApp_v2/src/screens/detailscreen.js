@@ -44,6 +44,9 @@ function Detailscreen (props){
     const opendepositos=()=>{
         navigation.navigate('depositos')
     }
+    const opengastos=()=>{
+        navigation.navigate('gastos')
+    }
     const opencamera=()=>{
         navigation.navigate('evidencias')
     }
@@ -102,6 +105,12 @@ function Detailscreen (props){
                  onPress={opendepositos}>
                     <Image source={require('../drawables/icon_dep.png')} style={style.menuicon} />
                     <Text style={style.menutext}>DEPOSITOS</Text>
+
+                </Pressable>
+                <Pressable style={style.menuitems}
+                 onPress={opengastos}>
+                    <Image source={require('../drawables/gastos.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>GASTOS</Text>
 
                 </Pressable>
 

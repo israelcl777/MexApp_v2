@@ -6,7 +6,7 @@ import {
 }from 'react-native';
 import Styles from '../styles'
 
-function Empty (props){
+function Gasto (props){
 
 
   const[fecha,setfecha]=useState('')
@@ -21,8 +21,8 @@ function Empty (props){
   useEffect(() => {
 
     var f=local(props.requested_on)
-    var f2=local(props.approved_on)
-    var f3=local(props.realized_on)
+    var f2=local(props.required_on)
+    var f3=local(props.requested_on)
     setfecha(f) 
     setfechainit(f2) 
     setfechafin(f3) 
@@ -101,29 +101,41 @@ function Empty (props){
 <View style={Styles.contencard}>
   <Text style={{color:color, textAlign:'right',marginTop:10}}>{props.status} </Text>
   <View style={Styles.horizontal}>
+  <Text style={Styles.titletext}>NO Gasto:</Text>
+    <Text style={Styles.simpletext}>{props.id}</Text>
     <Text style={Styles.titletext}>Importe.</Text>
     <Text style={Styles.simpletext}>{props.amount} $</Text>
-    <Text style={Styles.titletext}>Fecha:</Text>
-    <Text style={Styles.simpletext}>{fecha}</Text>
+   
+  </View>
+
+  <View style={Styles.horizontal}>
+    <Text style={Styles.titletext}>Solicitado el: </Text>
+    <Text style={Styles.simpletext}>{fechainit}</Text>
+  </View>
+
+  <View style={Styles.horizontal}>
+    <Text style={Styles.titletext}>Aplicado el: </Text>
+    <Text style={Styles.simpletext}>{fechafin}</Text>
+  </View>
+  <View style={Styles.horizontal}>
+    <Text style={Styles.titletext}>Departament: </Text>
+    <Text style={Styles.simpletext}>{props.responsible_department}</Text>
   </View>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Comentario</Text>
     <Text style={Styles.simpletext}>{props.comment}</Text>
   </View>
   <View style={Styles.horizontal}>
-    <Text style={Styles.titletext}>Autorizado</Text>
-    <Text style={Styles.simpletext}>{fechainit}</Text>
+    <Text style={Styles.titletext}>Solicitud</Text>
+    <Text style={Styles.simpletext}>{props.shipment_id}</Text>
+    <Text style={Styles.titletext}>Tipo</Text>
+    <Text style={Styles.simpletext}>{props.type}</Text>
   </View>
-  <Text style={Styles.simpletextm}>{props.approved_by}</Text>
-  <View style={Styles.horizontal}>
-    <Text style={Styles.titletext}>Aplicado</Text>
-    <Text style={Styles.simpletext}>{fechafin}</Text>
-  </View>
-  <Text style={[Styles.simpletextm,{marginBottom:10,}]}>{props.realized_by}</Text>
+  
 
 </View>
     )
 
 }
 
-export default Empty
+export default Gasto

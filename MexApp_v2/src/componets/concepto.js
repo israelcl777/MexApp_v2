@@ -12,9 +12,10 @@ function Empty (props){
 
   const unixtolocal =(fecha)=> {
     try {
-      var con=   fecha.replace('/Date(','').replace(')/','')
-      var timestamp = parseInt(con) //1607110465663
-      var date = new Date(timestamp);
+      if(fecha==null){
+        return ''
+      }else{
+        var date = new Date(fecha);
       var year=date.getFullYear()
       var month=date.getMonth()+1
       var day=date.getDate()
@@ -23,40 +24,44 @@ function Empty (props){
       var f= day+'-'+month+'-'+year+' '+hora+':'+minute
     
       return f;
-      
+
+      }
+     
     } catch (error) {
       return ''
       
     }
+
   }
 
     return(
 <View style={Styles.contencard}>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Importe:</Text>
-    <Text style={Styles.simpletext}>{props.importe}</Text>
+    <Text style={Styles.simpletext}>{props.amount}</Text>
     <Text style={Styles.titletext}>Fecha:</Text>
-    <Text style={Styles.simpletext}>{unixtolocal(props.fecha)}</Text>
+    <Text style={Styles.simpletext}>{unixtolocal(props.liquidated_on)}</Text>
   </View>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>registro:</Text>
-    <Text style={Styles.simpletext}>{props.id_registro}</Text>
+    <Text style={Styles.simpletext}>{props.id}</Text>
     <Text style={Styles.titletext}>Solicitud:</Text>
-    <Text style={Styles.simpletext}>{props.Solicitud}</Text>
+    <Text style={Styles.simpletext}>{props.shipment_id}</Text>
   </View>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Tipo:</Text>
-    <Text style={Styles.simpletext}>{props.Tipo}</Text>
+    <Text style={Styles.simpletext}>{props.type}</Text>
    
   </View>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Subtipoipo:</Text>
-    <Text style={Styles.simpletext}>{props.SubTipo}</Text>
+    <Text style={Styles.simpletext}>{props.subtype}</Text>
    
   </View>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Comentario:</Text>
-    <Text style={Styles.simpletext}>{props.comentario}</Text>
+    <Text style={Styles.simpletext}>{props.comment}</Text>
+   
    
   </View>
 

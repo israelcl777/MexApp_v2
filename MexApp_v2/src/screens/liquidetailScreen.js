@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import { View,Text,Button,Alert} from 'react-native';
 import Liqdetlist from '../containers/liqdetlist';
-import Api from'../api/intranet'
+import Api from'../api/tms'
 import NLoginScreen from '../screens/nloginscreen'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import LiqdeailList from '../containers/liqdetlist'
@@ -28,15 +28,15 @@ function LiqdetailsScreen (props){
         id_operador =global.id_operador
         try {
 
-            const conceptos=await Api.getliqdet(context.id_liquidacion)
-            var convert=JSON.parse(conceptos)
-            let d= convert.filter(d=> d.tipo_registro=='D')
-            let g= convert.filter(g=> g.tipo_registro=='G')
-            let cd= convert.filter(cd=> cd.tipo_registro=='CD')
-            let p= convert.filter(data=> data.tipo_registro=='P')
+            const conceptos=await Api.getliqdet(context.id)
+        
+            let d=conceptos.deposits
+            let g=conceptos.outgoings
+            let cd=conceptos.charges_deductions
+            let p= conceptos.perceptions
              setDepositos(d)
              setPercepciones(p)
-             setdeducciones(cd)
+             setdeducciones(cd)     
              setGastos(g)
 
          
