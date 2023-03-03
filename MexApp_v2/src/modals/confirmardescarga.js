@@ -69,14 +69,26 @@ function Cdelivery (props){
     })
     async function Confirmar(){
         serLoad(true)
+        const fecha = new Date();
+        var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
 
         try {
             const confirmated=await Api.confirmar(context.solicitud,3,observacion)
-            console.log(confirmated)
-            if(id_causa!=0){
-                setReporter()
+            //console.log( confirmated.status)
+            if( confirmated.status==200|| confirmated.status==202){
+                Alert.alert("Se confirmo correctamente")
+
+
+            }else{
+
+
             }
-            send()()
+           
+           // Alert.alert()
+           /*/ if(id_causa!=0){
+                setReporter()
+            }/*/
+            send()
           
         } catch (error) {
             var confirmation={
@@ -191,7 +203,7 @@ function Cdelivery (props){
                     tintColors={{ true: '#F15927', false: 'black' }}
                     onValueChange={(newValue) => setToggleCheckBox4(newValue)}
                     />
-                   <Text style={{color:'#000000'}}>Sin recivo de maniobra</Text>
+                   <Text style={{color:'#000000'}}>Sin recibo de maniobra</Text>
 
                 </View>
                 </View>
@@ -240,6 +252,7 @@ const style=StyleSheet.create({
         margin: 12,
         borderWidth: 0.5,
         padding: 10,
+        color:'#000'
       },
     image:{
         width:200,

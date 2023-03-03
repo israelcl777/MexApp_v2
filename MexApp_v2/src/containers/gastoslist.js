@@ -8,14 +8,13 @@ import Gasto from '../componets/gasto'
 
 
 class EventList extends Component{
-    
 
-    keyExtractor = item => item.id.toS
+    keyExtractor = item => item.id
     renderEmtpy=()=><Empty text="ningun resultado coincide con la busqueda  :("></Empty>
     itemseparator=()=><Separator  color='#eaeaea' ></Separator>
     renderItem=({item})=>{
         return(
-<Gasto {...item}></Gasto>
+<Gasto {...item }></Gasto>
         )
     }
     render(){

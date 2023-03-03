@@ -81,8 +81,17 @@ function TravelsScreen (props){
 
     }
     const getCP=()=>{
-        console.log(travel_current.cfdi)
-        navigation.navigate('cartaporte',{id:travel_current.cfdi})
+        console.log('carta porte'+travel_current.cfdi)
+        if(travel_current.cfdi==""||travel_current.cfdi==null){
+            console.log("no hay carta porte, se abrira")
+            navigation.navigate('pdf',{sol:travel_current.id})
+
+        }else{
+            console.log(travel_current.cfdi)
+            navigation.navigate('cartaporte',{id:travel_current.cfdi})
+
+        }
+       
       }
       const inst=()=>{
         navigation.navigate('instrucciones',{id:travel_current.id})
@@ -100,6 +109,7 @@ function TravelsScreen (props){
             global.origen=currenttravel.origin
             global.destino=currenttravel.destiny
             global.solicitud= currenttravel.id
+
             if(currenttravel.travel_confirmed==false){
                 setConfimated(true)
             }

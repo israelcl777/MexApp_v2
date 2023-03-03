@@ -68,19 +68,21 @@ function OpenPdf(props) {
             // more headers  ..
           })
          
-         .then((res)=>{        
+         .then((res)=>{    
+          let status = res.info().status;    
+          console.log('conexion:'+status)
            
         
          if (Platform.OS === 'android') {
            console.log(res.path())
       
-         RNFetchBlob.android.actionViewIntent(res.path(),'application/pdf');
+         //.android.actionViewIntent(res.path(),'application/pdf');
 
         }
         else{
           RNFetchBlob.ios.openDocument(res.path());
-       
-        }        
+          console.log(res.path())
+        }     
             
          })
          .catch((errorMessage, statusCode) => {

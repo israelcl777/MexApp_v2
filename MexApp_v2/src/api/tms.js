@@ -1,5 +1,8 @@
+import axios from "axios";
+
 const BASE_API='https://tms.logsys.com.mx/tms/v1/'
 const rest_v2='https://app.mexamerik.com/tms/api/v2.0'
+
 
 class Api{
      
@@ -14,10 +17,9 @@ class Api{
         var url='https://tms.logsys.com.mx/tms/v1/drivers/'+id_Operador
         const query = await fetch(url,options);
         const data = await query.json();
-        return data;
-        
-    
+        return data;   
       }
+
     async getUnIdad(id_unidad,options = {}){
         options.headers = 
         {
@@ -60,18 +62,49 @@ class Api{
         });
         return query;
       }
+      async setevidencegasto(image,id ){
+        const query= await fetch("https://tms.logsys.com.mx/liquidations.api/api/outgoings/"+id+"/to-check-evidence",{
+          method: 'PATCH',
+          headers: {   
+            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+           },
+
+           body: image,
+        });
+      
+        return query;
+      }
+      async setObsgasto(comment,id ){
+        const query= await fetch("https://tms.logsys.com.mx/liquidations.api/api/outgoings/"+id+"/to-check-evidence/attach-obs",{
+          method: 'PATCH',
+          headers: {   
+            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+     
+           },
+
+           body: JSON.stringify(comment)
+
+        });
+       
+        return query;
+      }
       async getliquidations(id_Operador,from_time, to_time, options = {}){
         options.headers = 
         {
           'Content-Type': 'application/json',
           Accept: 'application/json',
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+          'sort': '-id'
         };
-        //http://192.168.1.162:9096/liquidations/api/liquidations?start=0&end=1000&from_time=2023-02-01T06:00:00.000Z&to_time=2023-02-08T05:59:00.000Z
-        var url='http://192.168.1.162:9096/liquidations/api/liquidations?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
+        //https://tms.logsys.com.mx/liquidations.api
+        var url='https://tms.logsys.com.mx/liquidations.api/api/liquidations?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
         console.log(url)
         const query = await fetch(url,options);
         const data = await query.json();
+
        
         return data;
       
@@ -85,7 +118,7 @@ class Api{
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
         };
         //
-        var url='http://192.168.1.162:9096/liquidations/api/liquidations/'+id
+        var url='https://tms.logsys.com.mx/liquidations.api/api/liquidations/'+id
         const query = await fetch(url,options);
         const data = await query.json(); 
         return data;
@@ -98,9 +131,9 @@ class Api{
           'Content-Type': 'application/json',
           Accept: 'application/json',
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+          'sort': '-created_on'
         };
-        //http://192.168.1.162:9096/liquidations/api/outgoings?start=0&end=1000&driver_id=2&from_time=2023-02-01T06%3A00%3A00.000Z&to_time=2023-02-16T05%3A59%3A00.000Z
-        var url='http://192.168.1.162:9096/liquidations/api/outgoings?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
+        var url='https://tms.logsys.com.mx/liquidations.api/api/outgoings?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
         console.log(url)
         const query = await fetch(url,options);
         const data = await query.json();
@@ -115,9 +148,9 @@ class Api{
           'Content-Type': 'application/json',
           Accept: 'application/json',
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
+          'sort': '-created_on'
         };
-        //http://192.168.1.162:9096/liquidations/api/deposits?start=0&end=1000&driver_id=2&from_time=2023-02-01T06%3A00%3A00.000Z&to_time=2023-02-16T05%3A59%3A00.000Z
-        var url='http://192.168.1.162:9096/liquidations/api/deposits?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
+        var url='https://tms.logsys.com.mx/liquidations.api/api/deposits?start=0&end=1000&driver_id='+id_Operador//+'&from_time='+from_time+"&to_time="+to_time
         console.log(url)
         const query = await fetch(url,options);
         const data = await query.json();
@@ -126,6 +159,7 @@ class Api{
       
 
       }
+      
 
       async getfuel(id_Operador,options = {}){
         const fecha = new Date();

@@ -154,10 +154,11 @@ return response
         "datetime":datetime
 
        }),
+
     });
   
-    const data = await query.text()
-    return data
+    
+    return query
 
   }
   async setReport(solicitud,id_causa,observation){

@@ -2,17 +2,20 @@ import React,{ useEffect, useState} from 'react';
 import {
     View,
     Text,
-   
+    Pressable
 }from 'react-native';
 import Styles from '../styles'
+import { useNavigation } from '@react-navigation/native';
+
 
 function Gasto (props){
+  console.log(props)
 
 
   const[fecha,setfecha]=useState('')
   const[fechainit,setfechainit]=useState('')
   const[fechafin,setfechafin]=useState('')
- 
+  const navigation = useNavigation();
   const [color,setcolor]=useState('#000000')
   const [status,setstatus]=useState('')
 
@@ -31,26 +34,34 @@ function Gasto (props){
 
     switch (statuss){
       case 1:
-          setstatus('SOLICITADO')
+        
           setcolor('#FFDF00')
           break;
       case 2:
-        setstatus('AUTORIZADO')
+       
         setcolor('#006400')
           break;
-      case 3:
-          setstatus('DEPOSITADO')
-          setcolor('#3AE1E1')
+      case -3:
+         
+          setcolor('#ffa111')
           break;
       case 4:
-          setstatus('LIQUIDADO')
+         
           setcolor('#A19DA8')
           break;
       case 5:
-          setstatus('RECHAZADO')
           setcolor('#D23411')
           break;
-          default:
+      case 6:
+          setcolor('#D23411')
+            break;
+      case 7:
+            setcolor('#D23411')
+            break;
+      case 8:
+            setcolor('#3AE1E1')
+            break;
+      default:
             setstatus('sin status')
 
   }
@@ -58,6 +69,17 @@ function Gasto (props){
   
    
 }, [])
+
+function confirmar(){
+
+  if(props.status_id==-3){
+    navigation.navigate('cameragasto',{ id:props.id})
+
+
+  }
+ 
+
+}
 
    const local=(fecha)=> {
     if (fecha==null){
@@ -85,55 +107,47 @@ function Gasto (props){
     }
 
    }
-   const nombre=(name,app,apm)=>{
-     var nombre=name.trim()
-     var apps=app.trim()
-     var apms=apm.trim()
-     var completo=nombre+' '+apps+' '+apms
-    
-     return  completo
-
-
-   }
 
 
     return(
-<View style={Styles.contencard}>
+<Pressable style={Styles.contencard} onPress={confirmar}>
   <Text style={{color:color, textAlign:'right',marginTop:10}}>{props.status} </Text>
   <View style={Styles.horizontal}>
   <Text style={Styles.titletext}>NO Gasto:</Text>
     <Text style={Styles.simpletext}>{props.id}</Text>
-    <Text style={Styles.titletext}>Importe.</Text>
-    <Text style={Styles.simpletext}>{props.amount} $</Text>
+  
+    <Text style={Styles.titletext}>Fecha: </Text>
+    <Text style={Styles.simpletext}>{fechafin}</Text>
    
   </View>
 
   <View style={Styles.horizontal}>
-    <Text style={Styles.titletext}>Solicitado el: </Text>
-    <Text style={Styles.simpletext}>{fechainit}</Text>
+  <Text style={Styles.titletext}>Tipo</Text>
+    <Text style={Styles.simpletext}>{props.type}</Text>
+    <Text style={Styles.titletext}>Importe.</Text>
+    <Text style={Styles.simpletext}>${props.amount}</Text>
+   
   </View>
 
   <View style={Styles.horizontal}>
-    <Text style={Styles.titletext}>Aplicado el: </Text>
-    <Text style={Styles.simpletext}>{fechafin}</Text>
+  <Text style={Styles.titletext}>Solicitud</Text>
+    <Text style={Styles.simpletext}>{props.shipment_id}</Text>
+   
   </View>
-  <View style={Styles.horizontal}>
-    <Text style={Styles.titletext}>Departament: </Text>
-    <Text style={Styles.simpletext}>{props.responsible_department}</Text>
-  </View>
+ 
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Comentario</Text>
     <Text style={Styles.simpletext}>{props.comment}</Text>
   </View>
   <View style={Styles.horizontal}>
-    <Text style={Styles.titletext}>Solicitud</Text>
-    <Text style={Styles.simpletext}>{props.shipment_id}</Text>
-    <Text style={Styles.titletext}>Tipo</Text>
-    <Text style={Styles.simpletext}>{props.type}</Text>
+    <Text style={Styles.titletext}>Usuario valida: </Text>
+    <Text style={Styles.simpletext}>{props.responsible_department}</Text>
   </View>
+
+
   
 
-</View>
+</Pressable>
     )
 
 }

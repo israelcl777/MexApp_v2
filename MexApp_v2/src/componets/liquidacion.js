@@ -69,7 +69,7 @@ function Liquidacion (props){
     <Text style={Styles.titletext}>NO liquidación.</Text>
     <Text style={Styles.simpletext}>{props.id}</Text>
     <Text style={Styles.titletext}>Importe.</Text>
-    <Text style={Styles.simpletext}>{props.total_balance} $</Text>
+    <Text style={Styles.simpletext}>${props.total_balance}</Text>
     
   </View>
   <View style={Styles.horizontal}>

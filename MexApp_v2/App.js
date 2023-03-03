@@ -28,12 +28,15 @@ import GatosScreen from './src/screens/gastoScreen'
 import Liqdetail from './src/screens/liquidetailScreen'
 import CameraScreen from './src/screens/cameraScreen'
 import CameraDiesel from './src/screens/cameradieselScreen'
+import CameraGasto from './src/screens/cameraGasto'
 import EvidenciasScreen from './src/screens/evidenciasScreen'
 import ObsScreen from './src/screens/obsScreen'
 import PdfWeb from './src/componets/pdfweb'
 import Instrucction from './src/screens/InstructionScreen';
 import FuelScreen from './src/screens/fuelScreen'
 import Cartaporte from './src/screens/cartaporteScreen'
+import Api from'./src/api/tms'
+
 
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -51,6 +54,7 @@ const App  =()=> {
     global.version = '1.0.0'//DeviceInfo.getVersion();
     checkToken();
    getData()
+   getevidence()
    
 }, [])
 
@@ -67,7 +71,34 @@ async function requestUserPermission() {
 
   }
 }
+const getevidence= async () => {
+  const jsonValue = await AsyncStorage.getItem('@evidenciagasto')
+  if(jsonValue != null){
+    console.log("si hay evidencias guardas")
+    var convert=JSON.parse(jsonValue)
+    console.log(convert)
+    var id=convert.id
+    var coment=convert.comment
+    const data = {uri:convert.url, type:"image/jpeg", name:'profile.jpg', filename:'afiletest'};
+    const formData = new FormData()
+    formData.append('file', data)
+    try {
+      const setevidence = await Api.setevidencegasto(formData,id)
+      console.log(setevidence)
+      const setcoment = await Api.setObsgasto(coment,id)
+      onsole.log(setcoment)
+      
+    } catch (error) {
+      
+    }
 
+  }else{
+    console("se encontro una evidencia guaerdada")
+
+
+  }
+
+}
 const getData = async () => {
   try {
 
@@ -304,7 +335,7 @@ const checkToken = async () => {
             source={require('./src/drawables/mexapp.png')}/>
           ),
           gesturesEnabled: false,  
-          title:"Gatos"}}
+          title:"Gastos"}}
       name='gastos'
       component={GatosScreen} />
 
@@ -322,6 +353,20 @@ const checkToken = async () => {
       component={CameraScreen} />
 
 <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/mexapp.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name='cameragasto'
+      component={CameraGasto} />
+
+
+      <Stack.Screen 
         options={{
           unmountOnBlur: true,
           headerRight :() => (

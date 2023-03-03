@@ -18,7 +18,8 @@ function FuelScreen (props){
     var validate =  fuels.status
     if (validate==200|| validate==20|| validate==206){
       const data = await fuels.json();
-      setItems(data)
+      let convert=data.filter(data=> data.is_consolidated_row==false )
+      setItems(convert)
     }else{
       console.log('no hay conexion'+ validate)
     }

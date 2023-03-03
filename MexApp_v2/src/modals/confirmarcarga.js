@@ -45,6 +45,14 @@ function CPicked (props){
         try {
             const confirmated=await Api.confirmar(context.solicitud,2,"",datetime)
             console.log(confirmated)
+            if( confirmated.status==200|| confirmated.status==202){
+                Alert.alert("Se confirmo correctamente")
+
+
+            }else{
+
+
+            }
             send()
         } catch (error) {
 
