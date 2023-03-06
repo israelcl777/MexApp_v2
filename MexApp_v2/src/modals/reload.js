@@ -11,6 +11,7 @@ function Reload (props){
             
         </View>
 
+
     )
 };
 const style=StyleSheet.create({

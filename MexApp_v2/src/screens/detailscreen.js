@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View,Text,ScrollView,StyleSheet,Image,Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageData from '../utils/storageData';
 /*/
  
 
@@ -13,7 +14,16 @@ function Detailscreen (props){
     const removedata = async (key) => {
       
         try {
-            await AsyncStorage.removeItem("@user_storage");
+            await storageData.deleteData("@user_storage")
+            await storageData.deleteData("@gasto")
+            await storageData.deleteData("@info_operador")
+            await storageData.deleteData("@evidenciagasto")
+            await storageData.deleteData("@evidence")
+            await storageData.deleteData("@confirmarcarga")
+            await storageData.deleteData("@confirmardescarga")
+            await storageData.deleteData("@confirmarsolicitud")
+            await storageData.deleteData("@dreams_current")
+           console.log('se borro todo')
             return true;
         }
         catch(exception) {

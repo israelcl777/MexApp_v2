@@ -1,21 +1,18 @@
 import React ,{ useEffect, useState }from 'react';
-import { View,Text,Image, PermissionsAndroid,Pressable,StyleSheet ,Alert,TextInput} from 'react-native';
+import { View,Text,Image, PermissionsAndroid,Pressable,StyleSheet ,Alert,TextInput,Modal} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
-import {decode as atob, encode as btoa} from 'base-64'
 import Api from'../api/tms'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import storageData from '../utils/storageData';
+import Reload from '../modals/reload';
 
 
 function CametaScreen (props){
   
-    const [image,setImage]= useState('')
+    const [image,setImage]= useState('https://png.pngtree.com/png-clipart/20190611/original/pngtree-vector-camera-logo-png-image_2000391.jpg')
     const navigation = useNavigation();
-    const [modalVisible1, setModalVisible1] = useState(false);
-    const [urlfile,seturl]= useState('')
-    const [string64,setString64]= useState('')
+    const [modalVisible, setModalVisible] = useState(false);
     const [comment,SetComment]=useState('')
 
 
@@ -31,6 +28,7 @@ function CametaScreen (props){
     }, [])
 
     async function sendevidence(){
+      setModalVisible(true)
       try {
       var id=props.route.params.id
       console.log(id)
@@ -49,14 +47,16 @@ function CametaScreen (props){
 
        }else{
 //Alert.alert("Se enviara cuando tengas conexión")
-        storeData(save)
+const insert = await storageData.insertData('@evidenciagasto',save)  
 
        }
        const setcoment = await Api.setObsgasto(comment,id)
       // console.log(setcoment)
         props.navigation.goBack()
+        setModalVisible(false)
         
       } catch (error) {
+        setModalVisible(false)
         var id=props.route.params.id
         Alert.alert("Se enviara cuando tengas conexión")
         var save={
@@ -64,7 +64,9 @@ function CametaScreen (props){
           'url':image,
           'comment':comment
         }
-        storeData(save)
+        const insert = await storageData.insertData('@evidenciagasto',save)
+        console.log(insert)
+        props.navigation.goBack()
         console.log(error)
         
       }
@@ -99,7 +101,7 @@ function CametaScreen (props){
                     var b64= response.assets[0].base64
            
                     setImage(uri)
-                    setString64(b64)
+                
                 }
             })
     }
@@ -138,6 +140,12 @@ function CametaScreen (props){
    
     return(
         <View style={{flex:1,width:'100%',height:'100%',backgroundColor:'#000000' }}>
+          <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}>
+                <Reload/>
+                </Modal>
 
             <Image
             style={{  width:'100%',height: '100%',resizeMode:'contain',alignSelf:'center'}}

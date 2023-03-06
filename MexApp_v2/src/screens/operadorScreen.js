@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View,Text,Button,StyleSheet,Image,Pressable} from 'react-native';
+import { View,Text,Button,StyleSheet,Image,Alert} from 'react-native';
 import TMS from '../api/tms'
 import Styles from '../styles'
+import storageData from '../utils/storageData';
+import RNFetchBlob from 'rn-fetch-blob'
 
 function Operador(){
   
@@ -13,27 +15,28 @@ function Operador(){
 
    
     useEffect(() => {
-        const interval = setInterval(() => {
-            getOperador(global.id_operador)
-          }, 2000);
-          return () =>{
-            clearInterval(interval);
-          } 
-
-    })
-
-  
+            getOperador(global.id_operador)  
+    },[])
     const getOperador=async(id_operador)=>{
         try{
 
             const operador=await TMS.getOperador( id_operador)
-
-            setOperator(operador)
+            setOperator(operador)           
             setIsload(0)
-           // var imagenp=''+operador.image;
-           // console.log(imagenp)
+            var convert=operador
+            convert.image=''    
+            const save = await storageData.insertData('@info_operador',operador)
+      
         }catch(ex){
             console.log(ex)
+            const save = await storageData.consultData('@info_operador')
+            if(save != null){
+             var convert=JSON.parse(save)
+             setOperator(convert)   
+            }else{
+                Alert.alert(ex)
+                setMessage('no hay información')
+            }
 
         }
 

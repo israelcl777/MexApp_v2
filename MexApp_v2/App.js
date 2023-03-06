@@ -9,8 +9,7 @@
 import React,{useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Image,Text,StyleSheet}from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Image,Text,StyleSheet, useAnimatedValue}from 'react-native'
 import messaging from '@react-native-firebase/messaging';
 import TravelDetails from './src/screens/travelDetails';
 import LoginScreen from './src/screens/loginscreen';
@@ -36,6 +35,7 @@ import Instrucction from './src/screens/InstructionScreen';
 import FuelScreen from './src/screens/fuelScreen'
 import Cartaporte from './src/screens/cartaporteScreen'
 import Api from'./src/api/tms'
+import storageData from './src/utils/storageData';
 
 
 
@@ -72,12 +72,13 @@ async function requestUserPermission() {
   }
 }
 const getevidence= async () => {
-  const jsonValue = await AsyncStorage.getItem('@evidenciagasto')
-  if(jsonValue != null){
-    console.log("si hay evidencias guardas")
-    var convert=JSON.parse(jsonValue)
-    console.log(convert)
+  const evidence= await storageData.consultData('@evidenciagasto')
+  if(evidence!= null){
+
+    console.log('evidence')
+    var convert=JSON.parse(evidence)
     var id=convert.id
+    console.log('id:'+id)
     var coment=convert.comment
     const data = {uri:convert.url, type:"image/jpeg", name:'profile.jpg', filename:'afiletest'};
     const formData = new FormData()
@@ -86,45 +87,36 @@ const getevidence= async () => {
       const setevidence = await Api.setevidencegasto(formData,id)
       console.log(setevidence)
       const setcoment = await Api.setObsgasto(coment,id)
-      onsole.log(setcoment)
+      console.log(setcoment)
+      const delete_= await storageData.deleteData('@evidenciagasto')
       
     } catch (error) {
       
     }
-
-  }else{
-    console("se encontro una evidencia guaerdada")
-
 
   }
 
 }
 const getData = async () => {
   try {
-
-    const jsonValue = await AsyncStorage.getItem('@user_storage')
-    if(jsonValue != null){
-     
-      var convert=JSON.parse(jsonValue)
-      global.id_operador=convert.id
-      global.nombre = convert.nombre;
-      global.alias= convert.unidad;
-      console.log(global.id_operador)
-      messaging()
-      .subscribeToTopic(convert.id+"")
-      .then(() => console.log('Subscribed to topic!'));
-      
-      setLogget(1)
-
-
-    }else{
-      console.log("no hay usuario guardardo")
+    const user=await storageData.consultData('@user_storage')
+    if(user!= null)
+    var convert=JSON.parse(user)
+    global.id_operador=convert.id
+    global.nombre = convert.nombre;
+    global.alias= convert.unidad;
+    console.log(global.id_operador)
+    messaging()
+    .subscribeToTopic(convert.id+"")
+    .then(() => console.log('Subscribed to topic!'));  
+    setLogget(1)
+  } catch (error) {
+    console.log("no hay usuario guardardo")
       setLogget(0)
-
-    }
-  } catch(e) {
-   console.log(e)
+    
   }
+
+
 }
 const checkToken = async () => {
   const fcmToken = await messaging().getToken();

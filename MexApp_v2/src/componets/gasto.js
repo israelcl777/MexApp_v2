@@ -39,21 +39,21 @@ function Gasto (props){
           break;
       case 2:
        
-        setcolor('#006400')
+        setcolor('#ffa111')
           break;
       case -3:
          
-          setcolor('#ffa111')
+          setcolor('#D23411')
           break;
       case 4:
          
-          setcolor('#A19DA8')
+          setcolor('#FFDF00')
           break;
       case 5:
-          setcolor('#D23411')
+          setcolor('#006400')
           break;
       case 6:
-          setcolor('#D23411')
+          setcolor('#909090')
             break;
       case 7:
             setcolor('#D23411')
