@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View,Text,ScrollView,StyleSheet,Image,Pressable} from 'react-native';
+import { View,Text,ScrollView,StyleSheet,Image,Pressable, Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import storageData from '../utils/storageData';
@@ -22,8 +22,10 @@ function Detailscreen (props){
             await storageData.deleteData("@confirmarcarga")
             await storageData.deleteData("@confirmardescarga")
             await storageData.deleteData("@confirmarsolicitud")
-            await storageData.deleteData("@dreams_current")
+            await storageData.deleteData("@dreams_current")//travelCurrent_storage
+            await storageData.deleteData("@travelCurrent_storage")//travelCurrent_storage
            console.log('se borro todo')
+           context.setLogget(0)
             return true;
         }
         catch(exception) {
@@ -32,9 +34,18 @@ function Detailscreen (props){
         }
     }
     const loginpress=()=>{
-        console.log(props.is_logged)
-        removedata()
-        context.setLogget(0)
+        Alert.alert('Cerrar Sesión',
+        '¿Estas seguro que  quieres salir?  Se borraran todos lo datos de la aplicación?',
+        [
+            {
+                text:'Si',
+                onPress:removedata
+            },
+            {
+                text:'No'
+            }
+        ] )
+
     }
     const openOperator=()=>{
         navigation.navigate('operador')

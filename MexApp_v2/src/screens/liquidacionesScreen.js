@@ -3,9 +3,6 @@ import LiquidacionesLit from '../containers/liquidacioneslist';
 import Api from'../api/intranet'
 import TmsAPI from '../api/tms'
 
-
-
-
 function LiquidacionesScreen (){
     const [items, setItems] = useState([]);
 

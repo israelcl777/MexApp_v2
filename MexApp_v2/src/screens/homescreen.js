@@ -1,9 +1,10 @@
 import React, { useEffect, useState,useRef } from 'react';
-import { View,Image,ScrollView,Text,RefreshControl } from 'react-native';
+import { View,Image,ScrollView,Text,RefreshControl, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from '../api/intranet'
 import { WebView } from 'react-native-webview';
 import InphograpicsList from '../containers/inphograpicsList'
+
 
 
 var arrayimage = [];
@@ -14,8 +15,8 @@ function HomeScreen (){
   const [Inphograpics_list,setInphograpics]= useState([])
   const webViewRef = useRef();
   const [refreshing, setRefreshing] = React.useState(false);
-
-
+  const [sizes, setsize]=React.useState('28%')
+  const [count,setcount]=React.useState(0)
 
     useEffect(() => {
      
@@ -29,6 +30,20 @@ function HomeScreen (){
         } 
     }, [])
 
+    const dimist=()=>{
+      console.log('presss')
+      if(count==0){
+        setsize('0%')
+        setcount(1)
+
+      }else{
+        setsize('28%')
+        setcount(0)
+
+      }
+      
+
+    }
     
  
     const getInfographics= async()=> {
@@ -124,30 +139,32 @@ function HomeScreen (){
           onRefresh={onRefresh}
         />
       }>
-        <View style={{width:'100%',height:'28%', backgroundColor:'#ffffff', marginTop:10,marginBottom:10,}}>
+        <View style={{width:'100%',height:sizes, backgroundColor:'#ffffff', marginTop:5}}>
         <InphograpicsList infografias={Inphograpics_list}/>
 
         </View>
-     
-    
-   
-    
+        <Pressable onPress={dimist} style={{width:'100%',height:16,alignContent:'center',alignItems:'center', backgroundColor:'#fff',marginBottom:5,}}>
+        <Image
+          style={{ width:15,
+            height:15,
+            alignItems:'center',
+            resizeMode:'contain',}}
+          source={require('../drawables/rayas.png')}/>
+
+
+        </Pressable>
+
              <WebView 
              ref={(ref) => webViewRef.current = ref}
              nestedScrollEnabled
-             refreshControl
+         
              source={{ uri: 'https://sites.google.com/logsys.com.mx/mexapp-avisos/p%C3%A1gina-principal' }} 
              javaScriptEnabled={true}
              />
       
 
       </ScrollView>
- 
-       
-            
-     
-
-    )
+ )
 
 };
 export default HomeScreen;
