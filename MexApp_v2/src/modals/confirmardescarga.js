@@ -136,8 +136,10 @@ function Cdelivery (props){
     }
    
     const send=()=>{
-        console.log(id_causa)
+   
         context.setModalVisible(false)
+        context.onRefresh()
+    
      }
   
      if(isload==true){

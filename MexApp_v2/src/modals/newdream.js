@@ -83,6 +83,7 @@ function NewDream (props){
           <View style={style.modal} >
             <Text style={style.title}>Inicio de sueño</Text>
             <View style={style.horizontal}>
+            <Text style={Styles.simpletext}>Inicio:</Text>
               <Text style={Styles.simpletext}>{getdateinit() } </Text>
             <DTPicker dato={date} setDato={setDate} logo={require('../drawables/date.png')}  mode="date"/>
             <Text style={Styles.simpletext}>  {getimeinit() } </Text>
@@ -90,14 +91,13 @@ function NewDream (props){
 
             </View>
             <View style={style.horizontal}>
+            <Text style={Styles.simpletext}>Fin:    </Text>
             <Text style={Styles.simpletext}>{getdateend() } </Text>
             <DTPicker dato={date1} setDato={setDate1} logo={require('../drawables/date.png')}  mode="date"/>
             <Text style={Styles.simpletext}>  {getimeend() } </Text>
            <DTPicker  dato={time1} setDato={setTime1} logo={require('../drawables/timer.png')}  mode="time"/>
-
             </View>
 
-           
             <View style={style.horizontal} >
             <Pressable 
             onPress={newdream}

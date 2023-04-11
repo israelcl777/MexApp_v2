@@ -12,8 +12,9 @@ function LoginScreen (props){
       serLoad(true)   
         try {
             const user=await Api.login( number,global.version)
-         console.log(user)
-         
+            console.log(user)
+            user.driver_image=''
+            console.log(user)
             storeData(user)
             global.id_operador = user.id;
             global.nombre = user.nombre;

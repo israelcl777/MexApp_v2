@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import { Alert } from 'react-native';
-import { View,Text ,StyleSheet,Image,Linking,ScrollView} from 'react-native';
+import { View,Text ,StyleSheet,Image,Linking,ScrollView,RefreshControl} from 'react-native';
 import Api from'../api/intranet'
 import Maps from '../componets/maps';
 import ConfirmatedImage from '../componets/conformadImage';
@@ -22,6 +22,7 @@ function TravelsScreen (props){
     const [modaldelivery, setMdeliveri] = useState(false);
     const [modalconfirmated, setConfimated] = useState(false);
     const [isOffline, setIsoffline]=useState('')
+    const [refreshing, setRefreshing] = React.useState(false);
     const [solicitudcolor,setSolicitudcolor]= useState('#ffffffcc')
     const [cargacolor,setCargacolor]= useState('#ffffffcc')
     const [descargacolor,setDescargacolor]= useState('#ffffffcc')
@@ -33,14 +34,23 @@ function TravelsScreen (props){
 
 
     useEffect(() => {
-        const interval = setInterval(() => {
+     
             gettravel()
-          }, 4000);
+     
           return () =>{
-            clearInterval(interval);
+       
             set_travel_current([])
           } 
     }, [])
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        gettravel()
+
+        wait(2000).then(() => setRefreshing(false));
+      }, []);
+      const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
 
     const validate_offline= async () => {
 
@@ -98,11 +108,12 @@ function TravelsScreen (props){
       }
  
     async function gettravel(){
+        console.log('buscando viaje actual')
         id_operador =global.id_operador
         try {
-
             const travel=await Api.getCurrentravel(id_operador)
             var currenttravel=travel[0]
+            //console.log(currenttravel)
             storeData(currenttravel)
             setIsoffline('')
             global.vehicle_id=currenttravel.vehicle_id
@@ -112,8 +123,7 @@ function TravelsScreen (props){
 
             if(currenttravel.travel_confirmed==false){
                 setConfimated(true)
-            }
-        
+            }          
             set_travel_current(currenttravel)
             setBandera_c1(currenttravel.travel_confirmed)
             setBandera_c2(currenttravel.pickup_confirmed)
@@ -219,7 +229,7 @@ function TravelsScreen (props){
     }
     else{
         return(
-            <View style={{flex:1}}>
+            <View style={{flex:1,}} >
           
                 <Modal
                 animationType="slide"
@@ -229,7 +239,7 @@ function TravelsScreen (props){
                 Alert.alert("Modal has been closed.");
                 setModalVisible(!modalVpicked);
                }}>
-                <CPicked solicitud= {travel_current.id} modalVisible={modalVpicked}  setModalVisible={setMpicked}/>
+                <CPicked solicitud= {travel_current.id} modalVisible={modalVpicked}  setModalVisible={setMpicked}  onRefresh={onRefresh}/>
                 </Modal>
                 <Modal
                 animationType="slide"
@@ -239,7 +249,7 @@ function TravelsScreen (props){
                 Alert.alert("Modal has been closed.");
                 setModalVisible(!modalconfirmated);
                }}>
-                <Confirmated solicitud= {travel_current.id} modalVisible={modalconfirmated} setModalVisible={setConfimated}/>
+                <Confirmated solicitud= {travel_current.id} modalVisible={modalconfirmated} setModalVisible={setConfimated} onRefresh={onRefresh}/>
                 </Modal>
 
                 <Modal
@@ -250,8 +260,8 @@ function TravelsScreen (props){
                 Alert.alert("Modal has been closed.");
                 setModalVisible(!modaldelivery);
                }}>
-                <Cdelivery solicitud= {travel_current.id} modalVisible={modaldelivery} setModalVisible={setMdeliveri}/>
-                </Modal>
+                <Cdelivery solicitud= {travel_current.id} modalVisible={modaldelivery} setModalVisible={setMdeliveri}  onRefresh={onRefresh}/>
+                </Modal> 
             
                 < Maps  
                 lto={travel_current.lat_origin} 
@@ -264,7 +274,12 @@ function TravelsScreen (props){
                 points={travel_current.waypoints_origin}/>
                
     
-                <ScrollView style={{margin:4}}>
+                <ScrollView style={{margin:4}} refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                />
+              }>
              
                         <Text style={style.textbutton}> {travel_current.agreement}</Text>
                        

@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { View,Text,Button,Alert, ScrollView,RefreshControl} from 'react-native';
 import GastosList from '../containers/gastoslist';
 import Api from'../api/tms'
+import moment from 'moment/moment';
 import { useNavigation } from '@react-navigation/native';
 import storageData from '../utils/storageData';
 
@@ -29,19 +30,14 @@ function DepositosScreen (){
       }
 
     async function getGastos(){
-        id_operador =global.id_operador
-        const fecha = new Date();
-        let dia= ('0'+ fecha.getUTCDate()).slice(-2)
-        let mesAn= ('0'+fecha.getUTCMonth()).slice(-2)
-        let mes= ('0'+(fecha.getUTCMonth()+1)).slice(-2)
-        let year= fecha.getUTCFullYear()
-        let hour=  ('0'+ fecha.getUTCHours()).slice(-2)
-        var fromtime=year+'-'+(mesAn)+'-'+dia+'T'+hour+':00:00.000Z'
-        var totime=year+'-'+(mes)+'-'+dia+'T'+hour+':00:00.000Z'
+      var inicio=moment().add(6,'h').format('YYYY-MM-DDTHH:MM')
+      var fin=moment().subtract(100, 'd').format('YYYY-MM-DDTHH:MM')
+      var fromtime=fin+':00.000Z'
+      var totime=inicio+':00.000Z'
         try {
 
             const getdepositos=await Api.getgasto(id_operador,fromtime,totime)
-            console.log(getdepositos)
+          //  console.log(getdepositos)
          
           let convert=getdepositos.filter(getdepositos=> getdepositos.is_consolidated_row==false )
           function cambiarValor(valorABuscar, valorViejo, valorNuevo) {

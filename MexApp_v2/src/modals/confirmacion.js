@@ -38,10 +38,12 @@ function Confirmated (props){
               Alert.alert("Se confirmo correctamente")
 
 
+
           }else{
 
 
           }
+          
             send()
 
         } catch (error) {
@@ -76,8 +78,9 @@ function Confirmated (props){
       }
       
     const send=()=>{
-        console.log(props)
+       
         context.setModalVisible(false)
+        context.onRefresh()
      }
 
      if(isload==true){

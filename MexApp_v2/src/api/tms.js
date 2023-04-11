@@ -150,7 +150,7 @@ class Api{
           Authorization : ' Basic '+'YWRtaW46bTN4NG0zcjFr',
           'sort': '-created_on'
         };
-        var url='https://tms.logsys.com.mx/liquidations.api/api/deposits?start=0&end=1000&driver_id='+id_Operador//+'&from_time='+from_time+"&to_time="+to_time
+        var url='https://tms.logsys.com.mx/liquidations.api/api/deposits?start=0&end=1000&driver_id='+id_Operador+'&from_time='+from_time+"&to_time="+to_time
         console.log(url)
         const query = await fetch(url,options);
         const data = await query.json();

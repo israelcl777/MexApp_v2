@@ -19,12 +19,9 @@ function Liquidacion (props){
     var f=unixtolocal(props.time)
     var f2=unixtolocal(props.from_time)
     var f3=unixtolocal(props.to_time)
-    
     setfecha(f) 
     setfechainit(f2) 
-    setfechafin(f3) 
- 
-   
+    setfechafin(f3)  
    
 }, [])
 

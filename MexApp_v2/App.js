@@ -11,6 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Image,Text,StyleSheet, useAnimatedValue}from 'react-native'
 import messaging from '@react-native-firebase/messaging';
+import {useNetInfo} from "@react-native-community/netinfo";
 import TravelDetails from './src/screens/travelDetails';
 import LoginScreen from './src/screens/loginscreen';
 import TopMenu from './src/componets/topmenu'
@@ -36,8 +37,7 @@ import FuelScreen from './src/screens/fuelScreen'
 import Cartaporte from './src/screens/cartaporteScreen'
 import Api from'./src/api/tms'
 import storageData from './src/utils/storageData';
-
-
+import LiqPdfScreen from './src/screens/liquidacionpdfscreen'
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -45,18 +45,29 @@ import storageData from './src/utils/storageData';
 const Stack = createNativeStackNavigator();
 
 const App  =()=> {
+  const netInfo = useNetInfo();
   const[is_logged, setLogget]=useState(0)
   const[is_conected,setConected]=useState(require('./src/drawables/online.png'))
 
 
   useEffect(() => {
      requestUserPermission()
-    global.version = '1.0.0'//DeviceInfo.getVersion();
+    global.version = '1.0.22'//DeviceInfo.getVersion();
     checkToken();
    getData()
-   getevidence()
+var s=netInfo.isConnected
+console.log(s)
+if(s){
+  getevidence()
+  setConected(require('./src/drawables/online.png'))
+
+
+}else{
+  setConected(require('./src/drawables/offline2.png'))
+
+}  
    
-}, [])
+})
 
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -105,7 +116,6 @@ const getData = async () => {
     global.id_operador=convert.id
     global.nombre = convert.nombre;
     global.alias= convert.unidad;
-    console.log(global.id_operador)
     messaging()
     .subscribeToTopic(convert.id+"")
     .then(() => console.log('Subscribed to topic!'));  
@@ -121,7 +131,7 @@ const getData = async () => {
 const checkToken = async () => {
   const fcmToken = await messaging().getToken();
   if (fcmToken) {
-  console.log(fcmToken);
+ // console.log(fcmToken);
   } 
  }
 
@@ -265,6 +275,20 @@ const checkToken = async () => {
           title:""}}
       name="pdf" 
       component={OpenPdf} />
+
+      <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:""}}
+      name="liqpdf" 
+      component={LiqPdfScreen} />
+
       <Stack.Screen 
         options={{
           unmountOnBlur: true,

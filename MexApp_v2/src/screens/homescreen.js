@@ -19,14 +19,14 @@ function HomeScreen (){
   const [count,setcount]=React.useState(0)
 
     useEffect(() => {
-     
-        const interval = setInterval(() => {
-          getData()
-          getInfographics()
 
-        }, 3000);
-        return () =>{
-          clearInterval(interval);
+          getData()
+          setTimeout(() => {
+            getInfographics()
+          }, 5000);
+       return () =>{
+          setInphograpics([])
+          setItems([])    
         } 
     }, [])
 
@@ -41,16 +41,17 @@ function HomeScreen (){
         setcount(0)
 
       }
-      
 
     }
     
  
     const getInfographics= async()=> {
+    
       try {       
+        console.log('executev infographics')
           const infographics= await Api.getInfographics(global.solicitud)
         
-            //console.log(infographics.status)
+            console.log(infographics)
             var imagenes=[]
           
            var count=0;
@@ -122,6 +123,7 @@ function HomeScreen (){
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         webViewRef.current.reload(); 
+        getInfographics()
         wait(2000).then(() => setRefreshing(false));
       }, []);
 

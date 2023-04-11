@@ -153,8 +153,6 @@ function DreamsScreen (props){
             setData(dreams)
             storeData(dreams)
             setIsoffline('')
-            context.setConected(require('../drawables/online.png'))
-
             validate()
            
             
@@ -173,7 +171,7 @@ function DreamsScreen (props){
         }
       }
       const dataOffline = async () => {
-        context.setConected(require('../drawables/offline.png'))
+  
         try {
           const jsonValue = await AsyncStorage.getItem('@dreams_storage')
           var convert=JSON.parse(jsonValue)

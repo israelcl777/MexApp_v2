@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import LiquidacionesLit from '../containers/liquidacioneslist';
-import Api from'../api/intranet'
+import moment from 'moment/moment';
 import TmsAPI from '../api/tms'
 
 function LiquidacionesScreen (){
@@ -14,23 +14,14 @@ function LiquidacionesScreen (){
 
     async function getLiq(){
         id_operador =global.id_operador
-        const fecha = new Date();
-        let dia= ('0'+ fecha.getUTCDate()).slice(-2)
-        let mesAn= ('0'+fecha.getUTCMonth()).slice(-2)
-        let mes= ('0'+(fecha.getUTCMonth()+1)).slice(-2)
-        let year= fecha.getUTCFullYear()
-        let hour=  ('0'+ fecha.getUTCHours()).slice(-2)
-       
-     
-      
-        var fromtime=year+'-'+(mesAn)+'-'+dia+'T'+hour+':00:00.000Z'
-        var totime=year+'-'+(mes)+'-'+dia+'T'+hour+':00:00.000Z'
-        console.log(fromtime)
-
+        var inicio=moment().add(6,'h').format('YYYY-MM-DDTHH:MM')
+        var fin=moment().subtract(100, 'd').format('YYYY-MM-DDTHH:MM')
+        var fromtime=fin+':00.000Z'
+        var totime=inicio+':00.000Z'
         try {
 
-            const liquidaciones=await TmsAPI.getliquidations(2,fromtime,totime)
-            console.log(liquidaciones)
+            const liquidaciones=await TmsAPI.getliquidations(id_operador,fromtime,totime)
+           // console.log(liquidaciones)
           
             setItems(liquidaciones)
  

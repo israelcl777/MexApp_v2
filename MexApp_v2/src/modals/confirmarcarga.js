@@ -35,6 +35,8 @@ function CPicked (props){
     })
     const send=()=>{
         context.setModalVisible(false)
+        context.onRefresh()
+    
      }
      async function Confirmar(){
         serLoad(true)

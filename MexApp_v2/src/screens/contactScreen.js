@@ -25,11 +25,22 @@ function Contact(){
         try {
         
           const jsonValue = await AsyncStorage.getItem('@user_storage')
+         
+        
           if(jsonValue != null){
             var list=[];           
             var convert=JSON.parse(jsonValue)
             var contactoslist=convert.cell_data
-            for(var i=0;i<contactoslist.length;i++){
+            function cambiarValor(valorABuscar, valorViejo, valorNuevo) {
+              contactoslist.forEach(function (elemento) { // recorremos el array     
+                 //asignamos el valor del elemento dependiendo del valor a buscar, validamos que el valor sea el mismo y se reemplaza con el nuevo. 
+                elemento[valorABuscar] = elemento[valorABuscar] == valorViejo ? valorNuevo : elemento[valorABuscar]
+              })
+            }
+            cambiarValor("kind_id", 2, 5)
+            let arraycontactos= contactoslist.sort(GetSortOrder("kind_id"));
+          
+            for(var i=0;i<arraycontactos.length;i++){
               var contacto={
                 'id':i,
                 'cell__name':contactoslist[i].cell__name,
@@ -41,6 +52,10 @@ function Contact(){
               }
               list.push(contacto)
             }
+       
+          //  cambiarValor("status_id", 3, -3)
+          console.log(list)
+
             setcontacts(list)            
 
           }else{
@@ -58,6 +73,17 @@ function Contact(){
 
 
       }
+      
+    function GetSortOrder(prop) {    
+      return function(a, b) {    
+          if (a[prop] > b[prop]) {    
+              return 1;    
+          } else if (a[prop] < b[prop]) {    
+              return -1;    
+          }    
+          return 0;    
+      }    
+  } 
 
 
     return(
