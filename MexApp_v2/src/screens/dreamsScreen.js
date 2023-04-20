@@ -1,14 +1,16 @@
 import { set } from 'immer/dist/internal';
 import React, { useState,useEffect } from 'react';
-import { View,Text,Pressable,StyleSheet,Image,Modal,Alert} from 'react-native';
+import { View,Text,Pressable,StyleSheet,RefreshControl,Modal,Alert} from 'react-native';
 import Api from '../api/intranet'
 import NewDream from '../modals/newdream';
 import SetDreams from '../modals/setDream'
 import DinamicImage from '../componets/dinamicImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function DreamsScreen (props){
   const context=props
+  const [refreshing, setRefreshing] = React.useState(false);
     const [bandera,setBandera]=useState('#ffffff')
     const [banderadreams, setBanderadrems]=useState(0)
     const [banderabutton, setBanderabutton]=useState('#008f39')
@@ -22,7 +24,7 @@ function DreamsScreen (props){
     const [savebandera,setSavebandera]=useState('')
 
     useEffect(() => {
-      
+    
         const interval = setInterval(() => {
           getDreams()
         validate()
@@ -31,9 +33,18 @@ function DreamsScreen (props){
           clearInterval(interval);
         } 
         
-       
-
     })
+
+    const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      getDreams()
+
+      wait(2000).then(() => setRefreshing(false));
+    }, []);
+    const wait = (timeout) => {
+      return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+
     const validate=async()=>{
       var semaphore=data.semaphore_24
       var activity_id=data.activity_id
@@ -145,6 +156,7 @@ function DreamsScreen (props){
 
 
     async function getDreams(){
+    
         id_operador =global.id_operador
 
         try {
@@ -202,7 +214,13 @@ function DreamsScreen (props){
     return(
         
         
-        <View>
+        <ScrollView 
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
             <Text>{isOffline}</Text>
             <View style={style.horizontal}>
             <Modal
@@ -214,7 +232,11 @@ function DreamsScreen (props){
           setModalVisible(!modalVisible);
         }}
       >
-     <NewDream modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+     <NewDream 
+     modalVisible={modalVisible} 
+     onRefresh={onRefresh}
+     setModalVisible={setModalVisible}/>
+
       </Modal>
       <Modal
         animationType="slide"
@@ -231,6 +253,7 @@ function DreamsScreen (props){
           savestart={savestart}
           save_end={save_end}
           savebandera={savebandera}
+          onRefresh={onRefresh}
           banderadreams={banderadreams}/>
 
 
@@ -254,7 +277,7 @@ function DreamsScreen (props){
                 <Text style={{color:'#ffffff',textAlign: 'center',margin:10}}a>Agregar sueño</Text>
             </Pressable>
            
-        </View>
+        </ScrollView>
 
     )
 

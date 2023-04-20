@@ -27,6 +27,7 @@ function Maps (props){
 
     console.log("solo una vez")
     const interval = setInterval(() => {
+      //console.log('no mames')
       if (Platform.OS === 'android') {
         requestLocationPermission()
       } else {
@@ -59,7 +60,8 @@ async function getruta(){
         }
         arraypoint.push(lntlng)
         
-      } catch (error) {
+      }
+       catch (error) {
         
       }
    
@@ -70,7 +72,7 @@ async function getruta(){
 
     setPoints(arraypoint)
     storeData(arraypoint)
-    console.log(points)
+   // console.log(points)
     
   } catch (error) {
     dataOffline()
@@ -89,6 +91,11 @@ const fullScreenchanger=()=> {
     onchangerScreen('47%')
     onchangertop('85%')
   }
+}
+const getBestPoint=()=>{
+  console.log(points[17])
+  console.log(milatitusd)
+
 }
 
 
@@ -155,7 +162,7 @@ const mapa=(props)=>{
         latitude: milatitusd,
         longitude: milongitud,
       }}
-      onPress={() => Alert.alert('Simple Button pressed')}
+      onPress={getBestPoint}
       title={"Mi ubicación"}
       description="unidad localizada">
          <Image source={require('../drawables/camion2.png')} style={{height: 30, width:40,resizeMode:'contain' }} />

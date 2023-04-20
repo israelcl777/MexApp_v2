@@ -1,10 +1,37 @@
-const restAPI='https://intranet.mexamerik.com'
+import RNFS from 'react-native-fs';
+import moment from 'moment/moment';
 
-function eliminarDiacriticosEs(texto) {
-  return texto
-         .normalize('NFD')
-         .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
-         .normalize();
+const restAPI='https://intranet.mexamerik.com'
+const rutaArchivo = RNFS.DocumentDirectoryPath + '/log.txt';
+const hora = moment().format('YYYY-MM-DDTHH:MM:SS')
+
+
+function writeline(line){
+  RNFS.readFile(rutaArchivo, 'utf8')
+  .then(content => {
+    // Luego, escribimos el nuevo contenido al final del archivo
+    return RNFS.appendFile(rutaArchivo, '\n' + line);
+  })
+  .then(() => {
+    console.log('Archivo actualizado correctamente');
+  })
+  .catch(error => {
+    writeFile(line)
+  });
+
+
+}
+
+function writeFile(Content){
+
+  RNFS.writeFile(rutaArchivo, Content, 'utf8')
+  .then(() => {
+    console.log('Archivo escrito con éxito!');
+  })
+  .catch(error => {
+    console.error('Error al escribir el archivo: ', error);
+  });
+
 }
 
 class Api{
@@ -13,6 +40,9 @@ class Api{
   
         var url=restAPI+'/dreams/loginv2/'+number+'/'+token+'/'+versionapp
         const query = await fetch(url);
+        const responseSize = query.headers.get('content-length') || '0';
+        const line=hora+' '+url+' '+responseSize+'b'
+        writeline(line)  
         const data = await query.json();
         return data;
       }
@@ -21,12 +51,18 @@ class Api{
       var url=restAPI+"/travels/travel_current/"+id_operador
       //var url=restAPI+"/travels/travel_current/"+100257
         const query = await fetch(url);
+        const responseSize = query.headers.get('content-length') || '0';
+        const line=hora+' '+url+' '+responseSize+'b'
+        writeline(line)  
         const data = await query.json();
         return data;
     } 
     async getruta(solicitud){
       var url=restAPI+"/travels/get_route/"+solicitud
       const query = await fetch(url);
+      const responseSize = query.headers.get('content-length') || '0';
+      const line=hora+' '+url+' '+responseSize+'b'
+      writeline(line)  
       const data = await query.json();
       return data;
     }
@@ -34,6 +70,9 @@ class Api{
     async getInfographics(solicitud){
       var url=restAPI+"/infographics/get_infographics/"+solicitud
       const query = await fetch(url);
+      const responseSize = query.headers.get('content-length') || '0';
+      const line=hora+' '+url+' '+responseSize+'b'
+      writeline(line)  
       const data = await query.json();
       return data;
     }
@@ -47,7 +86,9 @@ class Api{
         };
         var url=restAPI+"/travels/travels/"+id_operador
         const query = await fetch(url,options);
-        console.log(query)
+        const responseSize = query.headers.get('content-length') || '0';
+        const line=hora+' '+url+' '+responseSize+'b'
+        writeline(line)  
         const data = await query.json();
         return data;
     } 
@@ -62,7 +103,9 @@ class Api{
       };
       var url=restAPI+"/travels/get_driver_cell/"+id_operador
       const query = await fetch(url,options);
-      console.log(query)
+      const responseSize = query.headers.get('content-length') || '0';
+      const line=hora+' '+url+' '+responseSize+'b'
+      writeline(line)  
       const data = await query.json();
       return data;
   } 
@@ -76,7 +119,7 @@ class Api{
     };
     var url=restAPI+"/dreams/get_current_dream/"+id_operador
     const query = await fetch(url);
-    
+      
     const data = await query.json();
     return data;
 
@@ -90,6 +133,9 @@ class Api{
     };
     var url=restAPI+"/dreams/nom87/"+id_operador
     const query = await fetch(url);
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+url+' '+responseSize+'b'
+    writeline(line)  
     const data = await query.json();
     return data;
   }
@@ -114,6 +160,10 @@ class Api{
      
   })
 });
+const responseSize = response.headers.get('content-length') || '0';
+      const line=hora+' '+response.url+' '+responseSize+'b'
+      
+      writeline(line)  
 return response
   }
 
@@ -134,6 +184,9 @@ return response
       }),
     });
     console.log(query.body)
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+query.url+' '+responseSize+'b'
+    writeline(line)  
     const data = await query.text()
     console.log(data)
     return data
@@ -156,6 +209,9 @@ return response
        }),
 
     });
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+query.url+' '+responseSize+'b'
+    writeline(line)  
   
     
     return query
@@ -178,7 +234,9 @@ return response
 
        }),
     });
-  
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+query.url+' '+responseSize+'b'
+    writeline(line)  
     console.log(query)
     const data = await query.text()
     console.log(data)
@@ -206,6 +264,9 @@ return response
     };
     var url="https://app.mexamerik.com/MexApp_liquidaciones/api/depositos/"+id_operador
     const query = await fetch(url,options);
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+ url +' '+responseSize+'b'
+    writeline(line)  
     const data = await query.json();
     return data;
 
@@ -218,6 +279,9 @@ return response
     };
     var url="https://app.mexamerik.com/MexApp_liquidaciones/api/liquidacionesdet/"+id_operador
     const query = await fetch(url,options);
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+url+' '+responseSize+'b'
+    writeline(line)  
     const data = await query.json();
     return data;
 
@@ -233,6 +297,9 @@ return response
     
     var url='https://intranet.mexamerik.com/evidences/get/'+id_operador
     const query = await fetch(url,options);
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+url+' '+responseSize+'b'
+    writeline(line)  
     const data = await query.json();
     return data;
 
@@ -248,6 +315,9 @@ return response
     
     var url='https://intranet.mexamerik.com/evidences/observations/'+id
     const query = await fetch(url,options);
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+url+' '+responseSize+'b'
+    writeline(line)  
     const data = await query.json();
     return data;
 
@@ -263,6 +333,9 @@ return response
     
     var url='https://intranet.mexamerik.com/evidences/type'
     const query = await fetch(url,options);
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+url+' '+responseSize+'b'
+    writeline(line)  
     const data = await query.json();
     return data;
   }
@@ -297,6 +370,9 @@ return response
 
        }),
     });
+    const responseSize = query.headers.get('content-length') || '0';
+    const line=hora+' '+query. url+' '+responseSize+'b'
+    writeline(line)  
 
     return query;
   }

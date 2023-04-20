@@ -66,6 +66,7 @@ function NewDream (props){
  
 
     const send=()=>{
+      context.onRefresh()
         context.setModalVisible(false)
     }
  if(isload==true){

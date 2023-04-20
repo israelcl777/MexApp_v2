@@ -28,6 +28,7 @@ function SetDreams (props){
     })
 
     const send=()=>{
+        context.onRefresh()
        context.setModalVisible1(false)
     }
     const validarDream=async()=>{
@@ -105,7 +106,8 @@ function SetDreams (props){
                     console.log(message)
                    
                     Alert.alert(message)
-                    if(message!='Debe esperar aunos minutos para terminar un evento de sueño'){
+                    if(message!='1001: Debe esperar unos minutos para terminar un evento de sueño'){
+                        console.log('no debe cambaira carita')
                         saveStoreDream(init,initbandera,datehora,true)
                     }
                     

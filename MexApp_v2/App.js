@@ -38,6 +38,7 @@ import Cartaporte from './src/screens/cartaporteScreen'
 import Api from'./src/api/tms'
 import storageData from './src/utils/storageData';
 import LiqPdfScreen from './src/screens/liquidacionpdfscreen'
+import LogScreen from './src/screens/logScreen';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -279,11 +280,7 @@ const checkToken = async () => {
       <Stack.Screen 
         options={{
           unmountOnBlur: true,
-          headerRight :() => (
-            <Image
-            style={style.logo}
-            source={require('./src/drawables/logo.png')}/>
-          ),
+          headerShown: false,
           gesturesEnabled: false,  
           title:""}}
       name="liqpdf" 
@@ -471,6 +468,21 @@ const checkToken = async () => {
           title:"Carta porte"}}
       name='cartaporte'
       component={Cartaporte} />
+
+       <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerShown: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Archivo de Log"}}
+      name='log'
+      component={LogScreen} />
+
         </>
     )}
 

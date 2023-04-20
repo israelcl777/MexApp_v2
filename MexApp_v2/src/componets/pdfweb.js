@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from 'react';
-import { View,Image,ScrollView,Text,RefreshControl } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from '../api/intranet'
 import { WebView } from 'react-native-webview';
@@ -7,8 +7,16 @@ import { WebView } from 'react-native-webview';
 
 
 function PdfWeb (props){
+    const navigator=useNavigation()
     const url=props.route.params.url
-    console.log('https://intranet.mexamerik.com'+url)
+    useEffect(() => {
+        setTimeout(() => {
+            navigator.goBack()
+         
+        }, 2000);
+
+  }, [])
+   
 
 
     return(
@@ -16,7 +24,7 @@ function PdfWeb (props){
       
         nestedScrollEnabled
         refreshControl
-        source={{ uri: 'https://drive.google.com/viewerng/viewer?embedded=true&url=https://intranet.mexamerik.com'+url}} 
+        source={{ uri:'https://intranet.mexamerik.com'+url}} 
         javaScriptEnabled={true}
         />
 

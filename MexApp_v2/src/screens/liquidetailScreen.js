@@ -20,67 +20,12 @@ function LiqdetailsScreen (props){
        getconceptos()
     }, [])
 
-    async function createPDF(){
-      const fecha = new Date();
-      var depositos_cells=create_cell(depositos)
-      var deducciones_cells=create_cell(deducciones)
-      var gastos_cells=create_cell(gastos)
-      var perceps_cells=create_cell(percepciones)
+     const createPDF=()=>{
    
-      var doc='<!DOCTYPE html><html><head><style>table{ border-collapse: collapse; width: 100%;  border: 2px solid black;}th, td {text-align: left;padding: 8px;  border: 1px solid black;}tr:nth-child(even) {background-color: #D6EEEE;}.headers{background-color: burlywood;color: ghostwhite;}</style></head><body> '
-      var header_table=' <table class="default"><tr  class="headers"><td>No Liquidación: '+context.id+ '</td><td>Fecha: '+context.time+'</td><td>Importe: '+context.total_balance+'</td></tr><tr  class="headers"><td>Preliquidacion: '+context.preliquidation_id+ '</td><td>del: '+context.from_time+'</td><td>Al: '+context.to_time+'</td></tr></table>'
-      var table_percepciones='<p>Percepciones</p> <table class="default"><tr class="headers"> <td>Fecha</td><td>Tipo </td> <td>Subtipo</td> <td>Importe </td> <td>comentario </td></tr>'+perceps_cells+'</table>'
-      var table_gastos='<p>Gastos</p> <table class="default"><tr class="headers"> <td>Fecha</td><td>Tipo </td> <td>Subtipo </td> <td>Importe </td> <td>comentario </td></tr>'+gastos_cells+'</table>'
-      var table_depositos='<p>Depositos</p><table class="default"> <tr class="headers"> <td>Fecha</td><td>Tipo </td> <td>Subtipo </td> <td>Importe </td> <td>comentario </td></tr>'+depositos_cells+'</table>'
-      var table_cargo='<p>Cargos y deducciones</p> <table class="default"><tr class="headers"> <td>Fecha</td><td>Tipo </td> <td>Subtipo </td> <td>Importe </td> <td>comentario </td></tr>'+deducciones_cells+'</table>'
-      var html=doc+'<div>'+ header_table+ table_depositos+ table_percepciones+table_gastos+table_cargo+'</div></body></html>'
-   console.log(html)
-   let dirs = RNFetchBlob.fs.dirs
- 
-      let options = {
-          html: html,
-          fileName: ''+context.id,
-          directory: 'Documents',
-        };
-  
-        let file = await RNHTMLtoPDF.convert(options)
-        console.log(file.filePath) 
-        navigation.navigate('liqpdf',{ url:file.filePath})
-       // const android = RNFetchBlob.android;
-      // android.actionViewIntent(file.filePath.toString(), 'application/pdf');
+        navigation.navigate('liqpdf',{ id:context.id})
      
   }
-  const create_cell=(array)=>{
-    var cadena=[]
-   
-      if(array.length>=0){
 
-        
-        for(var i=0;i<=array.length;i++){
-          console.log(array)
-          try {
-            var celda='<tr><td>'+array[i].liquidated_on+'</td>'+'<td>'+array[i].type+'</td>'+'<td>'+array[i].subtype+'</td>'+'<td>'+array[i].type+'</td>'+'<td>'+array[i].comment+'</td></tr>'
-            cadena.push(celda)
-            
-          } catch (error) {
-            cadena.push('')
-            
-          }
-        }
-       var result=cadena.toString().replace(',','')
-     
-       console.log(cadena)
-        return result
-    
-
-
-      }else{
-        return ''
-      }
-      
-
-
-  }
 
     async function getconceptos(){
         id_operador =global.id_operador
@@ -139,7 +84,7 @@ function LiqdetailsScreen (props){
       </Tab.Navigator>
       <View>
       <Button
-        title="abrir pdf"
+        title="descargar pdf"
         
         onPress={createPDF}
       />

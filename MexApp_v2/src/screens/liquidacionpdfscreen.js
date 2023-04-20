@@ -1,22 +1,28 @@
-import React, { useEffect, useState,useRef } from 'react';
-import { View,Image,ScrollView,Text,RefreshControl } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Api from '../api/intranet'
+import { useNavigation } from '@react-navigation/native';
+import React, {useEffect, useState } from 'react';
+import { View,Image, } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 
 
 function LiquidacionPdf (props){
-   
+    const id=props.route.params.id
+    const navigator=useNavigation()
+    useEffect(() => {
+        setTimeout(() => {
+            navigator.goBack()
+         
+        }, 2000);
 
+  }, [])
+   
     return(
-        <WebView 
-      
-        nestedScrollEnabled
-        refreshControl
-        source={{ uri: 'https://drive.google.com/viewerng/viewer?embedded=true&url='+'file:///storage/emulated/0/Android/data/com.mexapp_v2/files/Documents/69473.pdf'}} 
-        javaScriptEnabled={true}
-        />
+  
+             <WebView         
+             source={{ uri: 'https://tms.logsys.com.mx/liquidations.api/api/liquidations/'+id+'/print' }} 
+             javaScriptEnabled={true}
+             />
+        
 
     )
 }

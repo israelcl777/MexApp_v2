@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View,Text,ScrollView,StyleSheet,Image,Pressable, Alert} from 'react-native';
+import { View,Text,ScrollView,StyleSheet,Image,Pressable, Alert,Modal} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import storageData from '../utils/storageData';
-/*/
- 
-
-/*/
+import Help from '../modals/helpmodal';
 
 function Detailscreen (props){
     const context=props 
+    const [helpmodal,setHelpmodal]=useState(false)
+    
     const navigation = useNavigation();
     const removedata = async (key) => {
       
@@ -74,8 +72,19 @@ function Detailscreen (props){
     const openfuel=()=>{
         navigation.navigate('fuels')
     }
+    const help=()=>{
+        setHelpmodal(true)
+       // navigation.navigate('log')
+        
+    }
     return(
         <ScrollView style={{backgroundColor:'#eaeaea'}}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={helpmodal}>
+                <Help setHelpmodal={setHelpmodal}/>
+            </Modal>
             <View style={style.header}>
                 <View>
                 <Image  source={require('../drawables/userlogo.png')} style={style.logo}/>
@@ -145,6 +154,12 @@ function Detailscreen (props){
                  onPress={openfuel}>
                     <Image source={require('../drawables/fuel.png')} style={style.menuicon} />
                     <Text style={style.menutext}>COMBUSTIBLE</Text>
+                </Pressable>
+
+                <Pressable style={style.menuitems}
+                 onPress={help}>
+                    <Image source={require('../drawables/help.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>ACERCA DE</Text>
                 </Pressable>
               
                 <Pressable style={style.menuitems}
