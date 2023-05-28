@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View,Text,StyleSheet,Image, Pressable,TextInput} from 'react-native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 import { SelectList } from 'react-native-dropdown-select-list'
 
 

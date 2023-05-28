@@ -1,72 +1,95 @@
 import React, { useState,useEffect } from 'react';
-import { View,Text,StyleSheet,Image,Pressable, Alert,TextInput} from 'react-native';
+import { View,Text,StyleSheet,Image,Pressable, Alert,TextInput,Modal} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import Api from '../api/intranet'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ValidateDocument from './validatedocument';
+import reporttms from './reporttms';
+import TmsReports from './reporttms';
 
 
 
 function Cdelivery (props){
-    const context=props
-    const [toggleCheckBox, setToggleCheckBox] = useState(false)
-    const [toggleCheckBox1, setToggleCheckBox1] = useState(false)
-    const [toggleCheckBox2, setToggleCheckBox2] = useState(false)
-    const [toggleCheckBox3, setToggleCheckBox3] = useState(false)
-    const [toggleCheckBox4, setToggleCheckBox4] = useState(false)
+    const context=props;
+    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked1, setIsChecked1] = useState(false);
+    const [isChecked2, setIsChecked2] = useState(false);
+    const [isChecked3, setIsChecked3] = useState(false);
+    const [isChecked4, setIsChecked4] = useState(false);
+    const [isChecked5, setIsChecked5] = useState(false);
     const [text, setText] = useState('');
     const [observacion,setObservacion]= useState('')
     const [id_causa,setCausa]= useState(0)
     const [isload,serLoad]= useState(false);
+    const [modalVisible1,setModalVisible1]=useState(false)
+    const [modalVisible,setModalVisible]=useState(false)
 
-
-  
-    useEffect(() => {
-        if(toggleCheckBox==true){
-            setToggleCheckBox1(false)
-            setToggleCheckBox2(false)
-            setToggleCheckBox3(false)
-            setToggleCheckBox4(false)
+    const handleCheck = () => {
+        setIsChecked(!isChecked);
+        if (!isChecked) {
             setObservacion('Sin problemas')
-            setCausa(0)
-
+            setIsChecked1(false)
+            setIsChecked2(false)
+            setIsChecked3(false)
+            setIsChecked4(false)
+            setIsChecked5(false)
+        
+          // Aquí se muestra el alert
+       
         }
-        else if(toggleCheckBox1==true){
-            setToggleCheckBox(false)
-            setToggleCheckBox2(false)
-            setToggleCheckBox3(false)
-            setToggleCheckBox4(false)
+      };
+      const handleCheck1 = () => {
+        setIsChecked1(!isChecked1);
+        if (!isChecked1) {
+            setCausa()
             setObservacion('Documentación incompleta')
-            setCausa(1)
-
+            setIsChecked(false)
+          // Aquí se muestra el alert
+          onpresscheck()
         }
-        else if(toggleCheckBox2==true){
-            setToggleCheckBox1(false)
-            setToggleCheckBox(false)
-            setToggleCheckBox4(false)
-            setToggleCheckBox3(false)
-            setObservacion('Devolucion y rechazos')
-            setCausa(2)
-
+      };
+      const handleCheck2 = () => {
+        setIsChecked2(!isChecked2);
+        if (!isChecked2) {
+            setCausa()
+            setObservacion('Mercancía por devolución')
+            setIsChecked(false)
+          // Aquí se muestra el alert
+          onpresscheck()
         }
-        else if(toggleCheckBox3==true){
-            setToggleCheckBox1(false)
-            setToggleCheckBox(false)
-            setToggleCheckBox4(false)
-            setToggleCheckBox2(false)
-            setObservacion('Faltantes')
-            setCausa(3)
-
+      };
+      const handleCheck3 = () => {
+        setIsChecked3(!isChecked3);
+        if (!isChecked3) {
+            setObservacion('Faltante de origen')
+            setIsChecked(false)
+          // Aquí se muestra el alert
+          onpresscheck()
         }
-        else if(toggleCheckBox4==true){
-            setToggleCheckBox1(false)
-            setToggleCheckBox(false)
-            setToggleCheckBox2(false)
-            setToggleCheckBox3(false)
-            setObservacion('Sin recivo de maniobra')
-            setCausa(4)
-
+      };
+      const handleCheck4 = () => {
+        setIsChecked4(!isChecked4);
+        if (!isChecked4) {
+            setObservacion('Sin comprobante de maniobras')
+            setIsChecked(false)
+          // Aquí se muestra el alert
+          onpresscheck()
         }
-    })
+      };
+      const handleCheck5 = () => {
+        setIsChecked5(!isChecked5);
+        if (!isChecked5) {
+            setObservacion('')
+            setIsChecked(false)
+          // Aquí se muestra el alert
+          onpresscheck()
+        }
+      };
+      
+      
+    const onpresscheck=()=>{
+        setModalVisible(true)
+    }
     async function Confirmar(){
         serLoad(true)
         const fecha = new Date();
@@ -77,8 +100,6 @@ function Cdelivery (props){
             //console.log( confirmated.status)
             if( confirmated.status==200|| confirmated.status==202){
                 Alert.alert("Se confirmo correctamente")
-
-
             }else{
 
 
@@ -116,6 +137,7 @@ function Cdelivery (props){
             
         }
     }
+
     const confirmationStore = async (value) => {
         try {
           const jsonValue = JSON.stringify(value)
@@ -154,16 +176,33 @@ function Cdelivery (props){
     }else{
     return(
         <View style={style.content}>
+            <Modal   
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}>
+                <TmsReports  solicitud={context.solicitud} setModalVisible={setModalVisible} />
+
+            </Modal>
+            <Modal   
+            animationType="slide"
+            transparent={true}
+           
+            visible={modalVisible1}>
+                <ValidateDocument  solicitud={context.solicitud} setModalVisible1={setModalVisible1}/>
+
+            </Modal>
               <View style={style.modal} >
                 <Text style={style.title}>Confirmo que finalizo descarga y recibí todos los documentos necesarios para el cobro del viaje</Text>
                 <Text style={style.title}>Me encuentro:</Text>
                 <View style={style.check_s}>
-                <View  style={style.checkbox}>
-                    <CheckBox
+        
+                <View
+                  style={style.checkbox}>
+                    <CheckBox       
                      disabled={false}
-                    value={toggleCheckBox}
                     tintColors={{ true: '#F15927', false: 'black' }}
-                    onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                    value={isChecked} 
+                    onValueChange={handleCheck}
                     />
                    <Text style={{color:'#000000'}}>Sin problemas</Text>
 
@@ -172,40 +211,47 @@ function Cdelivery (props){
                     <CheckBox
                      disabled={false}
                      tintColors={{ true: '#F15927', false: 'black' }}
-                    value={toggleCheckBox1}
-                    onValueChange={(newValue) => setToggleCheckBox1(newValue)}
+                     value={isChecked1} 
+                     onValueChange={handleCheck1}
                     />
-                   <Text style={{color:'#000000'}}>Documentación incompleta</Text>
+                   <Text style={{color:'#000000'}}>Documentación incompleta  </Text>
+                   <Pressable
+                   onPress={()=> setModalVisible1(true)}>
+                    <Image style={style.iconinfo} source={require('../drawables/inf.gif')}/>
+                   </Pressable>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
-                    value={toggleCheckBox2}
+                  
                     tintColors={{ true: '#F15927', false: 'black' }}
-                    onValueChange={(newValue) => setToggleCheckBox2(newValue)}
+                    value={isChecked2} 
+                    onValueChange={handleCheck2}
                     />
-                   <Text style={{color:'#000000'}}>Devolucion y rechazos</Text>
+                   <Text style={{color:'#000000'}}>Mercancía por devolución</Text>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
-                    value={toggleCheckBox3}
+                     value={isChecked3} 
+                     onValueChange={handleCheck3}
                     tintColors={{ true: '#F15927', false: 'black' }}
-                    onValueChange={(newValue) => setToggleCheckBox3(newValue)}
+               
                     />
-                   <Text style={{color:'#000000'}}>Faltantes</Text>
+                   <Text style={{color:'#000000'}}>Faltante de origen</Text>
 
                 </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
-                    value={toggleCheckBox4}
+                     value={isChecked4} 
+                     onValueChange={handleCheck4}
                     tintColors={{ true: '#F15927', false: 'black' }}
-                    onValueChange={(newValue) => setToggleCheckBox4(newValue)}
+                  
                     />
-                   <Text style={{color:'#000000'}}>Sin recibo de maniobra</Text>
+                   <Text style={{color:'#000000'}}>Sin comprobante de maniobras</Text>
 
                 </View>
                 </View>
@@ -255,6 +301,11 @@ const style=StyleSheet.create({
         borderWidth: 0.5,
         padding: 10,
         color:'#000'
+      },
+      iconinfo:{
+        width:25,
+        height:25,
+
       },
     image:{
         width:200,

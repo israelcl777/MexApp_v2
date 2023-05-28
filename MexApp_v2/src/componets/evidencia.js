@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text,Pressable, View, StyleSheet,Linking} from 'react-native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native';
 
 

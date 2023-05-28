@@ -188,6 +188,23 @@ class Api{
         const query = await fetch(url,options);
         return query;
       }
+
+      async setLogisticsNotifications(body){
+        const query= await fetch("https://tms.logsys.com.mx/mexapp.notifications/api/LogisticsNotifications",{
+          method: 'POST',
+          headers: {   
+            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+           },
+
+           body: body,
+        });
+        var data= await query.text()
+        console.log(data)
+      
+        return query;
+      }
 }
 export default new Api();
 

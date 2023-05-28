@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View,Text,Linking,StyleSheet,Image,Pressable} from 'react-native';
-import Styles from'../styles'
+import Styles from'../styles/styles'
 
 
 function Contacts(props){

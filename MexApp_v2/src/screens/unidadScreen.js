@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View,Text,Button,StyleSheet,Image,Pressable} from 'react-native';
 import TMS from '../api/tms'
-import Styles from '../styles'
+import Styles from '../styles/styles'
 
 
 function Unidad(){

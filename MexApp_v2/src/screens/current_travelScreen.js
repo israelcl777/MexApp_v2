@@ -10,7 +10,7 @@ import { Pressable,Modal } from 'react-native';
 import Confirmated from '../modals/confirmacion';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 
 
 function TravelsScreen (props){
@@ -312,7 +312,7 @@ function TravelsScreen (props){
                         </Pressable>
                         <View  style={[style.horizontal,{backgroundColor:solicitudcolor}]}>
                             <Text style={Styles.titletext}>Direccion origen:  </Text>
-                            <Text style={Styles.simpletext}>{travel_current.origin_address}</Text>
+                            <Text style={Styles.simpletext}>{travel_current.origin_address}  {travel_current.pickup_datetime}</Text>
     
                         </View>
                         <Pressable 
@@ -337,7 +337,7 @@ function TravelsScreen (props){
                         </Pressable>
                         <View  style={[style.horizontal,{backgroundColor:cargacolor}]}>
                             <Text style={Styles.titletext}>Direccion Destino:  </Text>
-                            <Text style={Styles.simpletext}>{travel_current.destiny_address}</Text>
+                            <Text style={Styles.simpletext}>{travel_current.destiny_address}  {travel_current.delivery_datetime}</Text>
                         </View>
                         <Text style={style.textbutton}>Llegada Destino{travel_current.destiny} </Text>
                         <Pressable

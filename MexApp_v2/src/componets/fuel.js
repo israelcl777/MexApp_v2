@@ -6,7 +6,7 @@ import {
     Pressable, Alert
 }from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 
 
 function Fuel (props){

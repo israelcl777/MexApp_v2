@@ -1,7 +1,7 @@
 import React ,{ useEffect, useState }from 'react';
 import { View,Text,Image, PermissionsAndroid,Pressable,StyleSheet ,Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native';
 import RNFetchBlob from 'rn-fetch-blob';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'

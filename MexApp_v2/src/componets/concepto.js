@@ -5,7 +5,7 @@ import {
     StyleSheet,
    
 }from 'react-native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 
 function Empty (props){
 

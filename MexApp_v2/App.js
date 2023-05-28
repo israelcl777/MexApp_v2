@@ -9,7 +9,7 @@
 import React,{useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Image,Text,StyleSheet, useAnimatedValue}from 'react-native'
+import {Image,Text,StyleSheet, Modal, Pressable}from 'react-native'
 import messaging from '@react-native-firebase/messaging';
 import {useNetInfo} from "@react-native-community/netinfo";
 import TravelDetails from './src/screens/travelDetails';
@@ -39,7 +39,7 @@ import Api from'./src/api/tms'
 import storageData from './src/utils/storageData';
 import LiqPdfScreen from './src/screens/liquidacionpdfscreen'
 import LogScreen from './src/screens/logScreen';
-
+import Voicemodal from './src/modals/voicemodal'
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
 
@@ -49,11 +49,12 @@ const App  =()=> {
   const netInfo = useNetInfo();
   const[is_logged, setLogget]=useState(0)
   const[is_conected,setConected]=useState(require('./src/drawables/online.png'))
+  const [modalVisible, setModalVisible] = useState(false);
 
 
   useEffect(() => {
      requestUserPermission()
-    global.version = '1.0.22'//DeviceInfo.getVersion();
+    global.version = '1.0.4'//DeviceInfo.getVersion();
     checkToken();
    getData()
 var s=netInfo.isConnected
@@ -114,6 +115,7 @@ const getData = async () => {
     const user=await storageData.consultData('@user_storage')
     if(user!= null)
     var convert=JSON.parse(user)
+    console.log(convert)
     global.id_operador=convert.id
     global.nombre = convert.nombre;
     global.alias= convert.unidad;
@@ -141,6 +143,14 @@ const checkToken = async () => {
 
   return (
     <NavigationContainer>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+      >
+     <Voicemodal setModalVisible={setModalVisible}/>
+
+      </Modal>
      <Stack.Navigator
      screenOptions={{
       headerStyle: {
@@ -172,9 +182,15 @@ const checkToken = async () => {
         headerLeft: null,
         gesturesEnabled: false,
         headerLeft :() => (
+          <Pressable
+         /*/ onPress={() => setModalVisible(true)}/*/
+          >
+
+         
           <Image
           style={style.logo}
           source={require('./src/drawables/mexapp.png')}/>
+           </Pressable>
         ),
         headerRight :() => (
           <Image

@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DTPicker from '../componets/datetimePicker'
 import Api from '../api/intranet';
 import { Alert } from 'react-native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 
 
 

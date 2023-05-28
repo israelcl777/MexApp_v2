@@ -4,7 +4,7 @@ import { View,Text,Button ,StyleSheet} from 'react-native';
 import Api from '../api/intranet'
 import { useNavigation } from '@react-navigation/native';
 import { Table, Row,Rows } from 'react-native-table-component';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 
 var status=[]
 var fecha_ini=[]

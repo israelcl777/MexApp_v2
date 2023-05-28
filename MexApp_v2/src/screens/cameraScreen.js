@@ -1,7 +1,7 @@
 import React ,{ useEffect, useState }from 'react';
 import { View,Text,Button,Image, PermissionsAndroid,Pressable,StyleSheet ,Modal} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'
 import SetEvidence from '../modals/setevidence';

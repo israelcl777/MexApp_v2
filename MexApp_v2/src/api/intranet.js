@@ -78,6 +78,7 @@ class Api{
     }
    
     async gettravels(id_operador, options = {}){
+      console.log(id_operador)
         options.headers = 
         {
           'Content-Type': 'application/json',
@@ -90,6 +91,8 @@ class Api{
         const line=hora+' '+url+' '+responseSize+'b'
         writeline(line)  
         const data = await query.json();
+        console.log(data)
+
         return data;
     } 
 
@@ -121,6 +124,7 @@ class Api{
     const query = await fetch(url);
       
     const data = await query.json();
+    
     return data;
 
 
@@ -209,9 +213,11 @@ return response
        }),
 
     });
+    console.log(query)
     const responseSize = query.headers.get('content-length') || '0';
     const line=hora+' '+query.url+' '+responseSize+'b'
     writeline(line)  
+
   
     
     return query

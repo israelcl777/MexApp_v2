@@ -4,7 +4,7 @@ import {
     Text,
     Pressable
 }from 'react-native';
-import Styles from '../styles'
+import Styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native';
 
 
