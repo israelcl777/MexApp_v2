@@ -1,9 +1,11 @@
 import React ,{ useState }from "react";
-import { View,Text,Pressable,TextInput ,Image} from "react-native";
+import { View,Text,Pressable,TextInput ,Image, Alert,PermissionsAndroid} from "react-native";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import storageData from '../utils/storageData';
 import ModalStyle from '../styles/modalsstyle'
 import TMS from '../api/tms'
+import Api from '../api/intranet'
+
 
 
 
@@ -25,12 +27,12 @@ function TmsReports(props){
     }
     const send_Report= async()=>{
         const formData = new FormData()
-        formData.append('notification_type_id',63)
+        formData.append('notification_type_id',props.id_notification)
         formData.append('vehicle_id',global.vehicle_id)
         formData.append('driver_id',global.id_operador)
         formData.append('comment',text)
         //formData.append(shipment_id,solicitud)
-        formData.append('shipment_id',solicitud)
+        formData.append('shipment_id',props.solicitud)
         if(arrayurls.length>0){
             console.log('agregando imagenes')
             console.log(arrayurls.length)
@@ -39,18 +41,34 @@ function TmsReports(props){
                 const data = {uri:imagen, type:"image/jpeg", name:'profile.jpg', filename:'afiletest'};
                 formData.append('', data)
                
-             }
-        
+             }        
 
         }
         console.log(formData)
         console.log(text)
+        try {
+            const setNotifications= await TMS.setLogisticsNotifications(formData)
+            var res_status=setNotifications.status 
+            console.log(res_status)
+           // setReport()
+            
+        } catch (error) {
+            
+        }
        
-        const setNotifications= await TMS.setLogisticsNotifications(formData)
-        var res_status=setNotifications.status 
-        console.log(res_status)
 
+    }
+    async function reporterERP(){
 
+        try {
+            const reporter=await Api.setReport(props.solicitud,props.id_causa,observacion)
+            console.log(reporter)
+            send()
+        } catch (error) {
+            console.log(error)
+            send()
+            
+        }
     }
     async function permissioncamera() {
         try {
@@ -73,6 +91,22 @@ function TmsReports(props){
           console.log(err);
         }
       }
+
+    
+    const validate=()=>{
+        //63 64 66
+        console.log(props.id_causa,' '+props.id_notification)
+        if(props.id_notification==63||props.id_notification==67||props.id_notification==66){
+            Alert.alert('no es necesario enviar fotografia')
+
+
+        }else{
+           permissioncamera()
+        }
+      
+
+        
+    }
     const takephoto=()=>{
         const options={
             title: 'tomar foto',
@@ -132,7 +166,7 @@ function TmsReports(props){
 
             <Text style={ModalStyle.title}>Reporte</Text>
             <Pressable
-            onPress={takephoto} 
+            onPress={validate} 
             style={ModalStyle.horizontal}>
                 <Text style={ModalStyle.title}>Agregar imagen </Text>
                 <Image

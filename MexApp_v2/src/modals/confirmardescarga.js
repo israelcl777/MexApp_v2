@@ -20,6 +20,7 @@ function Cdelivery (props){
     const [text, setText] = useState('');
     const [observacion,setObservacion]= useState('')
     const [id_causa,setCausa]= useState(0)
+    const [id_notification,setIdNotification]=useState(0)
     const [isload,serLoad]= useState(false);
     const [modalVisible1,setModalVisible1]=useState(false)
     const [modalVisible,setModalVisible]=useState(false)
@@ -41,7 +42,8 @@ function Cdelivery (props){
       const handleCheck1 = () => {
         setIsChecked1(!isChecked1);
         if (!isChecked1) {
-            setCausa()
+            setCausa(1)
+            setIdNotification(63)
             setObservacion('Documentación incompleta')
             setIsChecked(false)
           // Aquí se muestra el alert
@@ -51,7 +53,8 @@ function Cdelivery (props){
       const handleCheck2 = () => {
         setIsChecked2(!isChecked2);
         if (!isChecked2) {
-            setCausa()
+            setCausa(2)
+            setIdNotification(64)
             setObservacion('Mercancía por devolución')
             setIsChecked(false)
           // Aquí se muestra el alert
@@ -61,6 +64,8 @@ function Cdelivery (props){
       const handleCheck3 = () => {
         setIsChecked3(!isChecked3);
         if (!isChecked3) {
+          setCausa(3)
+          setIdNotification(65)
             setObservacion('Faltante de origen')
             setIsChecked(false)
           // Aquí se muestra el alert
@@ -70,6 +75,8 @@ function Cdelivery (props){
       const handleCheck4 = () => {
         setIsChecked4(!isChecked4);
         if (!isChecked4) {
+          setCausa(4)
+          setIdNotification(66)
             setObservacion('Sin comprobante de maniobras')
             setIsChecked(false)
           // Aquí se muestra el alert
@@ -79,7 +86,9 @@ function Cdelivery (props){
       const handleCheck5 = () => {
         setIsChecked5(!isChecked5);
         if (!isChecked5) {
-            setObservacion('')
+          setCausa(5)
+          setIdNotification(67)
+            setObservacion('Rechazo total')
             setIsChecked(false)
           // Aquí se muestra el alert
           onpresscheck()
@@ -180,7 +189,7 @@ function Cdelivery (props){
             animationType="slide"
             transparent={true}
             visible={modalVisible}>
-                <TmsReports  solicitud={context.solicitud} setModalVisible={setModalVisible} />
+                <TmsReports  solicitud={context.solicitud} setModalVisible={setModalVisible} id_causa={id_causa} id_notification={id_notification}/>
 
             </Modal>
             <Modal   
@@ -254,14 +263,19 @@ function Cdelivery (props){
                    <Text style={{color:'#000000'}}>Sin comprobante de maniobras</Text>
 
                 </View>
+                <View  style={style.checkbox}>
+                    <CheckBox
+                     disabled={false}
+                     value={isChecked5} 
+                     onValueChange={handleCheck5}
+                    tintColors={{ true: '#F15927', false: 'black' }}
+                  
+                    />
+                   <Text style={{color:'#000000'}}>Rechazo total</Text>
+
                 </View>
-                <TextInput
-                disabled={true}
-                style={style.input}
-                label="text"
-                value={text}
-                onChangeText={text => setText(text)}
-                />
+                </View>
+              
     
                 <View style={style.horizontal}>
                 <Pressable 
