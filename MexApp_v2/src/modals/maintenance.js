@@ -1,5 +1,6 @@
-import React ,{ useState }from "react";
+import React ,{ useState,useEffect }from "react";
 import { View,Text,Pressable,TextInput ,Image, Alert,PermissionsAndroid} from "react-native";
+import { SelectList } from 'react-native-dropdown-select-list'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import storageData from '../utils/storageData';
 import ModalStyle from '../styles/modalsstyle'
@@ -7,24 +8,51 @@ import TMS from '../api/tms'
 import Api from '../api/intranet'
 
 
-
-
 var images=[]
 var arraynames=[]
 var arrayurls=[]
-function TmsReports(props){
+
+function Maintenance(props){
+
+    var arraydata=[
+        {name:'AUX MECANICO',id:1},
+        {name:'CAMPAÑA',id:2},
+        {name:'CORRECTIVO',id:3},
+        {name:'DAÑOS',id:4},
+        {name:'EXPRESS',id:5},
+        {name:'',id:6},
+        {name:'GARANTIA',id:7},
+        {name:'LAVADO DE UNIDAD',id:8},
+        {name:'LLANTAS',id:9},
+        {name:'PEVENTIVO',id:10}]
+    
+    const data = [
+      {key:'1', value:'AUX MECANICO'},
+      {key:'2', value:'CAMPAÑA'},
+      {key:'3', value:'CORRECTIVO'},
+      {key:'4', value:'DAÑOS'},
+      {key:'5', value:'EXPRESS'},
+      {key:'6', value:'GARANTIA'},
+      {key:'7', value:'LAVADO DE UNIDAD'},
+      {key:'8', value:'LLANTAS'},
+      {key:'9', value:'PEVENTIVO'},
+  ]
+   
+
 
     const [urls,setUrl]=useState()
     const [names,setNames]=useState('No hay imagenes agregadas')
     const [count, setCount] = useState(0);
     const [text, setText] = useState('');
+    const [selected, setSelected] = useState("");
+   // const [data,setData]=useState([])
+
+  
+
 
     const close= () =>{
-        images=[],
-        arrayurls=[],
-        arraynames=[],
  
-        props.setModalVisible(false)
+        props.setHelpmodal1(false)
 
         
     }
@@ -101,21 +129,16 @@ function TmsReports(props){
 
     
     const validate=()=>{
-        //63 64 66
-        console.log('hay '+arraynames.length+' imagenes')
-        console.log(props.id_causa,' '+props.id_notification)
-        if(props.id_notification==63||props.id_notification==67||props.id_notification==66){
-            Alert.alert('no es necesario enviar fotografia')
-
+        
+        if(arraynames<=5){
+            permissioncamera()
 
         }else{
-            if(arraynames.length<=5){
-                permissioncamera()
-            }else{
-                Alert.alert('Solo pueden enviarse 5 imagenes')
-
-            }
+            Alert('Solo se permiten 5 imagenes')
         }
+   
+         
+ 
       
 
         
@@ -177,7 +200,15 @@ function TmsReports(props){
         <View  style={ModalStyle.content}>
         <View style={ModalStyle.modal}>
 
-            <Text style={ModalStyle.title}>Reporte</Text>
+            <Text style={ModalStyle.title}>Reporte de mantenimiento</Text>
+            <Text style={ModalStyle.title}>Tipo de  evidencia</Text>
+                <SelectList 
+                style={{color:'#000000',width:260}}
+                setSelected={setSelected}
+                data={data}
+                dropdownTextStyles	={{color:'#000000'} }
+                inputStyles={{color:'#000000'} }
+                save="value"/>
             <Pressable
             onPress={validate} 
             style={ModalStyle.horizontal}>
@@ -220,4 +251,4 @@ function TmsReports(props){
 
 
 }
-export default TmsReports;
+export default Maintenance;

@@ -226,7 +226,7 @@ return response
   async setReport(solicitud,id_causa,observation){
     var user =global.id_operador
 
-    const query= await fetch('http://mexapp.mexamerik.com/evidencias-erplogsys/api/SetReporte',{
+    const query= await fetch('https://mexapp.mexamerik.com/evidencias-erplogsys/api/SetReporte',{
       method: 'POST',
       headers: {   
         'Content-Type': 'application/json',

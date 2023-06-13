@@ -3,11 +3,12 @@ import { View,Text,ScrollView,StyleSheet,Image,Pressable, Alert,Modal} from 'rea
 import { useNavigation } from '@react-navigation/native';
 import storageData from '../utils/storageData';
 import Help from '../modals/helpmodal';
+import Maintenance from '../modals/maintenance';
 
 function Detailscreen (props){
     const context=props 
     const [helpmodal,setHelpmodal]=useState(false)
-    
+    const [helpmodal1,setHelpmodal1]=useState(false)
     const navigation = useNavigation();
     const removedata = async (key) => {
       
@@ -77,6 +78,11 @@ function Detailscreen (props){
        // navigation.navigate('log')
         
     }
+    const maintenance=()=>{
+        setHelpmodal1(true)
+       // navigation.navigate('log')
+        
+    }
     return(
         <ScrollView style={{backgroundColor:'#eaeaea'}}>
             <Modal
@@ -84,6 +90,12 @@ function Detailscreen (props){
                 transparent={true}
                 visible={helpmodal}>
                 <Help setHelpmodal={setHelpmodal}/>
+            </Modal>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={helpmodal1}>
+                <Maintenance setHelpmodal1={setHelpmodal1}/>
             </Modal>
             <View style={style.header}>
                 <View>
@@ -160,6 +172,11 @@ function Detailscreen (props){
                  onPress={help}>
                     <Image source={require('../drawables/help.png')} style={style.menuicon} />
                     <Text style={style.menutext}>ACERCA DE</Text>
+                </Pressable>
+                <Pressable style={style.menuitems}
+                 onPress={maintenance}>
+                    <Image source={require('../drawables/mante.png')} style={style.menuicon} />
+                    <Text style={style.menutext}>REPORTES MANTENIMIENTO</Text>
                 </Pressable>
               
                 <Pressable style={style.menuitems}
