@@ -40,6 +40,9 @@ import storageData from './src/utils/storageData';
 import LiqPdfScreen from './src/screens/liquidacionpdfscreen'
 import LogScreen from './src/screens/logScreen';
 import Voicemodal from './src/modals/voicemodal'
+import ReporterScreen from './src/screens/reporterScreen';
+import Reporter from './src/componets/reporter';
+
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
 
@@ -498,6 +501,20 @@ const checkToken = async () => {
           title:"Archivo de Log"}}
       name='log'
       component={LogScreen} />
+
+      <Stack.Screen 
+        options={{
+          unmountOnBlur: true,
+          headerShown: true,
+          headerRight :() => (
+            <Image
+            style={style.logo}
+            source={require('./src/drawables/logo.png')}/>
+          ),
+          gesturesEnabled: false,  
+          title:"Reportes de mantenimiento"}}
+      name='reporter'
+      component={Reporter} />
 
         </>
     )}

@@ -79,8 +79,8 @@ function Detailscreen (props){
         
     }
     const maintenance=()=>{
-        setHelpmodal1(true)
-       // navigation.navigate('log')
+       setHelpmodal1(true)
+        //navigation.navigate('reporter')
         
     }
     return(

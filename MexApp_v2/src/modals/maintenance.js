@@ -14,28 +14,17 @@ var arrayurls=[]
 
 function Maintenance(props){
 
-    var arraydata=[
-        {name:'AUX MECANICO',id:1},
-        {name:'CAMPAÑA',id:2},
-        {name:'CORRECTIVO',id:3},
-        {name:'DAÑOS',id:4},
-        {name:'EXPRESS',id:5},
-        {name:'',id:6},
-        {name:'GARANTIA',id:7},
-        {name:'LAVADO DE UNIDAD',id:8},
-        {name:'LLANTAS',id:9},
-        {name:'PEVENTIVO',id:10}]
     
     const data = [
-      {key:'1', value:'AUX MECANICO'},
-      {key:'2', value:'CAMPAÑA'},
-      {key:'3', value:'CORRECTIVO'},
-      {key:'4', value:'DAÑOS'},
-      {key:'5', value:'EXPRESS'},
-      {key:'6', value:'GARANTIA'},
-      {key:'7', value:'LAVADO DE UNIDAD'},
-      {key:'8', value:'LLANTAS'},
-      {key:'9', value:'PEVENTIVO'},
+      {key:'1', value:'CABINA E INTERIORES'},
+      {key:'2', value:'CHASIS Y SUSPENSION'},
+      {key:'3', value:'GENERAL, HERRAMIENTAS ESPECIALES'},
+      {key:'4', value:'MICELANEOS'},
+      {key:'5', value:'MOTOR'},
+      {key:'6', value:'SERVICIOS Y MANTENIMIENTO'},
+      {key:'7', value:'SISTEMA DE AIRE Y FRENOS'},
+      {key:'9', value:'SISTEMA ELECTRICO E INSTRUMENTOS'},
+      {key:'10', value:'REN MOTRIZ'},
   ]
    
 
@@ -197,7 +186,7 @@ function Maintenance(props){
     }
 
     return(
-        <View  style={ModalStyle.content}>
+    <View  style={ModalStyle.content}>
         <View style={ModalStyle.modal}>
 
             <Text style={ModalStyle.title}>Reporte de mantenimiento</Text>
