@@ -5,6 +5,7 @@ import {
    
 }from 'react-native';
 import Styles from '../styles/styles'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 function Empty (props){
 
@@ -98,7 +99,10 @@ function Empty (props){
 
 
     return(
-<View style={Styles.contencard}>
+<Pressable style={Styles.contencard}>
+  <View style={{borderColor:'#000000'}}>
+
+  
   <Text style={{color:color, textAlign:'right',marginTop:10}}>{props.status} </Text>
   <View style={Styles.horizontal}>
     <Text style={Styles.titletext}>Importe.</Text>
@@ -122,6 +126,7 @@ function Empty (props){
   <Text style={[Styles.simpletextm,{marginBottom:10,}]}>{props.realized_by}</Text>
 
 </View>
+</Pressable>
     )
 
 }

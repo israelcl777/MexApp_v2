@@ -514,7 +514,7 @@ const checkToken = async () => {
           gesturesEnabled: false,  
           title:"Reportes de mantenimiento"}}
       name='reporter'
-      component={Reporter} />
+      component={ReporterScreen} />
 
         </>
     )}
