@@ -3,7 +3,9 @@ import { View,Text,Pressable,TextInput ,Image, Alert,PermissionsAndroid} from "r
 import { SelectList } from 'react-native-dropdown-select-list'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import storageData from '../utils/storageData';
+import moment from 'moment/moment';
 import ModalStyle from '../styles/modalsstyle'
+import Geolocation from 'react-native-geolocation-service';
 import TMS from '../api/tms'
 import Api from '../api/intranet'
 
@@ -13,6 +15,14 @@ var arraynames=[]
 var arrayurls=[]
 
 function Maintenance(props){
+    const [milatitusd,setMilatitud]=useState(0.0)
+    const [milongitud,setMilongitud]=useState(0.0)
+
+    useEffect(() => {
+        geolocation()
+        console.log(global.token)
+         
+      }, [])
 
     
     const data = [
@@ -24,7 +34,7 @@ function Maintenance(props){
       {key:'6', value:'SERVICIOS Y MANTENIMIENTO'},
       {key:'7', value:'SISTEMA DE AIRE Y FRENOS'},
       {key:'9', value:'SISTEMA ELECTRICO E INSTRUMENTOS'},
-      {key:'10', value:'REN MOTRIZ'},
+      {key:'10', value:'TREN MOTRIZ'},
   ]
    
 
@@ -45,16 +55,50 @@ function Maintenance(props){
 
         
     }
+    const geolocation=()=>{
+        console.log("actualizando localozacion")
+            Geolocation.getCurrentPosition(
+                (position) => {
+                  var Region ={
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    latitudeDelta: 2,
+                    longitudeDelta: 2,
+                  }
+               
+                  setMilatitud(position.coords.latitude)
+                  setMilongitud(position.coords.longitude)
+        
+                },
+                (error) => {
+                  // See error code charts below.
+                  console.log(error.code, error.message);
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+            );
+        }
     const send_Report= async()=>{
+        geolocation()
+        console.log(selected)
+        let d= data.filter(d=> d.value==selected)
+        let report_type_id=d[0].key
+       
+
+
+        var time=moment().format('YYYY-MM-DDTHH:MM:SS')
+        var time2=time+'.000'
         const formData = new FormData()
-        formData.append('notification_type_id',props.id_notification)
+        formData.append('report_type_id',report_type_id)
         formData.append('vehicle_id',global.vehicle_id)
         formData.append('driver_id',global.id_operador)
-        formData.append('comment',text)
-        //formData.append(shipment_id,solicitud)
-        formData.append('shipment_id',props.solicitud)
+        formData.append('observation',text)
+        formData.append('shipment_id',global.solicitud)
+        formData.append('lon',milongitud)
+        formData.append('lat',milatitusd)
+        formData.append('time',time2)
+
+
         if(arrayurls.length>0){
-            console.log('agregando imagenes')
             console.log(arrayurls.length)
             for (var i = 0; i < arrayurls.length; i++) {
                 var imagen=arrayurls[0]
@@ -67,10 +111,10 @@ function Maintenance(props){
         console.log(formData)
         console.log(text)
         try {
-            const setNotifications= await TMS.setLogisticsNotifications(formData)
+            const setNotifications= await TMS.setreportM(formData,token)
             var res_status=setNotifications.status 
-            console.log(res_status)
-            reporterERP()
+            close()
+          //  console.log(res_status)
             
         } catch (error) {
             Alert.alert(error)
@@ -79,19 +123,7 @@ function Maintenance(props){
         }
        
     }
-    async function reporterERP(){
 
-        try {
-            console.log('enviando reporte a erp...')
-            const reporter=await Api.setReport(props.solicitud,props.id_causa,text)
-            console.log(reporter)
-           close()
-        } catch (error) {
-            console.log(error)
-            close()
-            
-        }
-    }
 
 
     async function permissioncamera() {
@@ -189,8 +221,8 @@ function Maintenance(props){
     <View  style={ModalStyle.content}>
         <View style={ModalStyle.modal}>
 
-            <Text style={ModalStyle.title}>Reporte de mantenimiento</Text>
-            <Text style={ModalStyle.title}>Tipo de  evidencia</Text>
+            <Text style={ModalStyle.title}>Crear reporte de MANTENIMIENTO</Text>
+            <Text style={ModalStyle.title}>Tipo de  Falla</Text>
                 <SelectList 
                 style={{color:'#000000',width:260}}
                 setSelected={setSelected}
@@ -198,6 +230,14 @@ function Maintenance(props){
                 dropdownTextStyles	={{color:'#000000'} }
                 inputStyles={{color:'#000000'} }
                 save="value"/>
+                 <TextInput
+                disabled={true}
+                style={ModalStyle.input}
+                label="text"
+                value={text}
+                placeholder="Comentario"
+                onChangeText={text => setText(text)}
+                />
             <Pressable
             onPress={validate} 
             style={ModalStyle.horizontal}>
@@ -210,14 +250,7 @@ function Maintenance(props){
 
             </Pressable>
             <Text style={ModalStyle.texto}>{names} </Text>
-            <TextInput
-                disabled={true}
-                style={ModalStyle.input}
-                label="text"
-                value={text}
-                placeholder="Comentario"
-                onChangeText={text => setText(text)}
-                />
+           
             <View style={ModalStyle.horizontal}>
             <Pressable 
             onPress={close}

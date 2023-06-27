@@ -42,7 +42,7 @@ function Cdelivery (props){
       const handleCheck1 = () => {
         setIsChecked1(!isChecked1);
         if (!isChecked1) {
-            setCausa(1)
+            setCausa(3)
             setIdNotification(63)
             setObservacion('Documentación incompleta')
             setIsChecked(false)
@@ -64,7 +64,7 @@ function Cdelivery (props){
       const handleCheck3 = () => {
         setIsChecked3(!isChecked3);
         if (!isChecked3) {
-          setCausa(3)
+          setCausa(10)
           setIdNotification(65)
             setObservacion('Faltante de origen')
             setIsChecked(false)
@@ -75,7 +75,7 @@ function Cdelivery (props){
       const handleCheck4 = () => {
         setIsChecked4(!isChecked4);
         if (!isChecked4) {
-          setCausa(4)
+          setCausa(18)
           setIdNotification(66)
             setObservacion('Sin comprobante de maniobras')
             setIsChecked(false)
@@ -86,7 +86,7 @@ function Cdelivery (props){
       const handleCheck5 = () => {
         setIsChecked5(!isChecked5);
         if (!isChecked5) {
-          setCausa(5)
+          setCausa(17)
           setIdNotification(67)
             setObservacion('Rechazo total')
             setIsChecked(false)
@@ -108,7 +108,7 @@ function Cdelivery (props){
             const confirmated=await Api.confirmar(context.solicitud,3,observacion)
             //console.log( confirmated.status)
             if( confirmated.status==200|| confirmated.status==202){
-                Alert.alert("Se confirmo correctamente")
+                Alert.alert("Se confirmo correctamente, llama a tu lider de flota")
             }else{
 
 

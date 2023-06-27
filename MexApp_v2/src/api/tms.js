@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_API='https://tms.logsys.com.mx/tms/v1/'
 const rest_v2='https://app.mexamerik.com/tms/api/v2.0'
-
+const tmsapi='https://tms.logsys.com.mx/maintenance/'
 
 class Api{
      
@@ -205,6 +205,98 @@ class Api{
       
         return query;
       }
+
+      async gettoken(){
+        const query= await fetch(tmsapi+"api/auth/login",{
+          method: 'POST',
+          headers: {   
+            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+           },
+           body: JSON.stringify({
+            "username":'MexApp',
+            "password":'M3x4pp&*',
+           }),
+        });
+        var data= await query.json();
+        return data;
+      }
+      async setreportM(body){
+
+        console.log('el token:'+global.token)
+        const query= await fetch(tmsapi+'api/reports',{
+          method: 'POST',
+          headers: {   
+            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+          Authorization : ' Bearer '+global.token,  
+
+           },
+
+           body: body,
+        });
+        console.log(query)      
+        return query;
+      }
+   
+
+   
+      async getreports(token , options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Bearer '+token,
+          'sort':'-time'
+        
+        };
+        var url = tmsapi+'api/reports?driver_id='+global.id_operador
+        const query = await fetch(url,options);
+        const data = await query.json();
+       // console.log(query)
+        return data;   
+      }
+
+      async getreportsdetail(token,ot , options = {}){
+        options.headers = 
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization : ' Bearer '+token,
+          'sort':'-time'
+        
+        };
+        var url = tmsapi+'api/reports?ot_folio='+ot+'&status_id=3'
+        const query = await fetch(url,options);
+        const data = await query.json();
+       // console.log(data)
+
+        return data;   
+      }
+      
+
+      async validatereports(ot,bandera){
+
+        console.log('el token:'+global.token)
+        const query= await fetch(tmsapi+'api/reports/'+ot+'/validated',{
+          method: 'PUT',
+          headers: {   
+            'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          Authorization : ' Bearer '+global.token,  
+
+           },
+
+           body: JSON.stringify({
+            "validated_success":bandera,  
+           }),
+          });
+
+        console.log(query)      
+        return query;
+      }
+
 }
 export default new Api();
 

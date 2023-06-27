@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { View ,Text,TouchableOpacity} from "react-native";
+import { View ,Text,TouchableOpacity,Modal} from "react-native";
 import Styles from '../styles/styles'
-
+import Ot_validationModal from '../modals/ot_validationModal'
 
 
 function Reporter(props){
+  const[isModalvisible, setModalVisible]=useState(false)
+
+  const openmodal=()=>{
+    if(props.status_id==3){
+      setModalVisible(true)
+
+
+    }
+  }
 
 
     const local=(fecha)=> {
@@ -35,8 +44,14 @@ function Reporter(props){
        }
 
     return(
-        <TouchableOpacity style={Styles.contencard}>
-             <Text style={{color:props.row_color, textAlign:'right',marginTop:10}}>{props.status} </Text>
+        <TouchableOpacity style={Styles.contencard} onPress={openmodal}>
+           <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalvisible}>
+                <Ot_validationModal data={props} setModalVisible={setModalVisible}/>
+            </Modal>
+             <Text style={{textAlign:'right',marginTop:10}}>{props.status} </Text>
             <View  style={Styles.horizontal}>
                 <Text style={Styles.titletext}>FOLIO: {props.id}</Text>
                 <Text style={Styles.titletext}>Creado el: </Text>
@@ -50,6 +65,16 @@ function Reporter(props){
 
 
             </View>
+            <View  style={Styles.horizontal}>
+            <Text style={Styles.titletext}>Tipo de falla:</Text>
+            <Text style={Styles.simpletext}>{props.report_type}:</Text>
+            </View>
+            <View  style={Styles.horizontal}>
+            <Text style={Styles.titletext}>orden de trabajo:</Text>
+            <Text style={Styles.simpletext}>{props.ot}:</Text>
+            </View>
+            
+            
           
            
         </TouchableOpacity>
