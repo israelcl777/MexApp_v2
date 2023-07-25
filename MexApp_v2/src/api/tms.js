@@ -242,7 +242,7 @@ class Api{
    
 
    
-      async getreports(token , options = {}){
+      async getreports(vehicle_id,token , options = {}){
         options.headers = 
         {
           'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ class Api{
           'sort':'-time'
         
         };
-        var url = tmsapi+'api/reports?driver_id='+global.id_operador
+        var url = tmsapi+'api/reports?vehicle='+vehicle_id
         const query = await fetch(url,options);
         const data = await query.json();
        // console.log(query)
@@ -270,7 +270,7 @@ class Api{
         var url = tmsapi+'api/reports?ot_folio='+ot+'&status_id=3'
         const query = await fetch(url,options);
         const data = await query.json();
-       // console.log(data)
+       console.log(query)
 
         return data;   
       }

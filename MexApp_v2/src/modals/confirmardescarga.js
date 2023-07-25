@@ -4,13 +4,13 @@ import CheckBox from '@react-native-community/checkbox';
 import Api from '../api/intranet'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ValidateDocument from './validatedocument';
-import reporttms from './reporttms';
 import TmsReports from './reporttms';
 
 
 
 function Cdelivery (props){
     const context=props;
+    const [reporter,setreporter]=useState(false)
     const [isChecked, setIsChecked] = useState(false);
     const [isChecked1, setIsChecked1] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
@@ -18,27 +18,14 @@ function Cdelivery (props){
     const [isChecked4, setIsChecked4] = useState(false);
     const [isChecked5, setIsChecked5] = useState(false);
     const [text, setText] = useState('');
-    const [observacion,setObservacion]= useState('')
+    const [observacion,setObservacion]= useState('Sin problemas')
     const [id_causa,setCausa]= useState(0)
     const [id_notification,setIdNotification]=useState(0)
     const [isload,serLoad]= useState(false);
     const [modalVisible1,setModalVisible1]=useState(false)
     const [modalVisible,setModalVisible]=useState(false)
 
-    const handleCheck = () => {
-        setIsChecked(!isChecked);
-        if (!isChecked) {
-            setObservacion('Sin problemas')
-            setIsChecked1(false)
-            setIsChecked2(false)
-            setIsChecked3(false)
-            setIsChecked4(false)
-            setIsChecked5(false)
-        
-          // Aquí se muestra el alert
-       
-        }
-      };
+
       const handleCheck1 = () => {
         setIsChecked1(!isChecked1);
         if (!isChecked1) {
@@ -103,21 +90,23 @@ function Cdelivery (props){
         serLoad(true)
         const fecha = new Date();
         var datetime=fecha.getDate()+'-'+(fecha.getMonth()+1)+'-'+fecha.getFullYear()+' '+fecha.getHours()+':'+fecha.getMinutes()
+        console.log(fecha+' '+observacion+' '+context.solicitud)
 
         try {
-            const confirmated=await Api.confirmar(context.solicitud,3,observacion)
+           /*/ const confirmated=await Api.confirmar(context.solicitud,3,observacion)
             //console.log( confirmated.status)
             if( confirmated.status==200|| confirmated.status==202){
                 Alert.alert("Se confirmo correctamente, llama a tu lider de flota")
             }else{
 
 
-            }
+            }/*/
            
            // Alert.alert()
            /*/ if(id_causa!=0){
                 setReporter()
             }/*/
+            
             send()
           
         } catch (error) {
@@ -129,18 +118,6 @@ function Cdelivery (props){
             }
             confirmationStore(confirmation)
 
-            console.log(error)
-            send()
-            
-        }
-    }
-    async function setReporter(){
-
-        try {
-            const reporter=await Api.setReport(context.solicitud,3,observacion)
-            console.log(reporter)
-            send()
-        } catch (error) {
             console.log(error)
             send()
             
@@ -183,13 +160,52 @@ function Cdelivery (props){
 
         )
     }else{
+
+
+      if(reporter==false){
+        return(
+            <View style={style.content}>
+                  <View style={style.modal} >
+                    <Text style={style.title}>MexApp</Text>
+                    <Text style={style.title}>Confirmo que finalizo descarga y recibí todos los documentos necesarios para el cobro del viaje </Text>
+        
+                    <View style={style.horizontal}>
+                    <Pressable 
+                    onPress={Confirmar}
+                    style={style.button}>
+                        <Text style={style.textbutton}>si</Text>
+                    </Pressable>
+                    <Pressable 
+                    onPress={() => setreporter(true)}
+                    style={style.button1}>
+                        <Text style={style.textbutton}>no</Text>
+                    </Pressable>
+                    </View>
+        
+                    </View>
+                  </View>
+
+        )
+
+     }
+     else{
     return(
         <View style={style.content}>
             <Modal   
             animationType="slide"
             transparent={true}
             visible={modalVisible}>
-                <TmsReports  solicitud={context.solicitud} setModalVisible={setModalVisible} id_causa={id_causa} id_notification={id_notification}/>
+                <TmsReports  
+                solicitud={context.solicitud} 
+                setModalVisible={setModalVisible}
+                 id_causa={id_causa} 
+                 id_notification={id_notification}
+                 setIsChecked1={setIsChecked1}
+                 setIsChecked2={setIsChecked2}
+                 setIsChecked3={setIsChecked3}
+                 setIsChecked4={setIsChecked4}
+                 setIsChecked5={setIsChecked5}
+                />
 
             </Modal>
             <Modal   
@@ -201,21 +217,10 @@ function Cdelivery (props){
 
             </Modal>
               <View style={style.modal} >
-                <Text style={style.title}>Confirmo que finalizo descarga y recibí todos los documentos necesarios para el cobro del viaje</Text>
-                <Text style={style.title}>Me encuentro:</Text>
+            
+                <Text style={style.title}>Reportar Problema:</Text>
                 <View style={style.check_s}>
         
-                <View
-                  style={style.checkbox}>
-                    <CheckBox       
-                     disabled={false}
-                    tintColors={{ true: '#F15927', false: 'black' }}
-                    value={isChecked} 
-                    onValueChange={handleCheck}
-                    />
-                   <Text style={{color:'#000000'}}>Sin problemas</Text>
-
-                </View>
                 <View  style={style.checkbox}>
                     <CheckBox
                      disabled={false}
@@ -292,9 +297,10 @@ function Cdelivery (props){
     
                 </View>
               </View>
+     
 
     )
-};
+}}
 }
 
 const style=StyleSheet.create({

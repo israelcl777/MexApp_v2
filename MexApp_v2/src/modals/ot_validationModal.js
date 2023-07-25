@@ -12,16 +12,21 @@ function Confirmated (props){
     const[texto,setText]=useState('')
 
     useEffect(() => {
+
       getData()
+      setTimeout(() => {
+        getData()
+      }, 1000);
    
-  }, [])
+  })
 
   async function getData(){
     var token=global.token//gettoken.token 
+    console.log('orde  '+props.ot)
     try {
       const getreports= await TMS.getreportsdetail(token,props.ot)
-      setItems(getreports)
       console.log(getreports)
+      setItems(getreports)
 
       var str=''
 

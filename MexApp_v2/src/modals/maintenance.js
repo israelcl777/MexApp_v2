@@ -24,7 +24,11 @@ function Maintenance(props){
          
       }, [])
 
-    
+    const types=[
+        {key:'1', value:'UNIDAD'},
+        {key:'2', value:'CHASIS Y SUSPENSION'},
+
+    ]
     const data = [
       {key:'1', value:'CABINA E INTERIORES'},
       {key:'2', value:'CHASIS Y SUSPENSION'},
@@ -85,8 +89,8 @@ function Maintenance(props){
        
 
 
-        var time=moment().format('YYYY-MM-DDTHH:MM:SS')
-        var time2=time+'.000'
+        var time=moment().format('YYYY-MM-DDTHH:MM')
+        var time2=time+':00.000'
         const formData = new FormData()
         formData.append('report_type_id',report_type_id)
         formData.append('vehicle_id',global.vehicle_id)
@@ -220,9 +224,30 @@ function Maintenance(props){
     return(
     <View  style={ModalStyle.content}>
         <View style={ModalStyle.modal}>
+        <Text style={ModalStyle.title}></Text>
 
-            <Text style={ModalStyle.title}>Crear reporte de MANTENIMIENTO</Text>
+            <Text style={ModalStyle.title}>Nuevo reporte MTO</Text>
+            <Text style={ModalStyle.title}></Text>
+
+            <View style={ModalStyle.horizontal}>
+                <Text style={ModalStyle.title}>Operador:</Text>
+            <    Text style={ModalStyle.texto}>{global.nombre}:</Text>
+            </View>
+            <View style={ModalStyle.horizontal}>
+                <Text style={ModalStyle.title}>Unidad:</Text>
+            <    Text style={ModalStyle.texto}>{global.alias}</Text>
+            </View>
+            <Text style={ModalStyle.title}></Text>
+            <SelectList 
+                style={{color:'#000000',width:260}}
+                setSelected={setSelected}
+                data={data}
+                dropdownTextStyles	={{color:'#000000'} }
+                inputStyles={{color:'#000000'} }
+                save="value"/>
+
             <Text style={ModalStyle.title}>Tipo de  Falla</Text>
+           
                 <SelectList 
                 style={{color:'#000000',width:260}}
                 setSelected={setSelected}
@@ -235,6 +260,7 @@ function Maintenance(props){
                 style={ModalStyle.input}
                 label="text"
                 value={text}
+                multiline={true}
                 placeholder="Comentario"
                 onChangeText={text => setText(text)}
                 />

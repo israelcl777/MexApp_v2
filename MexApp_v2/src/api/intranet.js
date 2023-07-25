@@ -214,6 +214,9 @@ return response
 
     });
     console.log(query)
+    const data = await query.text()
+
+    console.log(data)
     const responseSize = query.headers.get('content-length') || '0';
     const line=hora+' '+query.url+' '+responseSize+'b'
     writeline(line)  

@@ -176,7 +176,7 @@ function Detailscreen (props){
                 <Pressable style={style.menuitems}
                  onPress={maintenance}>
                     <Image source={require('../drawables/mante.png')} style={style.menuicon} />
-                    <Text style={style.menutext}>REPORTES MANTENIMIENTO</Text>
+                    <Text style={style.menutext}>REPORTES MTO</Text>
                 </Pressable>
               
                 <Pressable style={style.menuitems}

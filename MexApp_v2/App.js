@@ -40,7 +40,7 @@ import storageData from './src/utils/storageData';
 import LiqPdfScreen from './src/screens/liquidacionpdfscreen'
 import LogScreen from './src/screens/logScreen';
 import Voicemodal from './src/modals/voicemodal'
-import ReporterScreen from './src/screens/reporterScreen';
+import ReporterScreen from './src/componets/mto_tabs';
 import Reporter from './src/componets/reporter';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's

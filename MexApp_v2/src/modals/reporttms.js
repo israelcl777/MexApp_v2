@@ -20,11 +20,25 @@ function TmsReports(props){
     const [text, setText] = useState('');
 
     const close= () =>{
-        images=[],
-        arrayurls=[],
-        arraynames=[],
- 
-        props.setModalVisible(false)
+
+        switch (props.id_causa) {
+            case 3:
+                props.setIsChecked1(false)
+            case 2:
+              props.setIsChecked2(false)
+            case 10:
+                props.setIsChecked3(false)
+            case 18:
+                props.setIsChecked4(false)
+            case 17:
+                props.setIsChecked5(false)
+            default:
+              console.log('no hay mas options')
+          }
+        images=[]
+        arrayurls=[]
+        arraynames=[]
+       props.setModalVisible(false)
 
         
     }
@@ -194,6 +208,7 @@ function TmsReports(props){
                 disabled={true}
                 style={ModalStyle.input}
                 label="text"
+                multiline={true}
                 value={text}
                 placeholder="Comentario"
                 onChangeText={text => setText(text)}

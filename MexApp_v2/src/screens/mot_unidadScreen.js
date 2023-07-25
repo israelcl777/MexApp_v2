@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react'
-import { View,Image,Pressable,Modal, ScrollView,RefreshControl,StyleSheet} from 'react-native';
+import { View,Image,Pressable,Modal, ScrollView,RefreshControl,StyleSheet,Text} from 'react-native';
 import ReporterList from '../containers/rerporterList';
 import Api from'../api/tms'
 import moment from 'moment/moment';
@@ -42,7 +42,7 @@ function ReporterScreen (){
       var token=gettoken.token 
       global.token=token
       try {
-        const getreports= await tms.getreports(token)
+        const getreports= await tms.getreports(global.vehicle_id,token)
         setItems(getreports)
        console.log(getreports)
 
@@ -76,7 +76,8 @@ function ReporterScreen (){
         <ReporterList data={items}/>
         <View style={style.horizontal} >
             <Pressable onPress={openmodal}>
-                <Image style={{width:50,height:50,margin:10}} source={require('../drawables/camera.png')}/>
+                <Image style={{width:50,height:50,margin:10}} source={require('../drawables/mas.png')}/>
+                <Text>Agregar</Text>
             </Pressable>
         </View>
     </View>

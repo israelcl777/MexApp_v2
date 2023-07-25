@@ -4,7 +4,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import HomeScreen from '../screens/homescreen';
 import Detailscreen from '../screens/detailscreen';
 import CameraScreen from '../screens/cameraScreen'
-//import { color } from 'react-native-reanimated';
 import TravelsTabs from './travels_tabs';
 import DreamsScreen from '../screens/dreamsScreen';
 import MLoginScreen from '../screens/mloginscreen';
