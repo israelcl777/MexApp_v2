@@ -116,10 +116,12 @@ function TravelsScreen (props){
             //console.log(currenttravel)
             storeData(currenttravel)
             setIsoffline('')
+
             global.vehicle_id=currenttravel.vehicle_id
             global.origen=currenttravel.origin
             global.destino=currenttravel.destiny
-            global.solicitud= currenttravel.id
+            global.solicitud=currenttravel.id
+            global.vehicle_carga=currenttravel.vehicle_carga
 
             if(currenttravel.travel_confirmed==false){
                 setConfimated(true)

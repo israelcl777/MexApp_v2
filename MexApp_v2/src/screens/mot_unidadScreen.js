@@ -76,8 +76,8 @@ function ReporterScreen (){
         <ReporterList data={items}/>
         <View style={style.horizontal} >
             <Pressable onPress={openmodal}>
-                <Image style={{width:50,height:50,margin:10}} source={require('../drawables/mas.png')}/>
-                <Text>Agregar</Text>
+            <Image style={{width:50,height:50}} source={require('../drawables/mas.png')}/>
+                <Text style={{marginBottom:20}}>Agregar</Text>
             </Pressable>
         </View>
     </View>
@@ -123,7 +123,7 @@ textbutton:{
   
    
       alignSelf: 'flex-end' ,
-      top: '90%'//for align to right
+      top: '88%'//for align to right
      
    
 

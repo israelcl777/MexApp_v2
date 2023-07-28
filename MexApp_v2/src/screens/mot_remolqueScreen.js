@@ -15,9 +15,8 @@ function ReporterScreen (){
     const [items, setItems] = useState([]);
     const [refreshing, setRefreshing] = React.useState(false);
     const [helpmodal1,setHelpmodal1]=useState(false)
-   
-
-
+ 
+    
 
     useEffect(() => {
       getData()
@@ -50,10 +49,8 @@ function ReporterScreen (){
         
       }
 
-
     }
   
-
     function GetSortOrder(prop) {    
     return function(a, b) {    
         if (a[prop] > b[prop]) {    
@@ -65,6 +62,8 @@ function ReporterScreen (){
     }    
 }  
    
+
+
     return(
       <View style={{width:'100%',height:'100%' }}>
             <Modal
@@ -76,14 +75,17 @@ function ReporterScreen (){
         <ReporterList data={items}/>
         <View style={style.horizontal} >
             <Pressable onPress={openmodal}>
+
                 <Image style={{width:50,height:50}} source={require('../drawables/mas.png')}/>
-                <Text style={{marginBottom:20}}>agregar</Text>
+                <Text style={{marginBottom:20}}>Agregar</Text>
 
             </Pressable>
         </View>
     </View>
     )
 };
+
+
 
 const style = StyleSheet.create({
   button:{
@@ -121,10 +123,8 @@ textbutton:{
       justifyContent: 'center',
       alignItems: 'center',
       position: 'absolute',//use absolute position to show button on top of the map
-  
-   
       alignSelf: 'flex-end' ,
-      top: '86%'//for align to right
+      top: '88%'//for align to right
      
    
 

@@ -7,8 +7,6 @@ import moment from 'moment/moment';
 import ModalStyle from '../styles/modalsstyle'
 import Geolocation from 'react-native-geolocation-service';
 import TMS from '../api/tms'
-import Api from '../api/intranet'
-
 
 var images=[]
 var arraynames=[]
@@ -25,8 +23,8 @@ function Maintenance(props){
       }, [])
 
     const types=[
-        {key:'1', value:'UNIDAD'},
-        {key:'2', value:'CHASIS Y SUSPENSION'},
+        {key:'1', value:'UNIDAD MOTRIZ'},
+        {key:'2', value:'UNIDAD DE ARRASTRE'},
 
     ]
     const data = [
@@ -41,13 +39,13 @@ function Maintenance(props){
       {key:'10', value:'TREN MOTRIZ'},
   ]
    
-
-
     const [urls,setUrl]=useState()
     const [names,setNames]=useState('No hay imagenes agregadas')
     const [count, setCount] = useState(0);
     const [text, setText] = useState('');
     const [selected, setSelected] = useState("");
+    const [selected1, setSelected1] = useState("");
+
    // const [data,setData]=useState([])
 
   
@@ -56,8 +54,7 @@ function Maintenance(props){
     const close= () =>{
  
         props.setHelpmodal1(false)
-
-        
+    
     }
     const geolocation=()=>{
         console.log("actualizando localozacion")
@@ -83,17 +80,19 @@ function Maintenance(props){
         }
     const send_Report= async()=>{
         geolocation()
-        console.log(selected)
+     
         let d= data.filter(d=> d.value==selected)
         let report_type_id=d[0].key
-       
-
-
         var time=moment().format('YYYY-MM-DDTHH:MM')
         var time2=time+':00.000'
         const formData = new FormData()
         formData.append('report_type_id',report_type_id)
-        formData.append('vehicle_id',global.vehicle_id)
+        if(selected1=='UNIDAD MOTRIZ'){
+            formData.append('vehicle_id',global.vehicle_id)
+        }else{
+            formData.append('vehicle_id',global.vehicle_carga)
+
+        }
         formData.append('driver_id',global.id_operador)
         formData.append('observation',text)
         formData.append('shipment_id',global.solicitud)
@@ -115,8 +114,8 @@ function Maintenance(props){
         console.log(formData)
         console.log(text)
         try {
-            const setNotifications= await TMS.setreportM(formData,token)
-            var res_status=setNotifications.status 
+           // const setNotifications= await TMS.setreportM(formData,token)
+            //var res_status=setNotifications.status 
             close()
           //  console.log(res_status)
             
@@ -127,7 +126,6 @@ function Maintenance(props){
         }
        
     }
-
 
 
     async function permissioncamera() {
@@ -161,13 +159,11 @@ function Maintenance(props){
         }else{
             Alert('Solo se permiten 5 imagenes')
         }
-   
-         
- 
-      
-
         
     }
+
+
+
     const takephoto=()=>{
         const options={
             title: 'tomar foto',
@@ -205,17 +201,12 @@ function Maintenance(props){
                     images.push(jsonimage)
                     arraynames.push(name)
                     arrayurls.push(uri)
-                   
                     setUrl(images)
                     var cadenaConSaltos = arraynames.join('\n');
                     setNames(cadenaConSaltos)
 
                     // Imprimir el resultado
-                    console.log(arrayurls);
-
-                 
-                  
-                   
+                    console.log(arrayurls);             
                 
                 }
             })
@@ -230,18 +221,24 @@ function Maintenance(props){
             <Text style={ModalStyle.title}></Text>
 
             <View style={ModalStyle.horizontal}>
-                <Text style={ModalStyle.title}>Operador:</Text>
+                <Text style={ModalStyle.title}>Operador: </Text>
             <    Text style={ModalStyle.texto}>{global.nombre}:</Text>
             </View>
             <View style={ModalStyle.horizontal}>
-                <Text style={ModalStyle.title}>Unidad:</Text>
+                <Text style={ModalStyle.title}>Unidad: </Text>
             <    Text style={ModalStyle.texto}>{global.alias}</Text>
             </View>
+            <View style={ModalStyle.horizontal}>
+                <Text style={ModalStyle.title}>U. de arrastre: </Text>
+            <    Text style={ModalStyle.texto}>{global.vehicle_carga}</Text>
+            </View>
             <Text style={ModalStyle.title}></Text>
+            <Text style={ModalStyle.title}>Reportar por </Text>
+
             <SelectList 
                 style={{color:'#000000',width:260}}
-                setSelected={setSelected}
-                data={data}
+                setSelected={setSelected1}
+                data={types}
                 dropdownTextStyles	={{color:'#000000'} }
                 inputStyles={{color:'#000000'} }
                 save="value"/>
@@ -288,11 +285,8 @@ function Maintenance(props){
             style={ModalStyle.button}>
                 <Text style={ModalStyle.textbutton}>Enviar</Text>
             </Pressable>
-       
             </View>
-
         </View>
-
     </View>
      
     );
