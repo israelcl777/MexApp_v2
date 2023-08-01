@@ -8,20 +8,24 @@ import ModalStyle from '../styles/modalsstyle'
 import Geolocation from 'react-native-geolocation-service';
 import TMS from '../api/tms'
 
-var images=[]
 var arraynames=[]
-var arrayurls=[]
+
 
 function Maintenance(props){
     const [milatitusd,setMilatitud]=useState(0.0)
     const [milongitud,setMilongitud]=useState(0.0)
+    const [names,setNames]=useState('No hay imagenes agregadas')
+    const [count, setCount] = useState(0);
+    const [text, setText] = useState('');
+    const [selected, setSelected] = useState("");
+    const [selected1, setSelected1] = useState("");
 
     useEffect(() => {
         geolocation()
         console.log(global.token)
          
       }, [])
-
+    const typedefault=[]
     const types=[
         {key:'1', value:'UNIDAD MOTRIZ'},
         {key:'2', value:'UNIDAD DE ARRASTRE'},
@@ -39,12 +43,7 @@ function Maintenance(props){
       {key:'10', value:'TREN MOTRIZ'},
   ]
    
-    const [urls,setUrl]=useState()
-    const [names,setNames]=useState('No hay imagenes agregadas')
-    const [count, setCount] = useState(0);
-    const [text, setText] = useState('');
-    const [selected, setSelected] = useState("");
-    const [selected1, setSelected1] = useState("");
+ 
 
    // const [data,setData]=useState([])
 
@@ -90,7 +89,7 @@ function Maintenance(props){
         if(selected1=='UNIDAD MOTRIZ'){
             formData.append('vehicle_id',global.vehicle_id)
         }else{
-            formData.append('vehicle_id',global.vehicle_carga)
+            formData.append('vehicle_id',555)
 
         }
         formData.append('driver_id',global.id_operador)
@@ -114,8 +113,8 @@ function Maintenance(props){
         console.log(formData)
         console.log(text)
         try {
-           // const setNotifications= await TMS.setreportM(formData,token)
-            //var res_status=setNotifications.status 
+           const setNotifications= await TMS.setreportM(formData,token)
+           var res_status=setNotifications.status 
             close()
           //  console.log(res_status)
             
@@ -188,25 +187,12 @@ function Maintenance(props){
 
                 }
                 else if(response.assets){
-                  
-                    const uri= response.assets[0].uri  
-                    const name=response.assets[0].fileName
-                    const id = response.assets[0].id
-                  
-                    var jsonimage={
-                        id:count,
-                        url:uri,
-                        name:name
-                    }
-                    images.push(jsonimage)
-                    arraynames.push(name)
-                    arrayurls.push(uri)
-                    setUrl(images)
+                    var name=response.assets[0].fileName
+                  //  arraynames.push(name)                                
                     var cadenaConSaltos = arraynames.join('\n');
                     setNames(cadenaConSaltos)
 
                     // Imprimir el resultado
-                    console.log(arrayurls);             
                 
                 }
             })
@@ -222,8 +208,9 @@ function Maintenance(props){
 
             <View style={ModalStyle.horizontal}>
                 <Text style={ModalStyle.title}>Operador: </Text>
-            <    Text style={ModalStyle.texto}>{global.nombre}:</Text>
             </View>
+            < Text style={ModalStyle.texto}>{global.nombre}:</Text>
+
             <View style={ModalStyle.horizontal}>
                 <Text style={ModalStyle.title}>Unidad: </Text>
             <    Text style={ModalStyle.texto}>{global.alias}</Text>
@@ -239,6 +226,7 @@ function Maintenance(props){
                 style={{color:'#000000',width:260}}
                 setSelected={setSelected1}
                 data={types}
+                defaultOption={{key:'1', value:'UNIDAD MOTRIZ'}}
                 dropdownTextStyles	={{color:'#000000'} }
                 inputStyles={{color:'#000000'} }
                 save="value"/>
@@ -265,6 +253,7 @@ function Maintenance(props){
             onPress={validate} 
             style={ModalStyle.horizontal}>
                 <Text style={ModalStyle.title}>Agregar imagen </Text>
+
                 <Image
                  style={ModalStyle.icon}
                  source={require('../drawables/attach.png')}
@@ -272,6 +261,8 @@ function Maintenance(props){
 
 
             </Pressable>
+            <Text style={{fontSize:11}}>Max 3 </Text>
+
             <Text style={ModalStyle.texto}>{names} </Text>
            
             <View style={ModalStyle.horizontal}>
