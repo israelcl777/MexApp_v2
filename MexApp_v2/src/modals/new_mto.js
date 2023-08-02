@@ -7,14 +7,17 @@ import moment from 'moment/moment';
 import ModalStyle from '../styles/modalsstyle'
 import Geolocation from 'react-native-geolocation-service';
 import TMS from '../api/tms'
+import { UrlTile } from "react-native-maps";
 
 var arraynames=[]
+var arrayurls=[]
 
 
 function Maintenance(props){
     const [milatitusd,setMilatitud]=useState(0.0)
     const [milongitud,setMilongitud]=useState(0.0)
-    const [names,setNames]=useState('No hay imagenes agregadas')
+    const [names,setNames]=useState([])
+    const [urls,setUrl]=useState([])
     const [count, setCount] = useState(0);
     const [text, setText] = useState('');
     const [selected, setSelected] = useState("");
@@ -86,7 +89,8 @@ function Maintenance(props){
         var time2=time+':00.000'
         const formData = new FormData()
         formData.append('report_type_id',report_type_id)
-        if(selected1=='UNIDAD MOTRIZ'){
+        console.log(selected1)
+        if(selected1=='UNIDAD MOTRIZ'||selected1==1){
             formData.append('vehicle_id',global.vehicle_id)
         }else{
             formData.append('vehicle_id',555)
@@ -100,10 +104,10 @@ function Maintenance(props){
         formData.append('time',time2)
 
 
-        if(arrayurls.length>0){
-            console.log(arrayurls.length)
-            for (var i = 0; i < arrayurls.length; i++) {
-                var imagen=arrayurls[0]
+        if(urls.length>0){
+            console.log(urls[0])
+            for (var i = 0; i < urls.length; i++) {
+                var imagen=urls[0]
                 const data = {uri:imagen, type:"image/jpeg", name:'profile.jpg', filename:'afiletest'};
                 formData.append('', data)
                
@@ -113,9 +117,9 @@ function Maintenance(props){
         console.log(formData)
         console.log(text)
         try {
-           const setNotifications= await TMS.setreportM(formData,token)
-           var res_status=setNotifications.status 
-            close()
+          // const setNotifications= await TMS.setreportM(formData,token)
+           //var res_status=setNotifications.status 
+           // close()
           //  console.log(res_status)
             
         } catch (error) {
@@ -188,9 +192,9 @@ function Maintenance(props){
                 }
                 else if(response.assets){
                     var name=response.assets[0].fileName
-                  //  arraynames.push(name)                                
-                    var cadenaConSaltos = arraynames.join('\n');
-                    setNames(cadenaConSaltos)
+                    var url=response.assets[0].uri
+                    setUrl([urls,url])
+                    setNames([names,name]); 
 
                     // Imprimir el resultado
                 
