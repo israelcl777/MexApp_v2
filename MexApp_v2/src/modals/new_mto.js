@@ -156,7 +156,7 @@ function Maintenance(props){
     
     const validate=()=>{
         
-        if(arraynames<=5){
+        if(urls.length<=3){
             permissioncamera()
 
         }else{
